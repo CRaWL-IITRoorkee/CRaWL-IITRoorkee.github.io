@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Publications — CRaWL, IIT Roorkee</title>
-<meta name="description" content="Peer-reviewed publications from the Climate Research and Water Modelling Lab, IIT Roorkee.">
+<meta name="description" content="Peer-reviewed journal articles, book chapters and technical reports from the Climate Research and Water Lab, IIT Roorkee.">
 <link rel="icon" href="assets/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,20 +14,16 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- ===================== HEADER ===================== -->
 <header class="site-header" id="header">
   <div class="wrap header-in">
-    <a class="brand" href="index.html" aria-label="CRaWL home">
-      <img class="mark" src="assets/images/crawl-logo.svg" alt="">
-      <span class="wordmark">C<span>Ra</span>WL</span>
+    <a class="brand" href="index.html" aria-label="CRaWL — Climate Research and Water Lab, IIT Roorkee">
+      <img class="logo" src="assets/images/crawl-logo.png" alt="CRaWL — Climate Research and Water Lab">
       <span class="rule"></span>
-      <span class="sub">Climate Research<br>and Water Modelling Lab<b>IIT Roorkee</b></span>
+      <span class="sub">Dept. of Water Resources<br>Development &amp; Management<b>IIT Roorkee</b></span>
     </a>
-
     <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
-
     <ul class="nav" id="nav">
       <li><a class="top" href="index.html">Home</a></li>
       <li class="has-menu">
@@ -60,14 +56,30 @@
   <div class="wrap">
     <p class="crumb"><a href="index.html">Home</a> / Research / Publications</p>
     <h1>Publications</h1>
-    <p class="lede">Sort by year or first author, filter by research theme, or search by keyword. Every entry links to its DOI where available.</p>
+    <p class="lede">Journal articles, book chapters, edited volumes and technical reports. Filter by type or theme, sort by year or author, and follow any entry to its DOI.</p>
   </div>
 </section>
 
-
 <section class="section">
   <div class="wrap">
+    <div class="metrics" style="margin-bottom:30px">
+      <div class="metric"><b>1,984</b><span>Citations</span></div>
+      <div class="metric"><b>21</b><span>h-index</span></div>
+      <div class="metric"><b>32</b><span>i10-index</span></div>
+      <div class="metric"><b>49</b><span>Journal papers</span></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-bottom:26px">Citation metrics as of 7 July 2026. * denotes corresponding author.
+      <a href="https://scholar.google.com/citations?user=7THkWAEAAAAJ&hl=en">Google Scholar</a> · <a href="https://orcid.org/0000-0001-7783-2073">ORCID</a> · <a href="https://www.scopus.com/authid/detail.uri?authorId=57203633749">Scopus</a> · <a href="https://www.researchgate.net/profile/Mohit-Mohanty-2">ResearchGate</a></p>
+
     <div class="filterbar">
+      <label for="kind">Type</label>
+      <select id="kind">
+        <option value="all">All types</option>
+        <option value="journal">Journal articles</option>
+        <option value="chapter">Book chapters</option>
+        <option value="book">Books &amp; edited volumes</option>
+        <option value="report">Technical reports</option>
+      </select>
       <label for="sortBy">Sort</label>
       <select id="sortBy">
         <option value="year-desc">Year — newest first</option>
@@ -78,11 +90,12 @@
       <label for="filterBy">Theme</label>
       <select id="filterBy">
         <option value="all">All themes</option>
-        <option value="extremes">Hydroclimatological extremes</option>
         <option value="flood">Flood hazard &amp; risk</option>
+        <option value="extremes">Hydroclimatic extremes</option>
         <option value="health">Health risk</option>
         <option value="ml">Machine learning</option>
         <option value="dss">Decision support</option>
+        <option value="env">Water &amp; environment</option>
       </select>
       <label for="q" class="sr">Search</label>
       <input id="q" type="search" placeholder="Search title, author, journal">
@@ -94,23 +107,21 @@
 
 </main>
 
-<!-- ===================== FOOTER ===================== -->
 <footer class="site-footer">
   <div class="wrap foot-grid">
     <div class="foot-brand">
-      <img class="emblem" src="assets/images/iitr-emblem.png" alt="IIT Roorkee emblem">
+      <img class="emblem" src="assets/images/crawl-mark.png" alt="">
       <div>
-        <h3>Climate Research and Water Modelling Lab (CRaWL)</h3>
-        <p>Department of Water Resources Development and Management<br>Indian Institute of Technology Roorkee, Uttarakhand, India</p>
+        <h3>Climate Research and Water Lab (CRaWL)</h3>
+        <p>Department of Water Resources Development and Management<br>Indian Institute of Technology Roorkee, Uttarakhand 247667, India</p>
         <div class="socials">
-          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.06-1.9-3.06-1.9 0-2.2 1.45-2.2 2.96V21H9z"/></svg></a>
-          <a href="#" aria-label="Twitter / X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.9c-.7.3-1.5.5-2.4.6.9-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 00-7 3.7A11.6 11.6 0 013.4 4.6a4.1 4.1 0 001.3 5.5c-.7 0-1.3-.2-1.9-.5 0 2 1.4 3.7 3.3 4.1-.6.2-1.2.2-1.8.1a4.1 4.1 0 003.8 2.9A8.2 8.2 0 012 18.4 11.6 11.6 0 008.3 20c7.5 0 11.6-6.2 11.6-11.6v-.5c.8-.6 1.5-1.3 2.1-2z"/></svg></a>
-          <a href="#" aria-label="Google Scholar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 8l11 6 9-4.9V16h2V8zM5 13.2V17c0 2.2 3.1 4 7 4s7-1.8 7-4v-3.8l-7 3.8z"/></svg></a>
-          <a href="mailto:crawl@iitr.ac.in" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg></a>
+          <a href="https://scholar.google.com/citations?user=7THkWAEAAAAJ&hl=en" aria-label="Google Scholar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 8l11 6 9-4.9V16h2V8zM5 13.2V17c0 2.2 3.1 4 7 4s7-1.8 7-4v-3.8l-7 3.8z"/></svg></a>
+          <a href="https://orcid.org/0000-0001-7783-2073" aria-label="ORCID"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><text x="12" y="16" font-size="11" text-anchor="middle" fill="#08264A" font-family="sans-serif" font-weight="700">iD</text></svg></a>
+          <a href="https://www.researchgate.net/profile/Mohit-Mohanty-2" aria-label="ResearchGate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.3 5.6h2.1c1.6 0 2.7.9 2.7 2.4 0 1.1-.6 1.9-1.6 2.2l2 3.7h-1.9l-1.8-3.4h-.9v3.4h-1.7V7.6zm1.7 1.4v2.2h.5c.8 0 1.3-.4 1.3-1.1 0-.7-.5-1.1-1.3-1.1h-.5z"/></svg></a>
+          <a href="mailto:mohit.mohanty@wr.iitr.ac.in" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg></a>
         </div>
       </div>
     </div>
-
     <div>
       <h4>Quick Links</h4>
       <ul>
@@ -121,16 +132,15 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
-
     <div>
       <h4>Resources</h4>
       <ul>
         <li><a href="data-tools.html">Data &amp; Tools</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="training-workshops.html">Training &amp; Workshops</a></li>
+        <li><a href="https://manage.wr.iitr.ac.in/">MANAGE platform</a></li>
       </ul>
     </div>
-
     <div>
       <h4>Contact</h4>
       <div class="contact-li">
@@ -139,15 +149,15 @@
       </div>
       <div class="contact-li">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg>
-        <a href="mailto:crawl@iitr.ac.in">crawl@iitr.ac.in</a>
+        <a href="mailto:mohit.mohanty@wr.iitr.ac.in">mohit.mohanty@wr.iitr.ac.in</a>
       </div>
       <div class="contact-li">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 006 6L16 13l5 2v3a2 2 0 01-2.2 2A17 17 0 014 5.2 2 2 0 016 3z"/></svg>
-        <span>+91 1332 285 XXX</span>
+        <span>+91-1332-284984</span>
       </div>
     </div>
+    <div class="foot-chart" aria-hidden="true"><svg id="hydrograph" viewBox="0 0 560 132" role="img"></svg></div>
   </div>
-
   <div class="wrap foot-bottom">
     <span>© <span id="yr"></span> CRaWL, IIT Roorkee. All rights reserved.</span>
     <span>Last updated: August 2026</span>
@@ -156,41 +166,41 @@
 
 <script src="assets/js/nav.js"></script>
 <script>
-const PUBS = [
-  {y:2026, a:"Tripathi, V., Mohanty, M.P., AghaKouchak, A., et al.", t:"Interpretable deep learning reveals influence and interactions of hydroclimatic drivers on floods across India", j:"Earth's Future", doi:"10.1029/2026EF008397", th:"ml"},
-  {y:2026, a:"Deopa, R., Mohanty, M.P., et al.", t:"Coupled hydrological and public health risks from urban flooding: integrated remote sensing, machine learning, and hydrodynamic–ecological modelling", j:"Journal of Hydrology", doi:"", th:"health"},
-  {y:2025, a:"Mohanty, M.P., Karmakar, S.", t:"Need for judicious selection of runoff inputs in a global flood model", j:"Environmental Research Letters", doi:"10.1088/1748-9326/adaa89", th:"flood"},
-  {y:2025, a:"Deopa, R., Mohanty, M.P., et al.", t:"HyEco: a hybrid modelling framework for flood–microbial risk assessment in urban landscapes", j:"Water Research X", doi:"", th:"health"},
-  {y:2021, a:"Mohanty, M.P., Simonovic, S.P.", t:"Changes in floodplain regimes over Canada due to climate change impacts: observations from CMIP6 models", j:"Science of the Total Environment", doi:"10.1016/j.scitotenv.2021.148323", th:"extremes"},
-  {y:2021, a:"Mohanty, M.P., Karmakar, S.", t:"WebFRIS: an efficient web-based decision support tool to disseminate end-to-end risk information for flood management", j:"Journal of Environmental Management", doi:"10.1016/j.jenvman.2021.112456", th:"dss"},
-  {y:2021, a:"Mohanty, M.P., Karmakar, S., Durga Rao, K.V.H.", t:"An integrated approach of flood risk assessment over a severely flood-prone coastal region using geomorphic classifiers and socio-economic indicators", j:"Journal of Geomatics", doi:"", th:"flood"}
-];
+const Q=[280,265,250,242,236,230,226,222,232,262,300,342,382,404,424,452,600,900,1400,2000,2600,3050,3400,3800,3620,3300,3480,3180,2900,2600,2200,1800,1500,1200,1000,850,700,620,560,520,485,455,425,405,385,362,342,320];
+const R=[2,0,3,1,0,4,2,0,6,10,8,14,18,12,22,30,58,86,120,150,176,198,168,190,140,182,120,96,150,84,60,110,44,70,30,52,22,38,14,26,10,18,6,12,4,9,3,6];
+(function(){
+  const el=document.getElementById("hydrograph"); if(!el) return;
+  const W=560,H=132,L=34,Rp=32,T=10,B=22,iw=W-L-Rp,ih=H-T-B,qMax=4000,rMax=200,rBand=ih*0.42;
+  const x=i=>L+(i/(Q.length-1))*iw, yQ=v=>T+ih-(v/qMax)*ih;
+  const line=Q.map((v,i)=>`${i?"L":"M"}${x(i).toFixed(1)} ${yQ(v).toFixed(1)}`).join(" ");
+  const bars=R.map((v,i)=>`<rect x="${(x(i)-1.4).toFixed(1)}" y="${T}" width="2.8" height="${((v/rMax)*rBand).toFixed(1)}" fill="#4C9BD6" opacity=".55"/>`).join("");
+  const qT=[0,1000,2000,3000,4000].map(v=>`<text x="${L-5}" y="${(yQ(v)+3).toFixed(1)}" text-anchor="end">${v}</text><line x1="${L}" y1="${yQ(v).toFixed(1)}" x2="${W-Rp}" y2="${yQ(v).toFixed(1)}" stroke="#1D4A78" stroke-width=".5"/>`).join("");
+  const rT=[0,50,100,150,200].map(v=>`<text x="${W-Rp+5}" y="${(T+(v/rMax)*rBand+3).toFixed(1)}">${v}</text>`).join("");
+  const mo=["Jan","Mar","May","Jul","Sep","Nov"].map((m,k)=>`<text x="${x(k*8+2).toFixed(1)}" y="${H-8}" text-anchor="middle">${m}</text>`).join("");
+  el.innerHTML=`${qT}${rT}${bars}<path d="${line}" fill="none" stroke="#5BB4F0" stroke-width="1.5" stroke-linejoin="round"/>${mo}<text x="10" y="${T+ih/2}" transform="rotate(-90 10 ${T+ih/2})" text-anchor="middle">Discharge (m³/s)</text><text x="${W-8}" y="${T+ih/2}" transform="rotate(90 ${W-8} ${T+ih/2})" text-anchor="middle">Rainfall (mm)</text>`;
+})();
+</script>
+<script>
+const PUBS = [{"y": 2026, "a": "Tripathi, V., AghaKouchak, A., Karmakar, S., Stein, L., & Mohanty, M.P.*", "t": "Interpretable deep learning reveals influence and interactions of hydroclimatic drivers on floods across India", "j": "Earth's Future", "doi": "10.1029/2026EF008397", "th": "ml", "k": "journal"}, {"y": 2026, "a": "Deopa, R., Tripathi, V., Nandana, P.S., & Mohanty, M.P.*", "t": "Coupled hydrological and public health risks from urban flooding: integrated remote sensing, machine learning, and hydrodynamic–ecological modelling", "j": "Journal of Hydrology", "doi": "10.1016/j.jhydrol.2026.135999", "th": "health", "k": "journal"}, {"y": 2026, "a": "Legese, B., Pandey, A.*, & Mohanty, M.P.", "t": "Predictive ecosystem health assessment under land-use and vegetation dynamics in a semi-arid Rift Valley basin, Ethiopia", "j": "Land Degradation & Development", "doi": "", "th": "env", "k": "journal"}, {"y": 2026, "a": "Tyagi, M., Mishra, A., & Mohanty, M.P.*", "t": "Compound hydroclimatic extremes under anthropogenic influence: transition patterns and population exposure risks", "j": "Earth's Future", "doi": "10.1029/2025EF007474", "th": "extremes", "k": "journal"}, {"y": 2026, "a": "Rachit, Tripathi, V., Mohanty, M.P.*, Pandey, A., & Gupta, A.", "t": "Rapid flood susceptibility mapping in the Indian Himalayan region using CNN-U-Net segmentation: insights from the 2025 monsoon events", "j": "Natural Hazards", "doi": "10.1007/s11069-026-08175-w", "th": "ml", "k": "journal"}, {"y": 2026, "a": "Thakur, D.A., Sharma, A., & Mohanty, M.P.*", "t": "Development of multi-hazard flood risk information system for coastal region: a consolidated end-to-end web platform for efficient flood management", "j": "Environmental and Sustainability Indicators", "doi": "10.1016/j.indic.2026.101115", "th": "dss", "k": "journal"}, {"y": 2026, "a": "Sharma, P., Tripathi, V., & Mohanty, M.P.*", "t": "Improving daily streamflow predictions over large watersheds: introducing a novel enhanced long short-term memory (En-LSTM) model", "j": "Water Resources Management", "doi": "10.1007/s11269-025-04475-1", "th": "ml", "k": "journal"}, {"y": 2025, "a": "Thakur, D.A., Vishveshwari, T.S., & Mohanty, M.P.*", "t": "Nuisance flood risk: defining a new horizon in urban flood risk management through hydrodynamic flood hazard modelling and indicator-based vulnerability assessment", "j": "International Journal of Disaster Risk Reduction", "doi": "10.1016/j.ijdrr.2025.105969", "th": "flood", "k": "journal"}, {"y": 2025, "a": "Singh, H., & Mohanty, M.P.*", "t": "Multi-scale assessment and entropy-MCDM framework for evaluating reanalysis precipitation datasets over Indian basins", "j": "International Journal of Applied Earth Observation and Geoinformation", "doi": "10.1016/j.jag.2025.104919", "th": "extremes", "k": "journal"}, {"y": 2025, "a": "Legese, B., Pandey, A.*, & Mohanty, M.P.", "t": "A novel integrated framework for long-term assessment of ecosystem service degradation and restoration prioritization in a semi-arid Rift Valley landscape", "j": "Environmental Monitoring and Assessment", "doi": "10.1007/s10661-025-14724-w", "th": "env", "k": "journal"}, {"y": 2025, "a": "Deopa, R., Singh, H., Tripathi, V., Tyagi, M., & Mohanty, M.P.*", "t": "Cascading impacts of 2025 July multi-hazard episodes in the Western Himalayas: evidence through remote sensing observations and Google Earth Engine", "j": "Natural Hazards", "doi": "10.1007/s11069-025-07699-x", "th": "flood", "k": "journal"}, {"y": 2025, "a": "Deopa, R., & Mohanty, M.P.*", "t": "HyEco: a hybrid hydrodynamic-cum-ecological modelling framework to demystify flood and human-health risks over flood-prone metropolis", "j": "Water Research X", "doi": "10.1016/j.wroa.2025.100396", "th": "health", "k": "journal"}, {"y": 2025, "a": "Mishra, D., Singh, H., Kumar, M., & Mohanty, M.P.*", "t": "Advanced hydrological assessment with SWAT+ under climate change: an integrated framework over large climate-sensitive and reservoir-regulated watersheds", "j": "Science of the Total Environment", "doi": "10.1016/j.scitotenv.2025.180062", "th": "extremes", "k": "journal"}, {"y": 2025, "a": "Alam, G., Tripathi, V., & Mohanty, M.P.*", "t": "A novel framework embedding Bayesian-optimized ensemble machine learning and explainable artificial intelligence (XAI) to improve flood prediction in complex watersheds", "j": "Environmental and Sustainability Indicators", "doi": "10.1016/j.indic.2025.100760", "th": "ml", "k": "journal"}, {"y": 2025, "a": "Singh, H., & Mohanty, M.P.*", "t": "Performance of ERA5 products in capturing pluvial and fluvial inundation: a statistical-cum-hydrodynamic framework for resource-constrained large flood-prone watersheds", "j": "Water Resources Management", "doi": "10.1007/s11269-025-04257-9", "th": "flood", "k": "journal"}, {"y": 2025, "a": "Parmar, J., Mohanty, M.P., & Karmakar, S.*", "t": "Need for judicious selection of runoff inputs in a global flood model", "j": "Environmental Research Letters", "doi": "10.1088/1748-9326/adaa89", "th": "flood", "k": "journal"}, {"y": 2024, "a": "Singh, R., Thakur, D.A., & Mohanty, M.P.*", "t": "Can satellite precipitation products comprehend rainfall extremes over disaster-sensitive mountainous basins? An exhaustive inter-comparison and assessment over Nepal", "j": "Earth Systems and Environment", "doi": "10.1007/s41748-024-00557-z", "th": "extremes", "k": "journal"}, {"y": 2024, "a": "Tyagi, M., Singh, H., Thakur, D.A., & Mohanty, M.P.*", "t": "Compound risks of floods and droughts over multi-hazard catchments: revealing association through hydrodynamic-cum-statistical modelling and novel bivariate risk classifier", "j": "Science of the Total Environment", "doi": "10.1016/j.scitotenv.2024.177689", "th": "extremes", "k": "journal"}, {"y": 2024, "a": "Kumari, R., Das, B.S.*, Devi, K., Khuntia, J.R., & Mohanty, M.P.", "t": "Hydrodynamic performance of raceway pond using k-ω and LES turbulence models", "j": "Journal of Renewable and Sustainable Energy", "doi": "10.1063/5.0220538", "th": "env", "k": "journal"}, {"y": 2024, "a": "Thakur, D.A., & Mohanty, M.P.*", "t": "Do disparities exist in flood risks during monsoon and post-monsoon seasons? Comprehending diametric behaviors over coastal multi-hazard catchments", "j": "Environmental Research Letters", "doi": "10.1088/1748-9326/ad8c6d", "th": "flood", "k": "journal"}, {"y": 2024, "a": "Tripathi, V., Singh, H., & Mohanty, M.P.*", "t": "Fidelity of machine learning models in capturing flood inundation through geomorphic descriptors over Ganga sub-basin, India", "j": "European Water", "doi": "", "th": "ml", "k": "journal"}, {"y": 2024, "a": "Deopa, R., Thakur, D.A., Kumar, S., Mohanty, M.P.*, & Asha, P.", "t": "Discerning the dynamics of urbanization–climate change–flood risk nexus in densely populated urban megacities", "j": "Science of the Total Environment", "doi": "10.1016/j.scitotenv.2024.175882", "th": "flood", "k": "journal"}, {"y": 2024, "a": "Tripathi, V., & Mohanty, M.P.*", "t": "Can geomorphic flood descriptors coupled with machine learning models enhance in quantifying flood risks over data-scarce catchments? Development of a hybrid framework for the Ganga basin (India)", "j": "Environmental Science and Pollution Research", "doi": "10.1007/s11356-024-33507-3", "th": "ml", "k": "journal"}, {"y": 2024, "a": "Thakur, D.A., & Mohanty, M.P.*", "t": "Exploring the fidelity of satellite precipitation products in capturing flood risks: a novel framework incorporating hazard and vulnerability dimensions over a sensitive coastal multi-hazard catchment", "j": "Science of the Total Environment", "doi": "10.1016/j.scitotenv.2024.170884", "th": "flood", "k": "journal"}, {"y": 2024, "a": "Thakur, D.A., Mohanty, M.P.*, Mishra, A., & Karmakar, S.", "t": "Quantifying flood risks during monsoon and post-monsoon seasons: an integrated framework for resource-constrained coastal regions", "j": "Journal of Hydrology", "doi": "10.1016/j.jhydrol.2024.130683", "th": "flood", "k": "journal"}, {"y": 2023, "a": "Thakur, D.A., & Mohanty, M.P.*", "t": "A synergistic approach towards understanding flood risks over coastal multi-hazard environments: appraisal of bivariate flood risk mapping through flood hazard and socio-economic-cum-physical vulnerability dimensions", "j": "Science of the Total Environment", "doi": "10.1016/j.scitotenv.2023.166423", "th": "flood", "k": "journal"}, {"y": 2023, "a": "Singh, H., & Mohanty, M.P.*", "t": "Can atmospheric reanalysis datasets reproduce flood inundation at regional scales? A systematic analysis with ERA5 over Mahanadi River Basin, India", "j": "Environmental Monitoring and Assessment", "doi": "10.1007/s10661-023-11798-2", "th": "flood", "k": "journal"}, {"y": 2023, "a": "Namgyal, T., Thakur, D.A., Rishi, D.S., & Mohanty, M.P.*", "t": "Are open-source hydrodynamic models efficient in quantifying flood risks over mountainous terrains? An exhaustive analysis of the Hindu-Kush-Himalayan region", "j": "Science of the Total Environment", "doi": "10.1016/j.scitotenv.2023.165357", "th": "flood", "k": "journal"}, {"y": 2023, "a": "Rawat, A., Panigrahi, N., Yadav, B.*, Jadav, K., Mohanty, M.P., Khouakhi, A., & Knox, J.W.", "t": "Scaling up indigenous rainwater harvesting: a preliminary assessment in Rajasthan, India", "j": "Water (MDPI)", "doi": "10.3390/w15112042", "th": "env", "k": "journal"}, {"y": 2022, "a": "Deroliya, P., Ghosh, M., Mohanty, M.P., Ghosh, S., Rao, K.D., & Karmakar, S.*", "t": "A novel flood risk mapping approach with machine learning considering geomorphic and socio-economic vulnerability dimensions", "j": "Science of the Total Environment", "doi": "10.1016/j.scitotenv.2022.158002", "th": "ml", "k": "journal"}, {"y": 2022, "a": "Mohanty, M.P.*, & Simonovic, S.P.", "t": "A comprehensive approach for floodplain mapping through identification of hazards using publicly available data sets over Canada", "j": "Water (MDPI)", "doi": "10.3390/w14142280", "th": "flood", "k": "journal"}, {"y": 2021, "a": "Mohanty, M.P., Karmakar, S.*, & Durga Rao, K.V.H.", "t": "An integrated approach of flood risk assessment over a severely flood-prone coastal region using geomorphic classifiers and socio-economic indicators", "j": "Journal of Geomatics", "doi": "", "th": "flood", "k": "journal"}, {"y": 2021, "a": "Mohanty, M.P.*, & Simonovic, S.", "t": "Changes in floodplain regimes over Canada due to climate change impacts: observations from CMIP6 models", "j": "Science of the Total Environment", "doi": "10.1016/j.scitotenv.2021.148323", "th": "extremes", "k": "journal"}, {"y": 2021, "a": "Mohanty, M.P., & Karmakar, S.*", "t": "WebFRIS: an efficient web-based decision support tool to disseminate end-to-end risk information for flood management", "j": "Journal of Environmental Management", "doi": "10.1016/j.jenvman.2021.112456", "th": "dss", "k": "journal"}, {"y": 2021, "a": "Mohanty, M.P., Karmakar, S.*, & Ghosh, S.", "t": "WebFRIS: a web-based flood information system for enhanced resilience through risk awareness", "j": "European Water", "doi": "", "th": "dss", "k": "journal"}, {"y": 2021, "a": "Mohanty, M.P., & Karmakar, S.*", "t": "Hydrodynamic flood modelling of large regions under data-poor situations: a case study of Jagatsinghpur district, Odisha", "j": "International Journal of Business Analytics", "doi": "10.4018/IJBAN.2021040101", "th": "flood", "k": "journal"}, {"y": 2021, "a": "Satpathy, S., Bhatia, U., Mohanty, M.P., Karmakar, S., & Ghosh, S.*", "t": "Flood evacuation during pandemic: a multi-objective framework to handle compound hazard", "j": "Environmental Research Letters", "doi": "10.1088/1748-9326/abda70", "th": "flood", "k": "journal"}, {"y": 2020, "a": "Mohanty, M.P.*, & Simonovic, S.", "t": "Fidelity of reanalysis datasets in floodplain mapping: investigating performance at inundation level over large regions", "j": "Journal of Hydrology", "doi": "10.1016/j.jhydrol.2020.125757", "th": "flood", "k": "journal"}, {"y": 2020, "a": "Mohanty, M.P.*, & Simonovic, S.", "t": "Understanding dynamics of flood exposure in Canada with multiple high-resolution population data", "j": "Science of the Total Environment", "doi": "10.1016/j.scitotenv.2020.143559", "th": "flood", "k": "journal"}, {"y": 2020, "a": "Mohanty, M.P., Nithya, S., Indu, J., Ghosh, S., & Karmakar, S.*", "t": "Sensitivity of various topographic data in flood management: implications on inundation mapping over large data-scarce regions", "j": "Journal of Hydrology", "doi": "10.1016/j.jhydrol.2020.125523", "th": "flood", "k": "journal"}, {"y": 2020, "a": "Mohanty, M.P., Sherly, M.A., Ghosh, S., & Karmakar, S.*", "t": "Tide-rainfall flood quotient: an incisive measure of comprehending a region's response to storm-tide and pluvial flooding", "j": "Environmental Research Letters", "doi": "10.1088/1748-9326/ab8092", "th": "flood", "k": "journal"}, {"y": 2020, "a": "Mohanty, M.P., Vittal, H., Yadav, V., Ghosh, S., & Karmakar, S.*", "t": "A new bivariate risk classifier for flood management considering hazard and socio-economic dimensions", "j": "Journal of Environmental Management", "doi": "10.1016/j.jenvman.2019.109733", "th": "flood", "k": "journal"}, {"y": 2020, "a": "Mohanty, M.P., Sahil, M., & Karmakar, S.*", "t": "Flood management in India: a focussed review on the current status and future challenges", "j": "International Journal of Disaster Risk Reduction", "doi": "10.1016/j.ijdrr.2020.101660", "th": "flood", "k": "journal"}, {"y": 2020, "a": "Gusain, A., Mohanty, M.P., Ghosh, S., & Karmakar, S.*", "t": "Capturing transformation of flood hazard over a large river basin under changing climate using a top-down approach", "j": "Science of the Total Environment", "doi": "10.1016/j.scitotenv.2020.138600", "th": "extremes", "k": "journal"}, {"y": 2020, "a": "Ghosh, M., Mohanty, M.P., Kishore, P., & Karmakar, S.*", "t": "Performance evaluation of potential inland flood management options through a 3-way coupled hydrodynamic modelling for a coastal urban catchment", "j": "Hydrology Research", "doi": "10.2166/nh.2020.123", "th": "flood", "k": "journal"}, {"y": 2019, "a": "Ghosh, S.*, Karmakar, S., Saha, A., Mohanty, M.P., et al.", "t": "Development of India's first integrated expert urban flood forecasting system for Chennai", "j": "Current Science", "doi": "", "th": "dss", "k": "journal"}, {"y": 2019, "a": "Brahmacharimayum, B., Mohanty, M.P., & Ghosh, P.K.*", "t": "Theoretical and practical aspects of biological sulfate reduction: a review", "j": "Global NEST", "doi": "10.30955/gnj.002577", "th": "env", "k": "journal"}, {"y": 2018, "a": "Mohanty, M.P., Karmakar, S.*, & Ghosh, S.", "t": "Regionalized design rainfall estimation: an appraisal of inundation mapping for flood management under data-scarce situations", "j": "Water Resources Management", "doi": "10.1007/s11269-018-2080-8", "th": "extremes", "k": "journal"}, {"y": 2018, "a": "Mohanty, M.P., Brahmacharimayum, B., & Ghosh, P.K.*", "t": "Effects of phenol on sulfate reduction by mixed microbial culture: kinetics and bio-kinetics analysis", "j": "Water Science and Technology", "doi": "10.2166/wst.2017.630", "th": "env", "k": "journal"}, {"y": 2022, "a": "Yadav, B.*, Mohanty, M.P., Pandey, A., Singh, V.P., & Singh, R.D.", "t": "Sustainability of Water Resources: Impacts and Management", "j": "Springer Nature", "doi": "10.1007/978-3-031-13467-8", "th": "", "k": "book"}, {"y": 2025, "a": "Rachit, Mohanty, M.P.*, Pandey, A., & Gupta, A.K.", "t": "Managing disasters using geospatial technology and AI: a multi-hazard perspective", "j": "Handbook of Artificial Intelligence-driven Digital Image Analysis for Intelligent Remote Sensing, CRC Press (in press)", "doi": "", "th": "", "k": "chapter"}, {"y": 2025, "a": "Thakur, D.A., & Mohanty, M.P.*", "t": "Utilizing multi-criteria decision-making techniques for computing composite vulnerability over a severely flood-prone multi-hazard catchment", "j": "Progress in Multicriteria Decision Making Models, Springer", "doi": "", "th": "", "k": "chapter"}, {"y": 2025, "a": "Singh, H., Tripathy, P., Thakur, D.A., & Mohanty, M.P.*", "t": "Socioeconomic-cum-physical vulnerabilities to riverine floods over large watersheds: leveraging Shannon entropy and TOPSIS", "j": "Progress in Multicriteria Decision Making Models, Springer", "doi": "", "th": "", "k": "chapter"}, {"y": 2025, "a": "Tyagi, M., & Mohanty, M.P.*", "t": "GIS-based multi-hazard risk analysis and disaster risk reduction planning using coupled multi-hazard assessment method", "j": "Progress in Multicriteria Decision Making Models, Springer", "doi": "", "th": "", "k": "chapter"}, {"y": 2025, "a": "Thakur, D.A., Suryawanshi, V., Ramesh, H., & Mohanty, M.P.*", "t": "Evaluating the reliability of open-source hydrodynamic models in flood inundation mapping", "j": "Hydrosystem Restoration Handbook, Elsevier", "doi": "10.1016/B978-0-443-29802-8.00007-8", "th": "", "k": "chapter"}, {"y": 2025, "a": "Barman, D., Verma, R.K., Rongali, R., Mohanty, M.P., & Pandey, A.*", "t": "Impacts of land use/land cover and climate change on soil erosion: a watershed-based approach", "j": "Hydro-Environmental Impact of Climate and Land Use Change on Watersheds, Cambridge Scholars Publishing", "doi": "", "th": "", "k": "chapter"}, {"y": 2022, "a": "Karmakar, S.*, Sherly, M.A., & Mohanty, M.P.", "t": "Urban flood risk mapping: a state-of-the-art review on quantification, current practices, and future challenges", "j": "Advances in Urban Design and Engineering, Springer", "doi": "10.1007/978-981-19-0412-7_5", "th": "", "k": "chapter"}, {"y": 2022, "a": "Mohanty, M.P.*, & Karmakar, S.", "t": "Flood risk estimation and mapping: present status and future challenges", "j": "Mathematical Advances towards Sustainable Environmental Systems, Springer", "doi": "10.1007/978-3-030-98584-4", "th": "", "k": "chapter"}, {"y": 2025, "a": "Mohanty, M.P.*, Pandey, A., & Kumar, M.", "t": "Interim report on the State Specific Action Plan for the Water Sector in Odisha", "j": "Department of Water Resources, Govt. of Odisha", "doi": "", "th": "", "k": "report"}, {"y": 2025, "a": "Mohanty, M.P.*, Pandey, A., & Kumar, M.", "t": "Status report on the State Specific Action Plan for the Water Sector in Odisha", "j": "Department of Water Resources, Govt. of Odisha", "doi": "", "th": "", "k": "report"}, {"y": 2025, "a": "Mohanty, M.P.*", "t": "An integrated approach to quantify the impacts of climate change and socioeconomic dynamics on human health risk associated with contaminated urban floodwaters", "j": "Anusandhan National Research Foundation (ANRF)", "doi": "", "th": "", "k": "report"}, {"y": 2024, "a": "Pandey, A., & Mohanty, M.P.", "t": "Identification of critical soil erosion prone areas and preparation of the CAT Plan", "j": "National Mission for Clean Ganga, Ministry of Jal Shakti", "doi": "", "th": "", "k": "report"}, {"y": 2021, "a": "Mohanty, M.P.*, & Simonovic, S.P.", "t": "A generic framework to quantify changes in floodplain regimes by incorporating climate change impacts over large regions", "j": "Water Resources Research Report No. 109", "doi": "", "th": "", "k": "report"}, {"y": 2020, "a": "Mohanty, M.P.*, & Simonovic, S.P.", "t": "A comprehensive framework for regional floodplain mapping", "j": "Water Resources Research Report No. 109", "doi": "", "th": "", "k": "report"}, {"y": 2020, "a": "Bogdana, S., Mohanty, M.P.*, & Simonovic, S.P.", "t": "Regional analysis of population exposure to flooding in Canada", "j": "Water Resources Research Report No. 110", "doi": "", "th": "", "k": "report"}, {"y": 2019, "a": "Mohanty, M.P.*, Ghosh, S., & Karmakar, S.", "t": "A comprehensive mapping of flood risk in a changing climate: an application to Jagatsinghpur District, Odisha", "j": "National Remote Sensing Centre (NRSC), Hyderabad", "doi": "", "th": "", "k": "report"}];
+const LBL={journal:"Journal article",chapter:"Book chapter",book:"Book",report:"Technical report"};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const row=p=>`
-  <div class="pub-full">
-    <span class="yr">${p.y}</span>
-    <div>
-      <div class="t">${esc(p.t)}</div>
-      <p class="a">${esc(p.a)}</p>
-      <p class="j"><em>${esc(p.j)}</em></p>
-      ${p.doi?`<a class="doi" href="https://doi.org/${p.doi}">DOI: ${esc(p.doi)}</a>`:""}
-    </div>
-  </div>`;
+const row=p=>`<div class="pub-full"><span class="yr">${p.y}</span><div>
+  <div class="t">${esc(p.t)}</div>
+  <p class="a">${esc(p.a)}</p>
+  <p class="j"><em>${esc(p.j)}</em> <span class="chip">${LBL[p.k]}</span></p>
+  ${p.doi?`<a class="doi" href="https://doi.org/${p.doi}">DOI: ${esc(p.doi)}</a>`:""}
+</div></div>`;
 function render(){
-  const sort=$("#sortBy").value, filt=$("#filterBy").value, q=$("#q").value.trim().toLowerCase();
-  let rows=PUBS.filter(p=>(filt==="all"||p.th===filt)&&(!q||(p.t+" "+p.a+" "+p.j).toLowerCase().includes(q)));
-  const cmp={
-    "year-desc":(a,b)=>b.y-a.y||a.a.localeCompare(b.a),
-    "year-asc":(a,b)=>a.y-b.y||a.a.localeCompare(b.a),
-    "author-asc":(a,b)=>a.a.localeCompare(b.a)||b.y-a.y,
-    "journal-asc":(a,b)=>a.j.localeCompare(b.j)||b.y-a.y
-  }[sort];
+  const k=$("#kind").value,sort=$("#sortBy").value,filt=$("#filterBy").value,q=$("#q").value.trim().toLowerCase();
+  let rows=PUBS.filter(p=>(k==="all"||p.k===k)&&(filt==="all"||p.th===filt)&&(!q||(p.t+" "+p.a+" "+p.j).toLowerCase().includes(q)));
+  const cmp={"year-desc":(a,b)=>b.y-a.y||a.a.localeCompare(b.a),"year-asc":(a,b)=>a.y-b.y||a.a.localeCompare(b.a),
+             "author-asc":(a,b)=>a.a.localeCompare(b.a)||b.y-a.y,"journal-asc":(a,b)=>a.j.localeCompare(b.j)||b.y-a.y}[sort];
   rows.sort(cmp);
-  $("#pubs").innerHTML=rows.length?rows.map(row).join(""):`<div class="empty-note">No papers match that filter.</div>`;
+  $("#pubs").innerHTML=rows.length?rows.map(row).join(""):`<div class="empty-note">No publications match that filter.</div>`;
   $("#pubCount").textContent=rows.length+" of "+PUBS.length;
 }
-["#sortBy","#filterBy","#q"].forEach(s=>$(s).addEventListener("input",render));
+["#kind","#sortBy","#filterBy","#q"].forEach(s=>$(s).addEventListener("input",render));
 render();
 </script>
 </body>
