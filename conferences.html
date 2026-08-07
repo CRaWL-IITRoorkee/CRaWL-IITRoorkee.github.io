@@ -427,7 +427,7 @@
         <span>+91-1332-284984</span>
       </div>
     </div>
-    <div class="foot-chart" aria-hidden="true"><svg id="hydrograph" viewBox="0 0 560 132" role="img"></svg></div>
+    <div class="foot-analytics" id="footAnalytics" hidden></div>
   </div>
   <div class="wrap foot-bottom">
     <span>© <span id="yr"></span> CRaWL, IIT Roorkee. All rights reserved.</span>
@@ -435,22 +435,9 @@
   </div>
 </footer>
 
+<script src="assets/js/site-data.js"></script>
 <script src="assets/js/nav.js"></script>
-<script>
-const Q=[280,265,250,242,236,230,226,222,232,262,300,342,382,404,424,452,600,900,1400,2000,2600,3050,3400,3800,3620,3300,3480,3180,2900,2600,2200,1800,1500,1200,1000,850,700,620,560,520,485,455,425,405,385,362,342,320];
-const R=[2,0,3,1,0,4,2,0,6,10,8,14,18,12,22,30,58,86,120,150,176,198,168,190,140,182,120,96,150,84,60,110,44,70,30,52,22,38,14,26,10,18,6,12,4,9,3,6];
-(function(){
-  const el=document.getElementById("hydrograph"); if(!el) return;
-  const W=560,H=132,L=34,Rp=32,T=10,B=22,iw=W-L-Rp,ih=H-T-B,qMax=4000,rMax=200,rBand=ih*0.42;
-  const x=i=>L+(i/(Q.length-1))*iw, yQ=v=>T+ih-(v/qMax)*ih;
-  const line=Q.map((v,i)=>`${i?"L":"M"}${x(i).toFixed(1)} ${yQ(v).toFixed(1)}`).join(" ");
-  const bars=R.map((v,i)=>`<rect x="${(x(i)-1.4).toFixed(1)}" y="${T}" width="2.8" height="${((v/rMax)*rBand).toFixed(1)}" fill="#4C9BD6" opacity=".55"/>`).join("");
-  const qT=[0,1000,2000,3000,4000].map(v=>`<text x="${L-5}" y="${(yQ(v)+3).toFixed(1)}" text-anchor="end">${v}</text><line x1="${L}" y1="${yQ(v).toFixed(1)}" x2="${W-Rp}" y2="${yQ(v).toFixed(1)}" stroke="#1D4A78" stroke-width=".5"/>`).join("");
-  const rT=[0,50,100,150,200].map(v=>`<text x="${W-Rp+5}" y="${(T+(v/rMax)*rBand+3).toFixed(1)}">${v}</text>`).join("");
-  const mo=["Jan","Mar","May","Jul","Sep","Nov"].map((m,k)=>`<text x="${x(k*8+2).toFixed(1)}" y="${H-8}" text-anchor="middle">${m}</text>`).join("");
-  el.innerHTML=`${qT}${rT}${bars}<path d="${line}" fill="none" stroke="#5BB4F0" stroke-width="1.5" stroke-linejoin="round"/>${mo}<text x="10" y="${T+ih/2}" transform="rotate(-90 10 ${T+ih/2})" text-anchor="middle">Discharge (m³/s)</text><text x="${W-8}" y="${T+ih/2}" transform="rotate(90 ${W-8} ${T+ih/2})" text-anchor="middle">Rainfall (mm)</text>`;
-})();
-</script>
 
+<script src="assets/js/analytics.js"></script>
 </body>
 </html>
