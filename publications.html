@@ -10,6 +10,56 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+
+<!-- ===== Publications hero: cover reel animation (page-scoped) ===== -->
+<style>
+.pub-hero .wrap{padding-top:6px}
+.cover-reel{
+  display:flex; gap:6px; height:400px; width:100%;
+  border-radius:16px; overflow:hidden;
+}
+.cover-reel .cover{
+  position:relative; flex:1 1 0%; min-width:0; height:100%;
+  padding:0; border:0; margin:0; cursor:pointer; display:block;
+  background:#0d2b52; border-radius:10px; overflow:hidden;
+  filter:grayscale(.6) brightness(.66); opacity:.85;
+  transition:flex-grow .8s cubic-bezier(.22,.61,.36,1),
+             filter .8s ease, opacity .8s ease, box-shadow .5s ease;
+}
+.cover-reel .cover img{
+  width:100%; height:100%; display:block;
+  object-fit:cover; object-position:center top;
+}
+.cover-reel .cover::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14); border-radius:10px;
+}
+.cover-reel .cover.is-active{
+  flex-grow:4.6; filter:none; opacity:1;
+  box-shadow:0 20px 44px rgba(4,20,45,.42);
+}
+.cover-reel .cover:focus-visible{outline:2px solid #fff; outline-offset:-3px}
+
+@media (max-width:1100px){ .cover-reel{height:340px} }
+@media (max-width:900px){  .cover-reel{height:300px} .cover-reel .cover.is-active{flex-grow:5.5} }
+
+/* Phones: cross-fade one cover at a time instead of 15 thin slivers */
+@media (max-width:700px){
+  .cover-reel{display:block; position:relative; height:320px; gap:0; background:transparent}
+  .cover-reel .cover{
+    position:absolute; top:0; left:50%; transform:translateX(-50%);
+    height:100%; width:auto; aspect-ratio:1 / 1.414;
+    opacity:0; filter:none; pointer-events:none;
+    transition:opacity .6s ease;
+  }
+  .cover-reel .cover img{object-fit:contain; background:#fff}
+  .cover-reel .cover.is-active{opacity:1; pointer-events:auto; box-shadow:0 14px 34px rgba(4,20,45,.35)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .cover-reel .cover{transition:none}
+}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -52,11 +102,10 @@
 </header>
 
 <main id="main">
-<section class="page-hero">
+<section class="page-hero pub-hero">
   <div class="wrap">
-    <p class="crumb"><a href="index.html">Home</a> / Research / Publications</p>
-    <h1>Publications</h1>
-    <p class="lede">Journal articles, book chapters, edited volumes and technical reports. Filter by type or theme, sort by year or author, and follow any entry to its DOI.</p>
+    <h1 class="sr">Publications</h1>
+    <div class="cover-reel" id="coverReel" role="group" aria-label="Selected publication front pages"></div>
   </div>
 </section>
 
@@ -189,6 +238,77 @@ function render(){
 ["#kind","#sortBy","#filterBy","#q"].forEach(s=>$(s).addEventListener("input",render));
 render();
 </script>
+<!-- ===== Publications hero: cover reel animation ===== -->
+<script>
+(function(){
+  var CFG = {
+    dir:   "assets/images/publications/",  // folder holding the front pages
+    count: 15,                             // files named 1 … 15
+    exts:  [".jpg",".jpeg",".png",".webp"],// tried in order until one loads
+    hold:  2000                            // ms each cover stays enlarged
+  };
+
+  var reel = document.getElementById("coverReel");
+  if(!reel) return;
+
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  for(var i=1;i<=CFG.count;i++){
+    (function(n){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "cover";
+      btn.setAttribute("aria-label","Publication front page "+n);
+
+      var img = document.createElement("img");
+      img.alt = "";
+      img.decoding = "async";
+      img.loading = n<=6 ? "eager" : "lazy";
+      img.dataset.ext = "0";
+      img.src = CFG.dir + n + CFG.exts[0];
+      img.addEventListener("error", function(){
+        var k = parseInt(img.dataset.ext,10) + 1;
+        if(k < CFG.exts.length){ img.dataset.ext = k; img.src = CFG.dir + n + CFG.exts[k]; }
+        else if(btn.parentNode){ btn.parentNode.removeChild(btn); }   // missing file → drop the slot
+      });
+
+      btn.appendChild(img);
+      btn.addEventListener("mouseenter", function(){ paused = true; setActive(items().indexOf(btn)); });
+      btn.addEventListener("focus",      function(){ paused = true; setActive(items().indexOf(btn)); });
+      reel.appendChild(btn);
+    })(i);
+  }
+
+  var idx = 0, timer = null, paused = false;
+  function items(){ return Array.prototype.slice.call(reel.children); }
+
+  function setActive(n){
+    var list = items();
+    if(!list.length) return;
+    idx = ((n % list.length) + list.length) % list.length;
+    for(var j=0;j<list.length;j++){
+      list[j].classList.toggle("is-active", j === idx);
+    }
+  }
+
+  function start(){ if(!timer && !reduce) timer = setInterval(function(){ if(!paused) setActive(idx+1); }, CFG.hold); }
+  function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+
+  reel.addEventListener("mouseleave", function(){ paused = false; });
+  reel.addEventListener("focusout",  function(e){ if(!reel.contains(e.relatedTarget)) paused = false; });
+  document.addEventListener("visibilitychange", function(){ document.hidden ? stop() : start(); });
+
+  setActive(0);
+  if(!reduce){
+    if("IntersectionObserver" in window){
+      new IntersectionObserver(function(entries){
+        entries[0].isIntersecting ? start() : stop();
+      },{threshold:0.15}).observe(reel);
+    } else { start(); }
+  }
+})();
+</script>
+
 <script src="assets/js/analytics.js"></script>
 </body>
 </html>
