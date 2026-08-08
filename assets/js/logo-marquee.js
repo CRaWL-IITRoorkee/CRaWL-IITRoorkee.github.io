@@ -17,7 +17,7 @@
     pad: true,
     scanTo: 60,
     stopAfterMisses: 3,
-    speed: 18,          // px per second of drift
+    speed: 30,          // px per second of drift
     nudge: 1.15,        // cards travelled per arrow click
     nudgeMs: 480,
     resumeAfter: 1200,
