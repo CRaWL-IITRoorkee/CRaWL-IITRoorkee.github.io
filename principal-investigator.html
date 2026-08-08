@@ -10,6 +10,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+
+<!-- ===== PI page: image social links ===== -->
+<style>
+.pi-meta .social-links{
+  display:flex; flex-wrap:wrap; gap:10px; margin:0; padding:0; list-style:none;
+}
+.pi-meta .social-links a{
+  display:block; width:44px; height:44px; padding:6px;
+  background:#fff; border:1px solid var(--line,rgba(8,38,74,.14)); border-radius:10px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.pi-meta .social-links a:hover{
+  transform:translateY(-2px);
+  border-color:var(--blue-600,#1b5fc1);
+  box-shadow:0 6px 16px rgba(3,17,40,.16);
+}
+.pi-meta .social-links a:focus-visible{outline:2px solid var(--blue-600,#1b5fc1); outline-offset:2px}
+.pi-meta .social-links img{width:100%; height:100%; object-fit:contain; display:block}
+.pi-contact{list-style:none; margin:18px 0 0; padding:0; font-size:12.6px; line-height:1.75; color:var(--muted)}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -68,14 +88,21 @@
           <img src="assets/images/people/mohit-mohanty.jpg" alt="Dr Mohit Prakash Mohanty">
         </figure>
         <div class="pi-meta">
-          <div class="socials">
-            <a href="https://scholar.google.com/citations?user=7THkWAEAAAAJ&hl=en" title="Google Scholar">GS</a>
-            <a href="https://orcid.org/0000-0001-7783-2073" title="ORCID">iD</a>
-            <a href="https://www.scopus.com/authid/detail.uri?authorId=57203633749" title="Scopus">SC</a>
-            <a href="https://www.researchgate.net/profile/Mohit-Mohanty-2" title="ResearchGate">RG</a>
-            <a href="mailto:mohit.mohanty@wr.iitr.ac.in" title="Email">@</a>
-          </div>
-          <ul style="list-style:none;margin:18px 0 0;padding:0;font-size:12.6px;line-height:1.75;color:var(--muted)">
+          <ul class="social-links">
+            <li><a href="https://scholar.google.com/citations?user=7THkWAEAAAAJ&hl=en" title="Google Scholar">
+              <img src="assets/images/Social%20Link/google-scholar.jpg" alt="Google Scholar"></a></li>
+            <li><a href="https://orcid.org/0000-0001-7783-2073" title="ORCID">
+              <img src="assets/images/Social%20Link/ORCID_iD.jpg" alt="ORCID"></a></li>
+            <li><a href="https://www.scopus.com/authid/detail.uri?authorId=57203633749" title="Scopus">
+              <img src="assets/images/Social%20Link/Scopus.jpg" alt="Scopus"></a></li>
+            <li><a href="https://www.researchgate.net/profile/Mohit-Mohanty-2" title="ResearchGate">
+              <img src="assets/images/Social%20Link/Researchgate.jpg" alt="ResearchGate"></a></li>
+            <li><a href="https://www.iitr.ac.in/~WR/Mohit_Prakash_Mohanty" title="Institute page">
+              <img src="assets/images/Social%20Link/p-website.jpg" alt="Institute page"></a></li>
+            <li><a href="mailto:mohit.mohanty@wr.iitr.ac.in" title="Email">
+              <img src="assets/images/Social%20Link/email.jpg" alt="Email"></a></li>
+          </ul>
+          <ul class="pi-contact">
             <li><a href="mailto:mohit.mohanty@wr.iitr.ac.in">mohit.mohanty@wr.iitr.ac.in</a></li>
             <li>+91-1332-284984</li>
             <li><a href="https://www.iitr.ac.in/~WR/Mohit_Prakash_Mohanty">Institute page</a></li>
