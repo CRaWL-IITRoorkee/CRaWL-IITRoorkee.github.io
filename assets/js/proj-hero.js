@@ -24,10 +24,13 @@
     pad: true,                     // also try 01.jpg, 02.jpg …
 
     stopAfterMisses: 3,            // end the scan after this many consecutive missing numbers
+    speed: 34,                     // px per second of continuous drift
+    nudge: 1.15,                   // how far one arrow click travels, in tile widths
+    resumeAfter: 1400,             // ms of stillness after an arrow click before drift resumes
     debug: true                    // console summary — set false once happy
   };
 
-  var grid, reel;
+  var strip, track, prevBtn, nextBtn;
 
   function log() {
     if (CFG.debug && window.console) console.log.apply(console, arguments);
@@ -87,40 +90,90 @@
     return step();
   }
 
-  /* ---------------- render (static — no autoplay) ---------------- */
+  /* ---------------- render: single-row continuous marquee ---------------- */
 
-  function layout(n){
-    if (n < 1 || window.innerWidth <= 820){          // small screens use the CSS fallback
-      grid.style.gridTemplateColumns = "";
-      return;
+  var half = 0, paused = false, resumeTimer = null, last = 0;
+
+  function tile(src, i){
+    var fig = document.createElement("figure");
+    fig.className = "plogo";
+    var img = document.createElement("img");
+    img.alt = "";
+    img.decoding = "async";
+    img.loading = i < 10 ? "eager" : "lazy";
+    img.src = src;
+    fig.appendChild(img);
+    return fig;
+  }
+
+  function measure(){
+    // half = width of one full set (the track holds the set twice)
+    half = track.scrollWidth / 2;
+  }
+
+  function wrap(){
+    if (!half) return;
+    if (strip.scrollLeft >= half) strip.scrollLeft -= half;
+    else if (strip.scrollLeft < 0) strip.scrollLeft += half;
+  }
+
+  function frame(now){
+    if (!last) last = now;
+    var dt = (now - last) / 1000;
+    last = now;
+    if (!paused && !document.hidden && dt < 0.5) {
+      strip.scrollLeft += CFG.speed * dt;
+      wrap();
     }
-    var rows = n <= 12 ? 2 : (n <= 24 ? 3 : 4);
-    grid.style.gridTemplateColumns = "repeat(" + Math.ceil(n / rows) + ",1fr)";
+    requestAnimationFrame(frame);
+  }
+
+  function step(dir){
+    var w = track.firstChild ? track.firstChild.getBoundingClientRect().width + 12 : 200;
+    paused = true;
+    strip.scrollBy({ left: dir * w * CFG.nudge, behavior: "smooth" });
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(function(){ paused = false; wrap(); }, CFG.resumeAfter);
   }
 
   function build(srcs){
+    // two identical sets back to back make the loop seamless
+    srcs.forEach(function (src, i) { track.appendChild(tile(src, i)); });
     srcs.forEach(function (src, i) {
-      var fig = document.createElement("figure");
-      fig.className = "ptile";
-      var img = document.createElement("img");
-      img.alt = "";
-      img.decoding = "async";
-      img.loading = i < 8 ? "eager" : "lazy";
-      img.src = src;
-      fig.appendChild(img);
-      grid.appendChild(fig);
+      var t = tile(src, i + srcs.length);
+      t.setAttribute("aria-hidden", "true");
+      track.appendChild(t);
     });
-    layout(srcs.length);
-    window.addEventListener("resize", function(){ layout(srcs.length); });
+
+    var imgs = track.querySelectorAll("img"), done = 0;
+    imgs.forEach(function (im) {
+      if (im.complete) { if (++done === imgs.length) measure(); return; }
+      im.addEventListener("load", function(){ if (++done === imgs.length) measure(); });
+      im.addEventListener("error", function(){ if (++done === imgs.length) measure(); });
+    });
+    measure();
+    window.addEventListener("resize", measure);
+
+    strip.addEventListener("mouseenter", function(){ paused = true; });
+    strip.addEventListener("mouseleave", function(){ if (!resumeTimer) paused = false; });
+    strip.addEventListener("scroll", wrap, { passive: true });
+    if (prevBtn) prevBtn.addEventListener("click", function(){ step(-1); });
+    if (nextBtn) nextBtn.addEventListener("click", function(){ step(1); });
+
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduce) requestAnimationFrame(frame);
+    log("[proj-hero] marquee running,", srcs.length, "logos");
   }
 
   function init() {
-    grid = document.getElementById("projGrid");
-    reel = document.getElementById("projReel");
-    if (!grid) { log("[proj-hero] #projGrid not found"); return; }
+    strip = document.getElementById("projStrip");
+    track = document.getElementById("projTrack");
+    prevBtn = document.getElementById("projPrev");
+    nextBtn = document.getElementById("projNext");
+    if (!strip || !track) { log("[proj-hero] #projStrip / #projTrack not found"); return; }
 
     discover().then(function (srcs) {
-      log("[proj-hero] found " + srcs.length + " photo(s):", srcs);
+      log("[proj-hero] found " + srcs.length + " logo(s):", srcs);
       if (srcs.length) build(srcs);
     });
   }
