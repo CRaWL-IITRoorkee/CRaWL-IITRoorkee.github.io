@@ -36,8 +36,10 @@
 /* --- tiled thumbnails beside it --- */
 .reel-grid{
   flex:1 1 auto; min-width:0; height:100%;
-  display:grid; grid-template-columns:repeat(6,1fr); grid-template-rows:repeat(2,1fr); gap:10px;
+  display:grid; gap:10px;                 /* rows/cols are set by JS from the image count */
+  grid-template-columns:repeat(6,1fr); grid-template-rows:repeat(2,1fr);
 }
+.reel-grid .thumb.is-stage{display:none}  /* the cover on the big panel is not repeated here */
 .reel-grid .thumb{
   position:relative; padding:0; margin:0; border:0; cursor:pointer;
   min-width:0; min-height:0; overflow:hidden;
@@ -54,10 +56,7 @@
 }
 .reel-grid .thumb:focus-visible{outline:2px solid #fff; outline-offset:2px}
 
-@media (max-width:1180px){
-  .cover-reel{height:380px}
-  .reel-grid{grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(3,1fr)}
-}
+@media (max-width:1180px){ .cover-reel{height:380px} }
 @media (max-width:820px){
   .cover-reel{flex-direction:column; height:auto; gap:14px; align-items:center}
   .reel-stage{width:min(260px,62vw); height:auto; flex:0 0 auto}
@@ -70,6 +69,20 @@
 @media (prefers-reduced-motion:reduce){
   .reel-stage img,.reel-grid .thumb{transition:none}
 }
+
+/* --- pagination for the publication list --- */
+.pager{display:flex; flex-wrap:wrap; gap:6px; align-items:center; justify-content:center; margin:26px 0 4px}
+.pager .pg{
+  min-width:36px; height:36px; padding:0 11px; cursor:pointer;
+  border:1px solid rgba(8,38,74,.18); background:#fff; color:#08264A;
+  border-radius:8px; font:600 13px/1 Inter,system-ui,sans-serif;
+  transition:background .18s ease, border-color .18s ease, color .18s ease;
+}
+.pager .pg:hover:not(:disabled){background:#f1f5fb; border-color:rgba(8,38,74,.38)}
+.pager .pg.on{background:#08264A; border-color:#08264A; color:#fff}
+.pager .pg:disabled{opacity:.38; cursor:default}
+.pager .gap{padding:0 2px; color:var(--muted,#6b7a90); font-size:13px}
+.pager .pg:focus-visible{outline:2px solid #08264A; outline-offset:2px}
 </style>
 </head>
 <body>
@@ -165,6 +178,7 @@
       <span class="count" id="pubCount"></span>
     </div>
     <div id="pubs"></div>
+    <nav class="pager" id="pager" aria-label="Publication list pages"></nav>
   </div>
 </section>
 
@@ -240,16 +254,49 @@ const row=p=>`<div class="pub-full"><span class="yr">${p.y}</span><div>
   <p class="j"><em>${esc(p.j)}</em> <span class="chip">${LBL[p.k]}</span></p>
   ${p.doi?`<a class="doi" href="https://doi.org/${p.doi}">DOI: ${esc(p.doi)}</a>`:""}
 </div></div>`;
-function render(){
+const PAGE_SIZE = 10;
+let page = 1;
+
+function matches(){
   const k=$("#kind").value,sort=$("#sortBy").value,filt=$("#filterBy").value,q=$("#q").value.trim().toLowerCase();
   let rows=PUBS.filter(p=>(k==="all"||p.k===k)&&(filt==="all"||p.th===filt)&&(!q||(p.t+" "+p.a+" "+p.j).toLowerCase().includes(q)));
   const cmp={"year-desc":(a,b)=>b.y-a.y||a.a.localeCompare(b.a),"year-asc":(a,b)=>a.y-b.y||a.a.localeCompare(b.a),
              "author-asc":(a,b)=>a.a.localeCompare(b.a)||b.y-a.y,"journal-asc":(a,b)=>a.j.localeCompare(b.j)||b.y-a.y}[sort];
   rows.sort(cmp);
-  $("#pubs").innerHTML=rows.length?rows.map(row).join(""):`<div class="empty-note">No publications match that filter.</div>`;
-  $("#pubCount").textContent=rows.length+" of "+PUBS.length;
+  return rows;
 }
-["#kind","#sortBy","#filterBy","#q"].forEach(s=>$(s).addEventListener("input",render));
+
+function pagerHTML(pages){
+  if(pages<=1) return "";
+  const btn=n=>`<button class="pg${n===page?" on":""}" data-p="${n}"${n===page?' aria-current="page"':''}>${n}</button>`;
+  let mid=[]; const s=Math.max(2,page-1), e=Math.min(pages-1,page+1);
+  if(s>2) mid.push('<span class="gap">&hellip;</span>');
+  for(let n=s;n<=e;n++) mid.push(btn(n));
+  if(e<pages-1) mid.push('<span class="gap">&hellip;</span>');
+  return `<button class="pg" data-p="${page-1}"${page===1?" disabled":""} aria-label="Previous page">&lsaquo;</button>`
+       + btn(1) + mid.join("") + btn(pages)
+       + `<button class="pg" data-p="${page+1}"${page===pages?" disabled":""} aria-label="Next page">&rsaquo;</button>`;
+}
+
+function render(){
+  const rows=matches();
+  const pages=Math.max(1,Math.ceil(rows.length/PAGE_SIZE));
+  if(page>pages) page=pages;
+  const from=(page-1)*PAGE_SIZE, slice=rows.slice(from,from+PAGE_SIZE);
+  $("#pubs").innerHTML=slice.length?slice.map(row).join(""):`<div class="empty-note">No publications match that filter.</div>`;
+  $("#pager").innerHTML=pagerHTML(pages);
+  $("#pubCount").textContent=rows.length?`${from+1}\u2013${from+slice.length} of ${rows.length}`:`0 of ${PUBS.length}`;
+}
+
+$("#pager").addEventListener("click",e=>{
+  const b=e.target.closest("button[data-p]"); if(!b||b.disabled) return;
+  const n=+b.dataset.p; if(n===page) return;
+  page=n; render();
+  const top=$("#pubs").getBoundingClientRect().top+window.pageYOffset-110;
+  window.scrollTo({top,behavior:"smooth"});
+});
+
+["#kind","#sortBy","#filterBy","#q"].forEach(s=>$(s).addEventListener("input",()=>{page=1;render();}));
 render();
 </script>
 <!-- ===== Publications hero: cover reel animation ===== -->
@@ -257,9 +304,11 @@ render();
 (function(){
   var CFG = {
     dir:   "assets/images/publications/",   // folder holding the front pages
-    count: 12,                              // files named 1 … 12
+    count: "auto",                          // "auto" = detect 1,2,3… until one is missing. Or set a number.
+    max:   60,                              // safety ceiling when auto-detecting
     exts:  [".jpg",".jpeg",".png",".webp"], // tried in order until one loads
-    hold:  1000                             // ms each cover holds the big panel
+    hold:  1000,                            // ms each cover holds the big panel
+    hideActiveTile: true                    // the cover on the big panel is not shown as a thumbnail too
   };
 
   var stage = document.getElementById("reelStage");
@@ -268,52 +317,62 @@ render();
   if(!stage || !grid) return;
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var slides = [];   // {big: <img>, thumb: <button>}
 
-  function makeImg(n, cls, onDead){
-    var img = document.createElement("img");
-    img.alt = "";
-    img.decoding = "async";
-    if(cls) img.className = cls;
-    img.dataset.ext = "0";
-    img.src = CFG.dir + n + CFG.exts[0];
-    img.addEventListener("error", function(){
-      var k = parseInt(img.dataset.ext,10) + 1;
-      if(k < CFG.exts.length){ img.dataset.ext = k; img.src = CFG.dir + n + CFG.exts[k]; }
-      else onDead();
+  /* ---------- find the images ---------- */
+  function tryLoad(src){
+    return new Promise(function(res){
+      var im = new Image();
+      im.onload = function(){ res(true); };
+      im.onerror = function(){ res(false); };
+      im.src = src;
     });
-    return img;
+  }
+  function resolveSrc(n){                       // first extension that actually exists
+    return CFG.exts.reduce(function(chain, ext){
+      return chain.then(function(hit){
+        if(hit) return hit;
+        var s = CFG.dir + n + ext;
+        return tryLoad(s).then(function(ok){ return ok ? s : null; });
+      });
+    }, Promise.resolve(null));
+  }
+  function collect(){
+    if(typeof CFG.count === "number"){
+      var jobs = [];
+      for(var i=1;i<=CFG.count;i++) jobs.push(resolveSrc(i));
+      return Promise.all(jobs).then(function(r){ return r.filter(Boolean); });
+    }
+    var found = [], next = 1, STEP = 8;
+    function batch(){
+      var jobs = [];
+      for(var i=0;i<STEP && next+i<=CFG.max;i++) jobs.push(resolveSrc(next+i));
+      if(!jobs.length) return Promise.resolve(found);
+      return Promise.all(jobs).then(function(res){
+        for(var k=0;k<res.length;k++){
+          if(!res[k]) return found;             // first gap ends the run
+          found.push(res[k]);
+        }
+        next += jobs.length;
+        return batch();
+      });
+    }
+    return batch();
   }
 
-  for(var i=1;i<=CFG.count;i++){
-    (function(n){
-      var slot = {};
-      var dead = function(){
-        if(slot.big && slot.big.parentNode) slot.big.parentNode.removeChild(slot.big);
-        if(slot.thumb && slot.thumb.parentNode) slot.thumb.parentNode.removeChild(slot.thumb);
-        var at = slides.indexOf(slot);
-        if(at > -1) slides.splice(at,1);
-      };
+  /* ---------- build + animate ---------- */
+  var slides = [], idx = 0, timer = null, paused = false;
 
-      slot.big = makeImg(n, "", dead);
-      slot.big.loading = n<=4 ? "eager" : "lazy";
-      stage.appendChild(slot.big);
-
-      slot.thumb = document.createElement("button");
-      slot.thumb.type = "button";
-      slot.thumb.className = "thumb";
-      slot.thumb.setAttribute("aria-label","Show publication front page "+n);
-      slot.thumb.appendChild(makeImg(n, "", function(){}));
-      slot.thumb.addEventListener("mouseenter", function(){ paused = true; show(slides.indexOf(slot)); });
-      slot.thumb.addEventListener("focus",      function(){ paused = true; show(slides.indexOf(slot)); });
-      slot.thumb.addEventListener("click",      function(){ show(slides.indexOf(slot)); });
-      grid.appendChild(slot.thumb);
-
-      slides.push(slot);
-    })(i);
+  function layout(){
+    var m = slides.length - (CFG.hideActiveTile ? 1 : 0);   // tiles actually on screen
+    if(m < 1 || window.innerWidth <= 820){                  // phones/tablets use the CSS fallback
+      grid.style.gridTemplateColumns = "";
+      grid.style.gridTemplateRows = "";
+      return;
+    }
+    var rows = m <= 14 ? 2 : (m <= 27 ? 3 : 4);
+    grid.style.gridTemplateColumns = "repeat(" + Math.ceil(m/rows) + ",1fr)";
+    grid.style.gridTemplateRows = "repeat(" + rows + ",1fr)";
   }
-
-  var idx = 0, timer = null, paused = false;
 
   function show(n){
     if(!slides.length) return;
@@ -322,24 +381,56 @@ render();
       var on = (j === idx);
       slides[j].big.classList.toggle("is-active", on);
       slides[j].thumb.classList.toggle("is-active", on);
+      if(CFG.hideActiveTile) slides[j].thumb.classList.toggle("is-stage", on);
     }
   }
 
-  function start(){ if(!timer && !reduce) timer = setInterval(function(){ if(!paused) show(idx+1); }, CFG.hold); }
+  function start(){ if(!timer && !reduce && slides.length>1) timer = setInterval(function(){ if(!paused) show(idx+1); }, CFG.hold); }
   function stop(){ if(timer){ clearInterval(timer); timer = null; } }
 
-  grid.addEventListener("mouseleave", function(){ paused = false; });
-  grid.addEventListener("focusout", function(e){ if(!grid.contains(e.relatedTarget)) paused = false; });
-  document.addEventListener("visibilitychange", function(){ document.hidden ? stop() : start(); });
+  function build(srcs){
+    srcs.forEach(function(src, i){
+      var slot = {};
 
-  show(0);
-  if(!reduce){
-    if("IntersectionObserver" in window){
-      new IntersectionObserver(function(entries){
-        entries[0].isIntersecting ? start() : stop();
-      },{threshold:0.15}).observe(reel);
-    } else { start(); }
+      slot.big = document.createElement("img");
+      slot.big.alt = ""; slot.big.decoding = "async"; slot.big.src = src;
+      stage.appendChild(slot.big);
+
+      var t = document.createElement("img");
+      t.alt = ""; t.decoding = "async"; t.loading = i < 8 ? "eager" : "lazy"; t.src = src;
+
+      slot.thumb = document.createElement("button");
+      slot.thumb.type = "button";
+      slot.thumb.className = "thumb";
+      slot.thumb.setAttribute("aria-label", "Show publication front page " + (i+1));
+      slot.thumb.appendChild(t);
+      slot.thumb.addEventListener("mouseenter", function(){ paused = true; show(slides.indexOf(slot)); });
+      slot.thumb.addEventListener("focus",      function(){ paused = true; show(slides.indexOf(slot)); });
+      slot.thumb.addEventListener("click",      function(){ show(slides.indexOf(slot)); });
+      grid.appendChild(slot.thumb);
+
+      slides.push(slot);
+    });
+
+    layout();
+    show(0);
+
+    grid.addEventListener("mouseleave", function(){ paused = false; });
+    grid.addEventListener("focusout", function(e){ if(!grid.contains(e.relatedTarget)) paused = false; });
+    document.addEventListener("visibilitychange", function(){ document.hidden ? stop() : start(); });
+    window.addEventListener("resize", layout);
+
+    if(!reduce){
+      if("IntersectionObserver" in window){
+        new IntersectionObserver(function(entries){ entries[0].isIntersecting ? start() : stop(); },{threshold:0.15}).observe(reel);
+      } else { start(); }
+    }
   }
+
+  collect().then(function(srcs){
+    if(srcs.length) build(srcs);
+    else if(reel) reel.style.display = "none";   // nothing found → hero collapses quietly
+  });
 })();
 </script>
 
