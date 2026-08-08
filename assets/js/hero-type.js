@@ -1,11 +1,10 @@
 /* ============================================================
    CRaWL — Home hero kinetic headline
    Place at: assets/js/hero-type.js
-   Requires in index.html:
-     <h1 class="kinetic">CRaWL working on
-       <span class="kinetic-line">
-         <span class="kinetic-text" id="heroRotate"></span><span class="kinetic-caret" id="heroCaret"></span>
-       </span>
+   Markup expected in index.html:
+     <h1 class="kinetic">
+       <span class="kinetic-eyebrow">CRaWL working on</span>
+       <span class="kinetic-line" id="heroRotate" aria-hidden="true"></span>
      </h1>
    ============================================================ */
 (function () {
@@ -22,51 +21,97 @@
       "Hydroclimatic Extremes"
     ],
 
-    /* "type"  — typewriter: writes the phrase out, pauses, erases, next
-       "fade"  — whole phrase swaps at once (use this for very fast cycling) */
-    mode: "type",
+    /* "reveal" — characters rise + unblur in sequence, then peel away (recommended)
+       "type"   — classic typewriter with a caret
+       "fade"   — whole phrase swaps at once                                        */
+    mode: "reveal",
 
-    typeSpeed: 45,     // ms per character while writing   (type mode)
-    eraseSpeed: 25,    // ms per character while erasing   (type mode)
-    hold: 1600,        // ms the finished phrase stays on screen
-    swap: 300,         // ms cross-fade duration           (fade mode)
+    hold: 2200,        // ms the finished phrase stays fully visible
+    stagger: 26,       // ms between characters coming in   (reveal mode)
+    outStagger: 12,    // ms between characters going out   (reveal mode)
+    typeSpeed: 45,     // ms per character                  (type mode)
+    eraseSpeed: 25,
+    swap: 320,         // ms cross-fade                     (fade mode)
 
-    shuffle: false,    // true = random order instead of the list order
+    shuffle: false,
     debug: false
   };
 
-  var el, caret, i = 0, timer = null, alive = true;
+  var el, i = 0, timers = [], alive = true, mode;
 
   function log() { if (CFG.debug && window.console) console.log.apply(console, arguments); }
   function next() { i = (i + 1) % CFG.phrases.length; }
-  function wait(ms, fn) { timer = setTimeout(fn, ms); }
+  function wait(ms, fn) { var t = setTimeout(fn, ms); timers.push(t); return t; }
+  function clearAll() { timers.forEach(clearTimeout); timers = []; }
+
+  /* ---------------- reveal: per-character choreography ---------------- */
+
+  function splitInto(text) {
+    el.textContent = "";
+    var chars = [];
+    text.split(/(\s+)/).forEach(function (chunk) {
+      if (/^\s+$/.test(chunk)) { el.appendChild(document.createTextNode(" ")); return; }
+      var word = document.createElement("span");
+      word.className = "kw";                       // keeps words from breaking mid-air
+      chunk.split("").forEach(function (c) {
+        var s = document.createElement("span");
+        s.className = "kc";
+        s.textContent = c;
+        word.appendChild(s);
+        chars.push(s);
+      });
+      el.appendChild(word);
+    });
+    return chars;
+  }
+
+  function revealCycle() {
+    if (!alive) return;
+    var chars = splitInto(CFG.phrases[i]);
+
+    chars.forEach(function (s, k) { s.style.transitionDelay = (k * CFG.stagger) + "ms"; });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        chars.forEach(function (s) { s.classList.add("in"); });
+      });
+    });
+
+    var inDone = chars.length * CFG.stagger + 620;
+    wait(inDone + CFG.hold, function () {
+      if (!alive) return;
+      chars.forEach(function (s, k) {
+        s.style.transitionDelay = (k * CFG.outStagger) + "ms";
+        s.classList.remove("in");
+        s.classList.add("out");
+      });
+      wait(chars.length * CFG.outStagger + 420, function () { next(); revealCycle(); });
+    });
+  }
 
   /* ---------------- typewriter ---------------- */
+
   function typeCycle() {
     if (!alive) return;
     var text = CFG.phrases[i], n = 0;
-
     (function write() {
       if (!alive) return;
       el.textContent = text.slice(0, ++n);
       if (n < text.length) return wait(CFG.typeSpeed, write);
       wait(CFG.hold, erase);
     })();
-
     function erase() {
-      if (!alive) return;
       var m = text.length;
       (function back() {
         if (!alive) return;
         el.textContent = text.slice(0, --m);
         if (m > 0) return wait(CFG.eraseSpeed, back);
-        next();
-        wait(160, typeCycle);
+        next(); wait(160, typeCycle);
       })();
     }
   }
 
   /* ---------------- fade swap ---------------- */
+
   function fadeCycle() {
     if (!alive) return;
     el.textContent = CFG.phrases[i];
@@ -77,9 +122,10 @@
     });
   }
 
+  function run() { (mode === "type" ? typeCycle : mode === "fade" ? fadeCycle : revealCycle)(); }
+
   function init() {
     el = document.getElementById("heroRotate");
-    caret = document.getElementById("heroCaret");
     if (!el) { log("[hero-type] #heroRotate not found"); return; }
 
     if (CFG.shuffle) {
@@ -90,23 +136,16 @@
     }
 
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var mode = reduce ? "fade" : CFG.mode;
-    if (reduce) CFG.hold = Math.max(CFG.hold, 2500);
+    mode = reduce ? "fade" : CFG.mode;
+    if (reduce) CFG.hold = Math.max(CFG.hold, 2800);
 
-    if (mode === "fade") {
-      el.classList.add("fade-mode");
-      if (caret) caret.style.display = "none";
-      fadeCycle();
-    } else {
-      el.classList.add("type-mode");
-      typeCycle();
-    }
-    log("[hero-type] running in", mode, "mode over", CFG.phrases.length, "phrases");
+    el.classList.add(mode + "-mode");
+    run();
+    log("[hero-type]", mode, "mode,", CFG.phrases.length, "phrases");
 
-    // stop the timers while the tab is hidden
     document.addEventListener("visibilitychange", function () {
-      if (document.hidden) { alive = false; clearTimeout(timer); }
-      else if (!alive) { alive = true; (mode === "fade" ? fadeCycle : typeCycle)(); }
+      if (document.hidden) { alive = false; clearAll(); }
+      else if (!alive) { alive = true; run(); }
     });
   }
 
