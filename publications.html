@@ -14,50 +14,61 @@
 <!-- ===== Publications hero: cover reel animation (page-scoped) ===== -->
 <style>
 .pub-hero .wrap{padding-top:6px}
+
 .cover-reel{
-  display:flex; gap:6px; height:400px; width:100%;
-  border-radius:16px; overflow:hidden;
-}
-.cover-reel .cover{
-  position:relative; flex:1 1 0%; min-width:0; height:100%;
-  padding:0; border:0; margin:0; cursor:pointer; display:block;
-  background:#0d2b52; border-radius:10px; overflow:hidden;
-  filter:grayscale(.6) brightness(.66); opacity:.85;
-  transition:flex-grow .8s cubic-bezier(.22,.61,.36,1),
-             filter .8s ease, opacity .8s ease, box-shadow .5s ease;
-}
-.cover-reel .cover img{
-  width:100%; height:100%; display:block;
-  object-fit:cover; object-position:center top;
-}
-.cover-reel .cover::after{
-  content:""; position:absolute; inset:0; pointer-events:none;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14); border-radius:10px;
-}
-.cover-reel .cover.is-active{
-  flex-grow:4.6; filter:none; opacity:1;
-  box-shadow:0 20px 44px rgba(4,20,45,.42);
-}
-.cover-reel .cover:focus-visible{outline:2px solid #fff; outline-offset:-3px}
-
-@media (max-width:1100px){ .cover-reel{height:340px} }
-@media (max-width:900px){  .cover-reel{height:300px} .cover-reel .cover.is-active{flex-grow:5.5} }
-
-/* Phones: cross-fade one cover at a time instead of 15 thin slivers */
-@media (max-width:700px){
-  .cover-reel{display:block; position:relative; height:320px; gap:0; background:transparent}
-  .cover-reel .cover{
-    position:absolute; top:0; left:50%; transform:translateX(-50%);
-    height:100%; width:auto; aspect-ratio:1 / 1.414;
-    opacity:0; filter:none; pointer-events:none;
-    transition:opacity .6s ease;
-  }
-  .cover-reel .cover img{object-fit:contain; background:#fff}
-  .cover-reel .cover.is-active{opacity:1; pointer-events:auto; box-shadow:0 14px 34px rgba(4,20,45,.35)}
+  display:flex; gap:18px; height:430px; align-items:stretch;
 }
 
+/* --- big panel on the left --- */
+.reel-stage{
+  position:relative; flex:0 0 auto; height:100%; aspect-ratio:1 / 1.414;
+  background:#fff; border-radius:12px; overflow:hidden;
+  box-shadow:0 22px 48px rgba(3,17,40,.45);
+}
+.reel-stage img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:contain; background:#fff;
+  opacity:0; transform:scale(.985);
+  transition:opacity .55s ease, transform .55s ease;
+}
+.reel-stage img.is-active{opacity:1; transform:none}
+
+/* --- tiled thumbnails beside it --- */
+.reel-grid{
+  flex:1 1 auto; min-width:0; height:100%;
+  display:grid; grid-template-columns:repeat(6,1fr); grid-template-rows:repeat(2,1fr); gap:10px;
+}
+.reel-grid .thumb{
+  position:relative; padding:0; margin:0; border:0; cursor:pointer;
+  min-width:0; min-height:0; overflow:hidden;
+  background:#fff; border-radius:8px;
+  opacity:.5; filter:grayscale(.45);
+  transition:opacity .45s ease, filter .45s ease, transform .45s ease, box-shadow .45s ease;
+}
+.reel-grid .thumb img{
+  width:100%; height:100%; display:block; object-fit:contain; background:#fff;
+}
+.reel-grid .thumb.is-active{
+  opacity:1; filter:none; transform:scale(1.06);
+  box-shadow:0 0 0 2px #fff, 0 10px 24px rgba(3,17,40,.4);
+}
+.reel-grid .thumb:focus-visible{outline:2px solid #fff; outline-offset:2px}
+
+@media (max-width:1180px){
+  .cover-reel{height:380px}
+  .reel-grid{grid-template-columns:repeat(4,1fr); grid-template-rows:repeat(3,1fr)}
+}
+@media (max-width:820px){
+  .cover-reel{flex-direction:column; height:auto; gap:14px; align-items:center}
+  .reel-stage{width:min(260px,62vw); height:auto; flex:0 0 auto}
+  .reel-grid{width:100%; height:auto; grid-template-columns:repeat(6,1fr); grid-template-rows:none}
+  .reel-grid .thumb{aspect-ratio:1 / 1.414}
+}
+@media (max-width:520px){
+  .reel-grid{grid-template-columns:repeat(4,1fr)}
+}
 @media (prefers-reduced-motion:reduce){
-  .cover-reel .cover{transition:none}
+  .reel-stage img,.reel-grid .thumb{transition:none}
 }
 </style>
 </head>
@@ -105,7 +116,10 @@
 <section class="page-hero pub-hero">
   <div class="wrap">
     <h1 class="sr">Publications</h1>
-    <div class="cover-reel" id="coverReel" role="group" aria-label="Selected publication front pages"></div>
+    <div class="cover-reel" id="coverReel" role="group" aria-label="Selected publication front pages">
+      <div class="reel-stage" id="reelStage"></div>
+      <div class="reel-grid" id="reelGrid"></div>
+    </div>
   </div>
 </section>
 
@@ -242,63 +256,83 @@ render();
 <script>
 (function(){
   var CFG = {
-    dir:   "assets/images/publications/",  // folder holding the front pages
-    count: 15,                             // files named 1 … 15
-    exts:  [".jpg",".jpeg",".png",".webp"],// tried in order until one loads
-    hold:  2000                            // ms each cover stays enlarged
+    dir:   "assets/images/publications/",   // folder holding the front pages
+    count: 12,                              // files named 1 … 12
+    exts:  [".jpg",".jpeg",".png",".webp"], // tried in order until one loads
+    hold:  1000                             // ms each cover holds the big panel
   };
 
-  var reel = document.getElementById("coverReel");
-  if(!reel) return;
+  var stage = document.getElementById("reelStage");
+  var grid  = document.getElementById("reelGrid");
+  var reel  = document.getElementById("coverReel");
+  if(!stage || !grid) return;
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var slides = [];   // {big: <img>, thumb: <button>}
+
+  function makeImg(n, cls, onDead){
+    var img = document.createElement("img");
+    img.alt = "";
+    img.decoding = "async";
+    if(cls) img.className = cls;
+    img.dataset.ext = "0";
+    img.src = CFG.dir + n + CFG.exts[0];
+    img.addEventListener("error", function(){
+      var k = parseInt(img.dataset.ext,10) + 1;
+      if(k < CFG.exts.length){ img.dataset.ext = k; img.src = CFG.dir + n + CFG.exts[k]; }
+      else onDead();
+    });
+    return img;
+  }
 
   for(var i=1;i<=CFG.count;i++){
     (function(n){
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "cover";
-      btn.setAttribute("aria-label","Publication front page "+n);
+      var slot = {};
+      var dead = function(){
+        if(slot.big && slot.big.parentNode) slot.big.parentNode.removeChild(slot.big);
+        if(slot.thumb && slot.thumb.parentNode) slot.thumb.parentNode.removeChild(slot.thumb);
+        var at = slides.indexOf(slot);
+        if(at > -1) slides.splice(at,1);
+      };
 
-      var img = document.createElement("img");
-      img.alt = "";
-      img.decoding = "async";
-      img.loading = n<=6 ? "eager" : "lazy";
-      img.dataset.ext = "0";
-      img.src = CFG.dir + n + CFG.exts[0];
-      img.addEventListener("error", function(){
-        var k = parseInt(img.dataset.ext,10) + 1;
-        if(k < CFG.exts.length){ img.dataset.ext = k; img.src = CFG.dir + n + CFG.exts[k]; }
-        else if(btn.parentNode){ btn.parentNode.removeChild(btn); }   // missing file → drop the slot
-      });
+      slot.big = makeImg(n, "", dead);
+      slot.big.loading = n<=4 ? "eager" : "lazy";
+      stage.appendChild(slot.big);
 
-      btn.appendChild(img);
-      btn.addEventListener("mouseenter", function(){ paused = true; setActive(items().indexOf(btn)); });
-      btn.addEventListener("focus",      function(){ paused = true; setActive(items().indexOf(btn)); });
-      reel.appendChild(btn);
+      slot.thumb = document.createElement("button");
+      slot.thumb.type = "button";
+      slot.thumb.className = "thumb";
+      slot.thumb.setAttribute("aria-label","Show publication front page "+n);
+      slot.thumb.appendChild(makeImg(n, "", function(){}));
+      slot.thumb.addEventListener("mouseenter", function(){ paused = true; show(slides.indexOf(slot)); });
+      slot.thumb.addEventListener("focus",      function(){ paused = true; show(slides.indexOf(slot)); });
+      slot.thumb.addEventListener("click",      function(){ show(slides.indexOf(slot)); });
+      grid.appendChild(slot.thumb);
+
+      slides.push(slot);
     })(i);
   }
 
   var idx = 0, timer = null, paused = false;
-  function items(){ return Array.prototype.slice.call(reel.children); }
 
-  function setActive(n){
-    var list = items();
-    if(!list.length) return;
-    idx = ((n % list.length) + list.length) % list.length;
-    for(var j=0;j<list.length;j++){
-      list[j].classList.toggle("is-active", j === idx);
+  function show(n){
+    if(!slides.length) return;
+    idx = ((n % slides.length) + slides.length) % slides.length;
+    for(var j=0;j<slides.length;j++){
+      var on = (j === idx);
+      slides[j].big.classList.toggle("is-active", on);
+      slides[j].thumb.classList.toggle("is-active", on);
     }
   }
 
-  function start(){ if(!timer && !reduce) timer = setInterval(function(){ if(!paused) setActive(idx+1); }, CFG.hold); }
+  function start(){ if(!timer && !reduce) timer = setInterval(function(){ if(!paused) show(idx+1); }, CFG.hold); }
   function stop(){ if(timer){ clearInterval(timer); timer = null; } }
 
-  reel.addEventListener("mouseleave", function(){ paused = false; });
-  reel.addEventListener("focusout",  function(e){ if(!reel.contains(e.relatedTarget)) paused = false; });
+  grid.addEventListener("mouseleave", function(){ paused = false; });
+  grid.addEventListener("focusout", function(e){ if(!grid.contains(e.relatedTarget)) paused = false; });
   document.addEventListener("visibilitychange", function(){ document.hidden ? stop() : start(); });
 
-  setActive(0);
+  show(0);
   if(!reduce){
     if("IntersectionObserver" in window){
       new IntersectionObserver(function(entries){
