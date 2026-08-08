@@ -24,7 +24,7 @@
     pad: true,                     // also try 01.jpg, 02.jpg …
 
     stopAfterMisses: 3,            // end the scan after this many consecutive missing numbers
-    speed: 34,                     // px per second of continuous drift
+    speed: 16,                     // px per second of continuous drift
     nudge: 1.15,                   // how far one arrow click travels, in tile widths
     resumeAfter: 1400,             // ms of stillness after an arrow click before drift resumes
     debug: true                    // console summary — set false once happy
