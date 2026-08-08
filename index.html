@@ -13,19 +13,45 @@
 
 <!-- ===== Home hero: kinetic headline (page-scoped) ===== -->
 <style>
-.kinetic{line-height:1.12}
-.kinetic-line{display:block; min-height:2.2em}
-.kinetic-text{color:#4da3ff}
-.kinetic-caret{
-  display:inline-block; width:3px; height:.86em; margin-left:6px;
-  background:#4da3ff; vertical-align:-.06em;
-  animation:kblink 1s steps(1) infinite;
+.kinetic{margin:0; line-height:1.06}
+
+/* small fixed line on top */
+.kinetic-eyebrow{
+  display:block; font-size:clamp(13px,1.15vw,17px); font-weight:600;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(255,255,255,.66); margin-bottom:.55em;
 }
-@keyframes kblink{50%{opacity:0}}
-.kinetic-text.fade-mode{opacity:0; transform:translateY(6px); transition:opacity .3s ease, transform .3s ease}
-.kinetic-text.fade-mode.is-in{opacity:1; transform:none}
-@media (max-width:700px){ .kinetic-line{min-height:3.2em} }
-@media (prefers-reduced-motion:reduce){ .kinetic-caret{animation:none} }
+
+/* the rotating line */
+.kinetic-line{
+  display:block; min-height:2.05em;
+  font-size:clamp(30px,4.4vw,62px); font-weight:800; letter-spacing:-.015em;
+  background:linear-gradient(96deg,#8fdcff 0%,#4da3ff 42%,#9db8ff 100%);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent;
+}
+.kinetic-line .kw{display:inline-block; white-space:nowrap}
+.kinetic-line .kc{
+  display:inline-block; will-change:transform,opacity,filter;
+  opacity:0; transform:translateY(.42em) scale(.94); filter:blur(9px);
+  transition:opacity .58s cubic-bezier(.22,.68,.28,1),
+             transform .58s cubic-bezier(.22,.68,.28,1),
+             filter .58s ease;
+}
+.kinetic-line .kc.in{opacity:1; transform:none; filter:blur(0)}
+.kinetic-line .kc.out{
+  opacity:0; transform:translateY(-.34em) scale(1.03); filter:blur(7px);
+  transition-duration:.4s;
+}
+
+/* fallback modes */
+.kinetic-line.fade-mode{opacity:0; transform:translateY(6px); transition:opacity .32s ease, transform .32s ease}
+.kinetic-line.fade-mode.is-in{opacity:1; transform:none}
+
+@media (max-width:700px){ .kinetic-line{min-height:3.1em} }
+@media (prefers-reduced-motion:reduce){
+  .kinetic-line .kc{filter:none; transform:none; transition-duration:.25s}
+}
 </style>
 </head>
 <body>
@@ -76,13 +102,11 @@
   </figure>
   <div class="wrap hero-in">
     <div>
-      <h1 class="kinetic">CRaWL working on
-        <span class="kinetic-line">
-          <span class="kinetic-text" id="heroRotate"></span><span class="kinetic-caret" id="heroCaret"></span>
-        </span>
+      <h1 class="kinetic">
+        <span class="kinetic-eyebrow">CRaWL working on</span>
+        <span class="kinetic-line" id="heroRotate" aria-hidden="true"></span>
       </h1>
-      <p class="sr">Urban flooding; digital twin flood modelling; AI–ML flood assessment; drought–flood compound risk; multi-hazard assessment using deep learning; water security under climate change; hydroclimatic extremes.</p>
-      <p class="lede">CRaWL studies water under a changing climate — from the atmosphere down to the household. We combine modelling, data and science to deliver evidence that supports real-world decisions.</p>
+      <p class="sr">CRaWL works on urban flooding; digital twin flood modelling; AI-ML flood assessment; drought-flood compound risk; multi-hazard assessment using deep learning; water security under climate change; and hydroclimatic extremes.</p>
     </div>
 
     <div class="featured-deck">
