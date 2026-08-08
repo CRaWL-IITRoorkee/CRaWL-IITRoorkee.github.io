@@ -10,6 +10,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+
+<!-- ===== Scholars: image social links ===== -->
+<style>
+.person .social-links{
+  display:flex; flex-wrap:wrap; gap:7px; margin:12px 0 0; padding:0; list-style:none;
+}
+.person .social-links a{
+  display:block; width:32px; height:32px; padding:4px;
+  background:#fff; border:1px solid var(--line,rgba(8,38,74,.14)); border-radius:8px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.person .social-links a:hover{
+  transform:translateY(-2px);
+  border-color:var(--blue-600,#1b5fc1);
+  box-shadow:0 5px 13px rgba(3,17,40,.15);
+}
+.person .social-links a:focus-visible{outline:2px solid var(--blue-600,#1b5fc1); outline-offset:2px}
+.person .social-links img{width:100%; height:100%; object-fit:contain; display:block}
+.note-tag{color:var(--blue-600); font-size:11.5px; margin-top:6px}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -64,136 +84,177 @@
   <div class="wrap">
     <p style="font-size:13px;color:var(--muted);margin-bottom:24px">13 doctoral scholars are currently working in the lab.</p>
     <div class="roster-grid">
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/hrishikesh-singh.jpg"><img src="assets/images/people/hrishikesh-singh.jpg" alt="Hrishikesh Singh"></figure>
         <div class="body">
           <h3>Hrishikesh Singh</h3>
           <p class="role">PhD Scholar · since 2022</p>
           <p class="ri">Unravelling long-term flood risk dynamics over India: lessons for developing adaptation and resilience strategies</p>
-          <p class="ri" style="color:var(--blue-600);font-size:11.5px;margin-top:6px">Prime Minister's Research Fellow</p>
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
+          <p class="ri note-tag">Prime Minister's Research Fellow</p>
+          <ul class="social-links">
+            <li><a href="https://scholar.google.com/citations?hl=en&user=8gPMWowAAAAJ" title="Google Scholar"><img src="assets/images/Social%20Link/google-scholar.jpg" alt="Google Scholar"></a></li>
+            <li><a href="https://orcid.org/0009-0003-6326-6463" title="ORCID"><img src="assets/images/Social%20Link/ORCID_iD.jpg" alt="ORCID"></a></li>
+            <li><a href="https://www.linkedin.com/in/hrishikesh-singh-049377238" title="LinkedIn"><img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a></li>
+            <li><a href="https://hrishikesh618.github.io" title="Personal website"><img src="assets/images/Social%20Link/p-website.jpg" alt="Personal website"></a></li>
+            <li><a href="mailto:hrishikesh_s@wr.iitr.ac.in" title="Email"><img src="assets/images/Social%20Link/email.jpg" alt="Email"></a></li>
+          </ul>
         </div>
       </article>
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/vaibhav-tripathi.jpg"><img src="assets/images/people/vaibhav-tripathi.jpg" alt="Vaibhav Tripathi"></figure>
         <div class="body">
           <h3>Vaibhav Tripathi</h3>
           <p class="role">PhD Scholar · since 2023</p>
           <p class="ri">Leveraging geomorphic classifiers and machine learning techniques for characterizing flood resilience</p>
-          
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
         </div>
       </article>
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/rahul-deopa.jpg"><img src="assets/images/people/rahul-deopa.jpg" alt="Rahul Deopa"></figure>
         <div class="body">
           <h3>Rahul Deopa</h3>
           <p class="role">PhD Scholar · since 2023</p>
           <p class="ri">Quantifying climate-sensitive hydrological and public-health risks from urban flooding</p>
-          
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
+          <ul class="social-links">
+            <li><a href="https://scholar.google.com/citations?hl=en&user=qx3Ynx4AAAAJ" title="Google Scholar"><img src="assets/images/Social%20Link/google-scholar.jpg" alt="Google Scholar"></a></li>
+            <li><a href="https://orcid.org/0009-0009-0060-3227" title="ORCID"><img src="assets/images/Social%20Link/ORCID_iD.jpg" alt="ORCID"></a></li>
+            <li><a href="https://www.linkedin.com/in/rahuldeopaiitr" title="LinkedIn"><img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a></li>
+            <li><a href="https://rahuldeopaiitr.github.io/index.html" title="Personal website"><img src="assets/images/Social%20Link/p-website.jpg" alt="Personal website"></a></li>
+            <li><a href="mailto:rahul_d@wr.iitr.ac.in" title="Email"><img src="assets/images/Social%20Link/email.jpg" alt="Email"></a></li>
+          </ul>
         </div>
       </article>
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/mayank-tyagi.jpg"><img src="assets/images/people/mayank-tyagi.jpg" alt="Mayank Tyagi"></figure>
         <div class="body">
           <h3>Mayank Tyagi</h3>
           <p class="role">PhD Scholar · since 2023</p>
           <p class="ri">Compound risks from floods and droughts: deciphering hazard inter-dependencies under changing climate</p>
-          
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
         </div>
       </article>
-      <article class="person">
-        <figure class="ph" data-file="assets/images/people/susmita-saha.jpg"><img src="assets/images/people/susmita-saha.jpg" alt="Susmita Saha"></figure>
-        <div class="body">
-          <h3>Susmita Saha</h3>
-          <p class="role">PhD Scholar · since 2024</p>
-          <p class="ri">Glacial lake formation and outburst flood propagation under climatic and anthropogenic stressors in the Indian Himalayas</p>
-          <p class="ri" style="color:var(--blue-600);font-size:11.5px;margin-top:6px">Co-supervised with Prof. Ashish Pandey</p>
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
-        </div>
-      </article>
-      <article class="person">
-        <figure class="ph" data-file="assets/images/people/rachit.jpg"><img src="assets/images/people/rachit.jpg" alt="Rachit"></figure>
-        <div class="body">
-          <h3>Rachit</h3>
-          <p class="role">PhD Scholar · since 2024</p>
-          <p class="ri">Quantifying climate- and weather-induced multi-hazards using deep learning models across the Indian subcontinent</p>
-          <p class="ri" style="color:var(--blue-600);font-size:11.5px;margin-top:6px">Co-supervised with Prof. Ashish Pandey and Prof. Anil K. Gupta</p>
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
-        </div>
-      </article>
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/munish-kumar.jpg"><img src="assets/images/people/munish-kumar.jpg" alt="Munish Kumar"></figure>
         <div class="body">
           <h3>Munish Kumar</h3>
           <p class="role">PhD Scholar · since 2024</p>
           <p class="ri">Water security under climate and human stressors: modelling water availability and allocation</p>
-          
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
+          <ul class="social-links">
+            <li><a href="https://shorturl.at/n4GCq" title="Google Scholar"><img src="assets/images/Social%20Link/google-scholar.jpg" alt="Google Scholar"></a></li>
+            <li><a href="https://www.linkedin.com/in/munish-iitr" title="LinkedIn"><img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a></li>
+            <li><a href="mailto:munish_k@wr.iitr.ac.in" title="Email"><img src="assets/images/Social%20Link/email.jpg" alt="Email"></a></li>
+          </ul>
         </div>
       </article>
+
+      <article class="person">
+        <figure class="ph" data-file="assets/images/people/susmita-saha.jpg"><img src="assets/images/people/susmita-saha.jpg" alt="Susmita Saha"></figure>
+        <div class="body">
+          <h3>Susmita Saha</h3>
+          <p class="role">PhD Scholar · since 2024</p>
+          <p class="ri">Glacial lake formation and outburst flood propagation under climatic and anthropogenic stressors in the Indian Himalayas</p>
+          <p class="ri note-tag">Co-supervised with Prof. Ashish Pandey</p>
+          <ul class="social-links">
+            <li><a href="https://scholar.google.com/citations?user=8dqWiTYAAAAJ&hl=en" title="Google Scholar"><img src="assets/images/Social%20Link/google-scholar.jpg" alt="Google Scholar"></a></li>
+            <li><a href="https://www.linkedin.com/in/susmitaa-saha-ss98/" title="LinkedIn"><img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a></li>
+            <li><a href="mailto:susmita_s@wr.iitr.ac.in" title="Email"><img src="assets/images/Social%20Link/email.jpg" alt="Email"></a></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="person">
+        <figure class="ph" data-file="assets/images/people/rachit.jpg"><img src="assets/images/people/rachit.jpg" alt="Rachit"></figure>
+        <div class="body">
+          <h3>Rachit</h3>
+          <p class="role">PhD Scholar · since 2024</p>
+          <p class="ri">Quantifying climate- and weather-induced multi-hazards using deep learning models across the Indian subcontinent</p>
+          <p class="ri note-tag">ICAR Fellow · co-supervised with Prof. Ashish Pandey and Prof. Anil K. Gupta</p>
+          <ul class="social-links">
+            <li><a href="https://scholar.google.com/citations?user=wmfIsJ8AAAAJ&hl=en" title="Google Scholar"><img src="assets/images/Social%20Link/google-scholar.jpg" alt="Google Scholar"></a></li>
+            <li><a href="https://orcid.org/0009-0000-9391-8942" title="ORCID"><img src="assets/images/Social%20Link/ORCID_iD.jpg" alt="ORCID"></a></li>
+            <li><a href="https://www.linkedin.com/in/rachitknl" title="LinkedIn"><img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a></li>
+            <li><a href="mailto:rachit@wr.iitr.ac.in" title="Email"><img src="assets/images/Social%20Link/email.jpg" alt="Email"></a></li>
+          </ul>
+        </div>
+      </article>
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/ankush-charavande.jpg"><img src="assets/images/people/ankush-charavande.jpg" alt="Ankush Charavande"></figure>
         <div class="body">
           <h3>Ankush Charavande</h3>
           <p class="role">PhD Scholar · since 2025</p>
           <p class="ri">Urban flood modelling and resilience assessment through digital twins: a multi-platform approach for Indian megacities</p>
-          
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
+          <ul class="social-links">
+            <li><a href="https://scholar.google.com/citations?user=dhbyM_wAAAAJ&hl=en" title="Google Scholar"><img src="assets/images/Social%20Link/google-scholar.jpg" alt="Google Scholar"></a></li>
+            <li><a href="https://orcid.org/0009-0007-4532-9343" title="ORCID"><img src="assets/images/Social%20Link/ORCID_iD.jpg" alt="ORCID"></a></li>
+            <li><a href="https://www.linkedin.com/in/ankush-charavande-445a53220/" title="LinkedIn"><img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a></li>
+            <li><a href="mailto:ankush_c@wr.iitr.ac.in" title="Email"><img src="assets/images/Social%20Link/email.jpg" alt="Email"></a></li>
+          </ul>
         </div>
       </article>
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/debasish-mishra.jpg"><img src="assets/images/people/debasish-mishra.jpg" alt="Debasish Mishra"></figure>
         <div class="body">
           <h3>Debasish Mishra</h3>
           <p class="role">PhD Scholar · since 2025</p>
           <p class="ri">Hydroclimatic extremes in reservoir-regulated catchments: spatio-temporal dynamics of floods and droughts</p>
-          <p class="ri" style="color:var(--blue-600);font-size:11.5px;margin-top:6px">Part-time</p>
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
+          <p class="ri note-tag">Part-time</p>
         </div>
       </article>
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/aniket-sharma.jpg"><img src="assets/images/people/aniket-sharma.jpg" alt="Aniket Sharma"></figure>
         <div class="body">
           <h3>Aniket Sharma</h3>
           <p class="role">PhD Scholar · since 2025</p>
-          <p class="ri"></p>
-          
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
+          <p class="ri note-tag">E-Flow Project Fellow</p>
         </div>
       </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Scholars co-supervised</h2>
+      <p>Doctoral scholars whose research the lab co-supervises, with the main supervision held elsewhere in the department.</p></div>
+    <div class="roster-grid">
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/dilip-barman.jpg"><img src="assets/images/people/dilip-barman.jpg" alt="Dilip Barman"></figure>
         <div class="body">
           <h3>Dilip Barman</h3>
           <p class="role">PhD Scholar · since 2022</p>
           <p class="ri">Identification of critical soil erosion-prone areas and preparation of the CAT Plan</p>
-          <p class="ri" style="color:var(--blue-600);font-size:11.5px;margin-top:6px">Part-time; main supervisor Prof. Ashish Pandey</p>
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
+          <p class="ri note-tag">Part-time · main supervisor Prof. Ashish Pandey</p>
         </div>
       </article>
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/brook-legese.jpg"><img src="assets/images/people/brook-legese.jpg" alt="Brook Legese"></figure>
         <div class="body">
           <h3>Brook Legese</h3>
           <p class="role">PhD Scholar · since 2023</p>
           <p class="ri">Integrated assessment of climate change and land use/land cover dynamics on water resources, Ziway Abijata Basin, Ethiopia</p>
-          <p class="ri" style="color:var(--blue-600);font-size:11.5px;margin-top:6px">Main supervisor Prof. Ashish Pandey</p>
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
+          <p class="ri note-tag">Main supervisor Prof. Ashish Pandey</p>
         </div>
       </article>
+
       <article class="person">
         <figure class="ph" data-file="assets/images/people/deepak-pandey.jpg"><img src="assets/images/people/deepak-pandey.jpg" alt="Deepak Pandey"></figure>
         <div class="body">
           <h3>Deepak Pandey</h3>
           <p class="role">PhD Scholar · since 2025</p>
           <p class="ri">Assessing the impacts of climate change on human health: pathways, risks, and adaptation in India</p>
-          <p class="ri" style="color:var(--blue-600);font-size:11.5px;margin-top:6px">Main supervisors Prof. Anil K. Gupta and Prof. Ashish Pandey</p>
-          <div class="socials"><a href="#" title="Google Scholar">GS</a><a href="#" title="ORCID">iD</a><a href="#" title="Email">@</a></div>
+          <p class="ri note-tag">ICAR Fellow · main supervisor Prof. Anil K. Gupta</p>
         </div>
       </article>
+
     </div>
   </div>
 </section>
