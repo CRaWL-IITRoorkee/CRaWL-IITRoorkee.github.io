@@ -1,0 +1,23 @@
+MTech alumni photo filenames
+Put these in: assets/images/people/
+Square crop, 300x300 px or larger, lowercase .jpg
+
+Sakshi Tantway                         -> sakshi-tantway.jpg
+Vivek Kumar Meena                      -> vivek-kumar-meena.jpg
+Trashi Namgyal                         -> trashi-namgyal.jpg
+Vishveshwari Tukaram Shirsath          -> vishveshwari-tukaram-shirsath.jpg
+Rajesh Singh                           -> rajesh-singh.jpg
+Naresh Sharma                          -> naresh-sharma.jpg
+Punyo Asha                             -> punyo-asha.jpg
+Gaurav Karna                           -> gaurav-karna.jpg
+Gufran Alam                            -> gufran-alam.jpg
+Renuka Ashok Kumar Shinde              -> renuka-ashok-kumar-shinde.jpg
+Aashutosh Kumar Hirnotia               -> aashutosh-kumar-hirnotia.jpg
+Aakash Choudhary                       -> aakash-choudhary.jpg
+Aditi Singh                            -> aditi-singh.jpg
+Nandana P.S.                           -> nandana-ps.jpg
+Debasish Mishra                        -> debasish-mishra.jpg
+Purshottam Sharma                      -> purshottam-sharma.jpg
+Priyanka Tripathy                      -> priyanka-tripathy.jpg
+Vaishnavi Bhagawan Patil               -> vaishnavi-bhagawan-patil.jpg
+Kankanam Pathiranage Ayesha Dewmini    -> kankanam-pathiranage-ayesha-dewmini.jpg
