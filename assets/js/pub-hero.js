@@ -25,7 +25,9 @@
     pad: true,                     // also try 01.jpg, 02.jpg …
 
     hold: 1000,                    // ms each cover holds the big panel
+    holdReduced: 2000,             // slower pace when the OS asks for reduced motion
     hideActiveTile: true,          // featured cover is not repeated as a thumbnail
+    stopAfterMisses: 3,            // end the scan after this many consecutive missing numbers
     debug: true                    // console summary — set false once happy
   };
 
@@ -48,20 +50,29 @@
   }
 
   // every candidate filename for slot n, in priority order
+  var lockedExt = null;          // once one cover loads, reuse its extension (kills 404 noise)
+
   function candidates(n) {
     var names = [String(n)];
     if (CFG.pad && n < 10) names.push("0" + n);
+    var exts = lockedExt ? [lockedExt] : CFG.exts;
     var out = [];
     for (var a = 0; a < names.length; a++)
-      for (var b = 0; b < CFG.exts.length; b++)
-        out.push(CFG.dir + names[a] + CFG.exts[b]);
+      for (var b = 0; b < exts.length; b++)
+        out.push(CFG.dir + names[a] + exts[b]);
     return out;
   }
 
   function resolveSlot(n) {
     return candidates(n).reduce(function (chain, url) {
       return chain.then(function (hit) { return hit ? hit : tryLoad(url); });
-    }, Promise.resolve(null));
+    }, Promise.resolve(null)).then(function (hit) {
+      if (hit && !lockedExt) {
+        var m = hit.match(/\.[a-z]+$/i);
+        if (m) { lockedExt = m[0]; log("[pub-hero] extension locked to", lockedExt); }
+      }
+      return hit;
+    });
   }
 
   function discover() {
@@ -70,22 +81,15 @@
         return /^https?:|^\//.test(f) ? f : CFG.dir + f;
       }));
     }
-    // Scan the WHOLE range in batches and keep everything found.
-    // A missing number no longer stops the scan.
-    var found = [], next = 1, STEP = 10;
-    function batch() {
-      var jobs = [];
-      for (var i = 0; i < STEP && next + i <= CFG.scanTo; i++) jobs.push(resolveSlot(next + i));
-      if (!jobs.length) return Promise.resolve(found);
-      next += jobs.length;
-      return Promise.all(jobs).then(function (res) {
-        for (var k = 0; k < res.length; k++) if (res[k]) found.push(res[k]);
-        // stop early only once a whole batch came back empty AND we already have some
-        if (found.length && res.every(function (r) { return !r; })) return found;
-        return batch();
+    var found = [], n = 1, misses = 0;
+    function step() {
+      if (n > CFG.scanTo || misses >= CFG.stopAfterMisses) return Promise.resolve(found);
+      return resolveSlot(n++).then(function (hit) {
+        if (hit) { found.push(hit); misses = 0; } else { misses++; }
+        return step();
       });
     }
-    return batch();
+    return step();
   }
 
   /* ---------------- layout + animation ---------------- */
@@ -114,9 +118,10 @@
   }
 
   function start() {
-    if (!timer && !reduce && slides.length > 1) {
-      timer = setInterval(function () { if (!paused) show(idx + 1); }, CFG.hold);
-      log("[pub-hero] autoplay running @", CFG.hold + "ms");
+    if (!timer && slides.length > 1) {
+      var ms = reduce ? Math.max(CFG.hold, CFG.holdReduced) : CFG.hold;
+      timer = setInterval(function () { if (!paused) show(idx + 1); }, ms);
+      log("[pub-hero] autoplay running @", ms + "ms", reduce ? "(reduced-motion: fades off, slower pace)" : "");
     }
   }
   function stop() { if (timer) { clearInterval(timer); timer = null; } }
@@ -154,7 +159,6 @@
     document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
     window.addEventListener("resize", layout);
 
-    if (reduce) { log("[pub-hero] reduced-motion on — autoplay disabled"); return; }
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (e) { e[0].isIntersecting ? start() : stop(); }, { threshold: 0.15 }).observe(reel);
       // safety net: if the observer never fires (odd layouts), kick off anyway
