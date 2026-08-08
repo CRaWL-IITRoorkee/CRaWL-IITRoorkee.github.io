@@ -24,23 +24,32 @@
 }
 .cohort-head::after{content:"";flex:1;height:1px;background:var(--line)}
 
-.thesis-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.thesis-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(285px,1fr))}
 .thesis{
   background:#fff;border:1px solid var(--line);border-radius:var(--r);
-  padding:16px 17px 17px;display:grid;grid-template-columns:38px 1fr;gap:4px 13px;
+  padding:16px 17px 17px;display:grid;grid-template-columns:56px 1fr;gap:4px 14px;
   transition:box-shadow .2s,transform .2s,border-color .2s;
 }
 .thesis:hover{box-shadow:0 12px 26px rgba(12,45,87,.10);transform:translateY(-2px);border-color:#C8D9E7}
-.thesis .mono{
-  grid-row:span 2;width:38px;height:38px;border-radius:9px;display:grid;place-items:center;
-  background:var(--panel);color:var(--navy-700);
-  font-size:13px;font-weight:700;letter-spacing:.02em;font-variant-numeric:tabular-nums;
+
+/* Photo slot. Drop a file at the path in each card's <img src> and it
+   appears. Until then the initials underneath show through, and a
+   missing file removes its own <img> so no broken icon is ever shown. */
+.thesis .face{
+  grid-row:span 2;position:relative;width:56px;height:56px;
+  border-radius:10px;overflow:hidden;background:var(--panel);
 }
+.thesis .mono{
+  position:absolute;inset:0;display:grid;place-items:center;color:var(--navy-700);
+  font-size:16px;font-weight:700;letter-spacing:.02em;
+}
+.thesis .face img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover}
 .thesis h4{font-size:14.5px;line-height:1.3;letter-spacing:-.012em;align-self:center}
 .thesis p{font-size:12.4px;line-height:1.48;color:var(--muted);grid-column:2}
 @media(max-width:420px){
-  .thesis{grid-template-columns:32px 1fr;gap:4px 11px}
-  .thesis .mono{width:32px;height:32px;font-size:12px}
+  .thesis{grid-template-columns:46px 1fr;gap:4px 12px}
+  .thesis .face{width:46px;height:46px}
+  .thesis .mono{font-size:14px}
 }
 </style>
 </head>
@@ -120,12 +129,18 @@
         <h3 class="cohort-head">2021–22 <span>2 dissertations</span></h3>
         <div class="thesis-grid">
           <article class="thesis">
-            <span class="mono" aria-hidden="true">ST</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">ST</span>
+              <img src="assets/images/people/sakshi-tantway.jpg" alt="Sakshi Tantway" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Sakshi Tantway</h4>
             <p>Water scarcity assessment and mitigation in Tikamgarh district, Bundelkhand</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">VM</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">VM</span>
+              <img src="assets/images/people/vivek-kumar-meena.jpg" alt="Vivek Kumar Meena" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Vivek Kumar Meena</h4>
             <p>Storm water management in urban areas using remote sensing and SWMM</p>
           </article>
@@ -135,32 +150,50 @@
         <h3 class="cohort-head">2022–23 <span>6 dissertations</span></h3>
         <div class="thesis-grid">
           <article class="thesis">
-            <span class="mono" aria-hidden="true">TN</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">TN</span>
+              <img src="assets/images/people/trashi-namgyal.jpg" alt="Trashi Namgyal" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Trashi Namgyal</h4>
             <p>Flood risks and impacts on interdependent infrastructure over flood-prone mountainous landscapes</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">VS</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">VS</span>
+              <img src="assets/images/people/vishveshwari-tukaram-shirsath.jpg" alt="Vishveshwari Tukaram Shirsath" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Vishveshwari Tukaram Shirsath</h4>
             <p>Flood risk induced by nuisance flooding: Mithi River catchment, Mumbai</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">RS</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">RS</span>
+              <img src="assets/images/people/rajesh-singh.jpg" alt="Rajesh Singh" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Rajesh Singh</h4>
             <p>Satellite precipitation products for precipitation estimation and flood-causing potential over Nepal</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">NS</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">NS</span>
+              <img src="assets/images/people/naresh-sharma.jpg" alt="Naresh Sharma" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Naresh Sharma</h4>
             <p>A comprehensive approach for glacial lake outburst flood risk assessment over Nepal</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">PA</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">PA</span>
+              <img src="assets/images/people/punyo-asha.jpg" alt="Punyo Asha" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Punyo Asha</h4>
             <p>Impacts of climate change on human health risks from contaminated urban floodwaters</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">GK</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">GK</span>
+              <img src="assets/images/people/gaurav-karna.jpg" alt="Gaurav Karna" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Gaurav Karna</h4>
             <p>Submerged vanes for controlling local scour under various hydraulic conditions</p>
           </article>
@@ -170,17 +203,26 @@
         <h3 class="cohort-head">2023–24 <span>3 dissertations</span></h3>
         <div class="thesis-grid">
           <article class="thesis">
-            <span class="mono" aria-hidden="true">GA</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">GA</span>
+              <img src="assets/images/people/gufran-alam.jpg" alt="Gufran Alam" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Gufran Alam</h4>
             <p>Flood risk zones using geomorphic classifiers through an advanced machine learning-cum-SHAP framework</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">RS</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">RS</span>
+              <img src="assets/images/people/renuka-ashok-kumar-shinde.jpg" alt="Renuka Ashok Kumar Shinde" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Renuka Ashok Kumar Shinde</h4>
             <p>Net positive water impact through life cycle assessment of wastewater treatment systems</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">AH</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">AH</span>
+              <img src="assets/images/people/aashutosh-kumar-hirnotia.jpg" alt="Aashutosh Kumar Hirnotia" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Aashutosh Kumar Hirnotia</h4>
             <p>Reconstructing fluvial architecture for hydraulic modelling over a data-scarce Himalayan river</p>
           </article>
@@ -190,42 +232,66 @@
         <h3 class="cohort-head">2024–25 <span>8 dissertations</span></h3>
         <div class="thesis-grid">
           <article class="thesis">
-            <span class="mono" aria-hidden="true">AC</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">AC</span>
+              <img src="assets/images/people/aakash-choudhary.jpg" alt="Aakash Choudhary" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Aakash Choudhary</h4>
             <p>Dynamics in ecosystem services under land use changes: implications on water demand and supply</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">AS</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">AS</span>
+              <img src="assets/images/people/aditi-singh.jpg" alt="Aditi Singh" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Aditi Singh</h4>
             <p>Water management through the WSC index over mega urban centres in India</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">NS</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">NS</span>
+              <img src="assets/images/people/nandana-ps.jpg" alt="Nandana P.S." loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Nandana P.S.</h4>
             <p>Human-health risks from urban flooding: remote sensing and hydrodynamic-cum-water quality modelling</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">DM</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">DM</span>
+              <img src="assets/images/people/debasish-mishra.jpg" alt="Debasish Mishra" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Debasish Mishra</h4>
             <p>Hydrological impact assessment of future climate change on a large river basin in India</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">PS</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">PS</span>
+              <img src="assets/images/people/purshottam-sharma.jpg" alt="Purshottam Sharma" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Purshottam Sharma</h4>
             <p>Improving streamflow prediction with LSTM networks over a data-scarce flood-prone basin</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">PT</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">PT</span>
+              <img src="assets/images/people/priyanka-tripathy.jpg" alt="Priyanka Tripathy" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Priyanka Tripathy</h4>
             <p>Composite vulnerability to floods and droughts: integrating TOPSIS and Shannon entropy</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">VP</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">VP</span>
+              <img src="assets/images/people/vaishnavi-bhagawan-patil.jpg" alt="Vaishnavi Bhagawan Patil" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Vaishnavi Bhagawan Patil</h4>
             <p>Effectiveness of spur dikes for preventing erosion in meandering channels</p>
           </article>
           <article class="thesis">
-            <span class="mono" aria-hidden="true">KD</span>
+            <span class="face">
+              <span class="mono" aria-hidden="true">KD</span>
+              <img src="assets/images/people/kankanam-pathiranage-ayesha-dewmini.jpg" alt="Kankanam Pathiranage Ayesha Dewmini" loading="lazy" onerror="this.remove()">
+            </span>
             <h4>Kankanam Pathiranage Ayesha Dewmini</h4>
             <p>Efficacy of hybrid river training works for alleviating bank erosion</p>
           </article>
