@@ -19,12 +19,13 @@
 .proj-marquee{position:relative; display:flex; align-items:center; gap:12px}
 
 .proj-strip{
-  flex:1 1 auto; min-width:0; overflow-x:auto; overflow-y:hidden;
-  scrollbar-width:none; -ms-overflow-style:none;
+  flex:1 1 auto; min-width:0; overflow:hidden;
 }
-.proj-strip::-webkit-scrollbar{display:none}
 
-.proj-track{display:flex; gap:12px; width:max-content; padding:2px 0}
+.proj-track{
+  display:flex; gap:12px; width:max-content; padding:2px 0;
+  will-change:transform;
+}
 
 /* white card behind every logo — shapes and transparency vary, so they all get the same field */
 .proj-track .plogo{
