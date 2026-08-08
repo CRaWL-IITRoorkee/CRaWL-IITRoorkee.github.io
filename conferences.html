@@ -57,6 +57,22 @@
 .pager .pg:disabled{opacity:.38; cursor:default}
 .pager .gap{padding:0 2px; color:var(--muted,#6b7a90); font-size:13px}
 
+/* --- list + sticky figures column --- */
+.conf-layout{display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:38px; align-items:start}
+.conf-main{min-width:0}
+.conf-side{position:sticky; top:96px; display:flex; flex-direction:column; gap:12px}
+.metric-v{
+  background:#fff; border:1px solid var(--line,rgba(8,38,74,.14));
+  border-top:3px solid var(--blue-600,#1b5fc1); border-radius:10px; padding:14px 16px;
+}
+.metric-v b{display:block; font-size:27px; line-height:1.1; color:#08264A}
+.metric-v span{display:block; margin-top:4px; font-size:13px; color:var(--muted,#6b7a90)}
+@media (max-width:980px){
+  .conf-layout{grid-template-columns:1fr; gap:24px}
+  .conf-side{position:static; flex-direction:row; flex-wrap:wrap}
+  .conf-side .metric-v{flex:1 1 160px}
+}
+
 /* --- hotspot map --- */
 #confMap{
   height:460px; border-radius:14px; overflow:hidden;
@@ -130,20 +146,19 @@
 
 <section class="section">
   <div class="wrap">
-    <div class="metrics" style="margin-bottom:30px">
-      <div class="metric"><b>54</b><span>Conference papers</span></div>
-      <div class="metric"><b>22</b><span>Invited lectures</span></div>
-      <div class="metric"><b>13</b><span>Countries presented in</span></div>
-      <div class="metric"><b>9</b><span>Travel grants &amp; awards</span></div>
-    </div>
     <div class="section-head"><h2>Where we have presented</h2>
       <p>Conference presentations and invited talks plotted by venue.</p></div>
     <div id="confMap" role="img" aria-label="World map of conference and invited-talk venues"></div>
     <p class="map-note" id="confMapNote"></p>
+  </div>
+</section>
 
-    <div class="section-head" style="margin-top:44px"><h2>Conference proceedings</h2>
-      <p>Presentations at EGU, AGU, IAHS, WCRP, CORDEX, ICFM and other international meetings.</p></div>
-    <ul class="timeline" data-list data-label="presentations">
+<section class="section">
+  <div class="wrap conf-layout">
+    <div class="conf-main">
+      <div class="section-head"><h2>Conference proceedings</h2>
+        <p>Presentations at EGU, AGU, IAHS, WCRP, CORDEX, ICFM and other international meetings.</p></div>
+      <ul class="timeline" data-list data-label="presentations">
       <li>
         <span class="when">EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026</span>
         <h3>Ungauged tributary discharge reconstruction for monsoon flood inundation modelling: a geomorphic-recession approach applied to peninsular India</h3>
@@ -414,7 +429,15 @@
         <h3>Estimation of design rainfall for flood risk mapping in a data-scarce situation</h3>
         <p>Mohanty, M.P., Gusain, A., Sherly, M.A., Karmakar, S.*, &amp; Ghosh, S.</p>
       </li>
-    </ul>
+      </ul>
+    </div>
+
+    <aside class="conf-side" aria-label="Summary figures">
+      <div class="metric-v"><b>54</b><span>Conference papers</span></div>
+      <div class="metric-v"><b>22</b><span>Invited lectures</span></div>
+      <div class="metric-v"><b>13</b><span>Countries presented in</span></div>
+      <div class="metric-v"><b>9</b><span>Travel grants &amp; awards</span></div>
+    </aside>
   </div>
 </section>
 
