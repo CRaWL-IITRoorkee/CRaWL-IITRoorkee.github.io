@@ -3,116 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Conferences — CRaWL, IIT Roorkee</title>
-<meta name="description" content="Conference presentations and invited lectures by the Climate Research and Water Lab, IIT Roorkee.">
+<title>Principal Investigator — CRaWL, IIT Roorkee</title>
+<meta name="description" content="Dr Mohit Prakash Mohanty, Associate Professor and Principal Investigator, Climate Research and Water Modelling Lab, IIT Roorkee.">
 <link rel="icon" href="assets/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-
-<!-- ===== Conference page: logo marquee + list controls ===== -->
-<style>
-.conf-hero .wrap{padding-top:6px}
-.conf-hero h1{margin:0 0 18px}
-
-/* --- logo marquee --- */
-.logo-marquee{position:relative; display:flex; align-items:center; gap:12px}
-.lm-strip{flex:1 1 auto; min-width:0; overflow:hidden}
-.lm-track{display:flex; gap:12px; width:max-content; padding:2px 0; will-change:transform}
-.lm-track .lm-logo{
-  flex:0 0 auto; margin:0; width:200px; height:124px;
-  background:#fff; border-radius:12px; padding:16px 18px;
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:0 6px 18px rgba(3,17,40,.22);
-}
-.lm-track .lm-logo img{max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block}
-.lm-arrow{
-  flex:0 0 auto; width:38px; height:38px; border-radius:50%; cursor:pointer;
-  border:1px solid rgba(255,255,255,.34); background:rgba(255,255,255,.10); color:#fff;
-  display:grid; place-items:center; transition:background .18s ease, border-color .18s ease;
-}
-.lm-arrow:hover{background:rgba(255,255,255,.22); border-color:rgba(255,255,255,.6)}
-.lm-arrow:focus-visible{outline:2px solid #fff; outline-offset:2px}
-.lm-arrow svg{width:17px; height:17px}
-
-/* --- year filter + pager --- */
-.list-bar{display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin:0 0 18px}
-.list-field{display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--muted,#6b7a90)}
-.list-field select{
-  font:inherit; font-weight:500; color:#08264A; padding:8px 12px;
-  border:1px solid rgba(8,38,74,.2); border-radius:8px; background:#fff; cursor:pointer;
-}
-.list-count{font-size:13px; color:var(--muted,#6b7a90)}
-.pager{display:flex; flex-wrap:wrap; gap:6px; align-items:center; justify-content:center; margin:26px 0 4px}
-.pager .pg{
-  min-width:36px; height:36px; padding:0 11px; cursor:pointer;
-  border:1px solid rgba(8,38,74,.18); background:#fff; color:#08264A;
-  border-radius:8px; font:600 13px/1 Inter,system-ui,sans-serif;
-  transition:background .18s ease, border-color .18s ease;
-}
-.pager .pg:hover:not(:disabled){background:#f1f5fb; border-color:rgba(8,38,74,.38)}
-.pager .pg.on{background:#08264A; border-color:#08264A; color:#fff}
-.pager .pg:disabled{opacity:.38; cursor:default}
-.pager .gap{padding:0 2px; color:var(--muted,#6b7a90); font-size:13px}
-
-/* --- list + sticky figures column --- */
-.conf-layout{display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:38px; align-items:start}
-.conf-main{min-width:0}
-.conf-side{position:sticky; top:96px; display:flex; flex-direction:column; gap:12px}
-.metric-v{
-  background:#fff; border:1px solid var(--line,rgba(8,38,74,.14));
-  border-top:3px solid var(--blue-600,#1b5fc1); border-radius:10px; padding:14px 16px;
-}
-.metric-v b{display:block; font-size:27px; line-height:1.1; color:#08264A}
-.metric-v span{display:block; margin-top:4px; font-size:13px; color:var(--muted,#6b7a90)}
-@media (max-width:980px){
-  .conf-layout{grid-template-columns:1fr; gap:24px}
-  .conf-side{position:static; flex-direction:row; flex-wrap:wrap}
-  .conf-side .metric-v{flex:1 1 160px}
-}
-
-/* --- hotspot map --- */
-#confMap{
-  height:460px; border-radius:14px; overflow:hidden;
-  border:1px solid var(--line,rgba(8,38,74,.14)); background:#eef3f8; z-index:0;
-}
-.map-note{margin:12px 0 0; font-size:13px; color:var(--muted,#6b7a90)}
-.leaflet-container{font:inherit}
-.leaflet-popup-content{font-size:13px; line-height:1.5}
-
-@media (max-width:820px){ .lm-track .lm-logo{width:158px; height:100px; padding:12px 14px} #confMap{height:360px} }
-@media (max-width:520px){ .lm-track .lm-logo{width:132px; height:86px; padding:10px 12px} .lm-arrow{width:32px;height:32px} }
-</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
+<!-- ===================== HEADER ===================== -->
 <header class="site-header" id="header">
   <div class="wrap header-in">
-    <a class="brand" href="index.html" aria-label="CRaWL — Climate Research and Water Lab, IIT Roorkee">
-      <img class="logo" src="assets/images/crawl-logo.png" alt="CRaWL — Climate Research and Water Lab">
+    <a class="brand" href="index.html" aria-label="CRaWL home">
+      <img class="mark" src="assets/images/crawl-logo.svg" alt="">
+      <span class="wordmark">C<span>Ra</span>WL</span>
       <span class="rule"></span>
-      <span class="sub">Dept. of Water Resources<br>Development &amp; Management<b>IIT Roorkee</b></span>
+      <span class="sub">Climate Research<br>and Water Modelling Lab<b>IIT Roorkee</b></span>
     </a>
+
     <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
+
     <ul class="nav" id="nav">
       <li><a class="top" href="index.html">Home</a></li>
       <li class="has-menu">
-        <button class="top" aria-expanded="false" aria-current="page">Research <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
+        <button class="top" aria-expanded="false">Research <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
         <ul class="dropdown">
           <li><a href="publications.html">Publications</a></li>
-          <li><a href="conferences.html" aria-current="page">Conferences</a></li>
+          <li><a href="conferences.html">Conferences</a></li>
           <li><a href="training-workshops.html">Training &amp; Workshops</a></li>
         </ul>
       </li>
       <li class="has-menu">
-        <button class="top" aria-expanded="false">People <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
+        <button class="top" aria-expanded="false" aria-current="page">People <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
         <ul class="dropdown">
-          <li><a href="principal-investigator.html">Principal Investigator</a></li>
+          <li><a href="principal-investigator.html" aria-current="page">Principal Investigator</a></li>
           <li><a href="research-scholars.html">Research Scholars</a></li>
           <li><a href="mtech-students.html">MTech Students</a></li>
           <li><a href="alumni.html">Alumni</a></li>
@@ -127,368 +56,132 @@
 </header>
 
 <main id="main">
-<section class="page-hero conf-hero">
+<section class="page-hero">
   <div class="wrap">
-    <h1>Conferences &amp; Invited Talks</h1>
-    <div class="logo-marquee" data-dir="assets/images/conferences/">
-      <button class="lm-arrow lm-prev" type="button" aria-label="Scroll logos left">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-      </button>
-      <div class="lm-strip">
-        <div class="lm-track" role="group" aria-label="Conference organisers"></div>
+    <p class="crumb"><a href="index.html">Home</a> / People / Principal Investigator</p>
+    <h1>Principal Investigator</h1>
+    <p class="lede">Leading the Climate Research and Water Modelling Lab at IIT Roorkee.</p>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="wrap">
+    <div class="pi-layout">
+      <div>
+        <figure class="pi-photo ph" data-file="assets/images/pi-photo.jpg — 3:4 portrait">
+          <img src="assets/images/pi-photo.jpg" alt="Dr Mohit Prakash Mohanty">
+        </figure>
+        <div class="pi-meta">
+          <div class="socials">
+            <a href="https://scholar.google.co.in/citations?user=7THkWAEAAAAJ" title="Google Scholar">GS</a>
+            <a href="https://orcid.org/0000-0001-7783-2073" title="ORCID">iD</a>
+            <a href="https://www.researchgate.net/profile/Mohit-Mohanty-2" title="ResearchGate">RG</a>
+            <a href="mailto:crawl@iitr.ac.in" title="Email">@</a>
+          </div>
+        </div>
       </div>
-      <button class="lm-arrow lm-next" type="button" aria-label="Scroll logos right">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
-      </button>
+      <div>
+        <p class="crumb" style="color:var(--blue-600);font-weight:700;text-transform:uppercase;font-size:11.5px;letter-spacing:.06em">Principal Investigator</p>
+        <h2 style="font-size:28px;margin-top:8px">Dr Mohit Prakash Mohanty</h2>
+        <p class="lede" style="color:var(--body);margin-top:10px">Associate Professor, Department of Water Resources Development and Management, Indian Institute of Technology Roorkee.</p>
+        <div style="margin-top:16px">
+          <span class="chip">Flood risk management</span>
+          <span class="chip">Hydroclimatology</span>
+          <span class="chip">Vulnerability mapping</span>
+          <span class="chip">River engineering</span>
+          <span class="chip">Human health risk</span>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head"><h2>Where we have presented</h2>
-      <p>Conference presentations and invited talks plotted by venue.</p></div>
-    <div id="confMap" role="img" aria-label="World map of conference and invited-talk venues"></div>
-    <p class="map-note" id="confMapNote"></p>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap conf-layout">
-    <div class="conf-main">
-      <div class="section-head"><h2>Conference proceedings</h2>
-        <p>Presentations at EGU, AGU, IAHS, WCRP, CORDEX, ICFM and other international meetings.</p></div>
-      <ul class="timeline" data-list data-label="presentations">
-      <li>
-        <span class="when">EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026</span>
-        <h3>Ungauged tributary discharge reconstruction for monsoon flood inundation modelling: a geomorphic-recession approach applied to peninsular India</h3>
-        <p>Tripathi, V., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026</span>
-        <h3>Nationwide multi-scenario GLOF hazard mapping in Nepal using remote sensing and hydrodynamic modelling</h3>
-        <p>Saha, S., Singh, H., Sharma, N., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">EGU General Assembly 2026, Vienna, Austria, 3–8 May 2026</span>
-        <h3>Hydrology–health nexus in a changing climate: multi-hazard modelling of cascading flood–health risks in urban megacities</h3>
-        <p>Deopa, R., Mishra, D., Dayal, D., Shahi, N., &amp; Mohanty, M.P.* · <span class="chip">Student travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">4th ICONREM, Florence, Italy, 16–19 June 2026</span>
-        <h3>Multi-hazard susceptibility mapping for India using CNN U-Net and AdaBoost deep learning</h3>
-        <p>Rachit, Mohanty, M.P.*, Pandey, A., &amp; Gupta, A.K. · <span class="chip">Accepted</span></p>
-      </li>
-      <li>
-        <span class="when">10th International Conference on Flood Management, Ontario, Canada, 20–26 May 2026</span>
-        <h3>Unravelling seasonal disparities in flood risks: contrasting monsoon and post-monsoon impacts over coastal multi-hazard catchments</h3>
-        <p>Thakur, D.A., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">JpGU General Assembly 2026, Chiba, Japan, 24–29 May 2026</span>
-        <h3>Integrated modelling of the flood–hydro-ecological–health nexus under future climate extremes in urban megacities</h3>
-        <p>Deopa, R., Mishra, D., Singh, H., Dayal, D., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">10th International Conference on Flood Management, Ontario, Canada, 20–26 May 2026</span>
-        <h3>Machine learning-driven classification and prediction of flood risks: integrating hydro-climatic and geomorphic attributes</h3>
-        <p>Tripathi, V., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">4th Roorkee Water Conclave, Roorkee, India, 23–25 Feb 2026</span>
-        <h3>Assessing the sensitivity of multi-source topographic data for GLOF risk assessment</h3>
-        <p>Saha, S., Mukesh, S., Pandey, A., Rao, B.S., &amp; Mohanty, M.P.* · <span class="chip">Best paper award</span></p>
-      </li>
-      <li>
-        <span class="when">4th Roorkee Water Conclave, Roorkee, India, 23–25 Feb 2026</span>
-        <h3>Multi-hazard susceptibility mapping for India using deep learning</h3>
-        <p>Rachit, Mohanty, M.P.*, Pandey, A., &amp; Gupta, A.K. · <span class="chip">Accepted</span></p>
-      </li>
-      <li>
-        <span class="when">AGU Annual Meeting, New Orleans, USA, 15–19 Dec 2025</span>
-        <h3>Nationwide daily baseflow estimation in India (1980–2020) using temporal fusion transformers and process-informed clustering</h3>
-        <p>Tripathi, V., Shaw, A., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">AGU Annual Meeting, New Orleans, USA, 15–19 Dec 2025</span>
-        <h3>Floods at the crossroads of climate and human impact: a process-based, explainable AI framework for Indian catchments</h3>
-        <p>Tripathi, V., Karmakar, S., AghaKouchak, A., Mohanty, M.P.*, &amp; Stein, L.</p>
-      </li>
-      <li>
-        <span class="when">AGU Annual Meeting, New Orleans, USA, 15–19 Dec 2025</span>
-        <h3>Integrated web-based framework for risk simulation and visualization of potentially dangerous glacial lakes in Uttarakhand</h3>
-        <p>Saha, S., Pandey, A., Rao, B.S., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">AGU Annual Meeting, New Orleans, USA, 15–19 Dec 2025</span>
-        <h3>Integrated multi-hazard susceptibility mapping across India using U-Net deep learning architecture</h3>
-        <p>Rachit, Tripathi, V., Mohanty, M.P.*, Pandey, A., &amp; Gupta, A.K.</p>
-      </li>
-      <li>
-        <span class="when">IndoML 2025, Hyderabad, India, 18–21 Dec 2025</span>
-        <h3>Advancing multi-hazard susceptibility mapping using U-Net convolutional neural networks for India's diverse and complex terrain</h3>
-        <p>Rachit, Mohanty, M.P.*, Pandey, A., &amp; Gupta, A.K. · <span class="chip">Student travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">XIIth IAHS Scientific Assembly, Roorkee, India, 5–10 Oct 2025</span>
-        <h3>Interpretable AI for flood process attribution and prediction in Indian catchments under climate and anthropogenic influence</h3>
-        <p>Tripathi, V., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">XIIth IAHS Scientific Assembly, Roorkee, India, 5–10 Oct 2025</span>
-        <h3>Multi-hazard susceptibility mapping over India through deep learning technique</h3>
-        <p>Rachit, Tripathi, V., Mohanty, M.P.*, Pandey, A., &amp; Gupta, A.K.</p>
-      </li>
-      <li>
-        <span class="when">XIIth IAHS Scientific Assembly, Roorkee, India, 5–10 Oct 2025</span>
-        <h3>A novel high-resolution flood hazard model for India: integrating reanalysis data with hydrodynamic simulations</h3>
-        <p>Singh, H., Tyagi, M., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">5th International Vietnam Conference on Earth and Environmental Sciences (iVCEES-2025)</span>
-        <h3>Interpretable AI for flood process attribution and prediction in Indian catchments</h3>
-        <p>Tripathi, V., &amp; Mohanty, M.P.* · <span class="chip">Student travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">EGU General Assembly 2025, Vienna, Austria, 27 Apr–2 May 2025</span>
-        <h3>Development of a GLOF forecasting system through a novel concept of pre-simulated library over the Hindu Kush Himalaya region</h3>
-        <p>Saha, S., Pandey, A., Rao, B.S., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">EGU General Assembly 2025, Vienna, Austria, 27 Apr–2 May 2025</span>
-        <h3>Unravelling hydrometeorological drivers of floods: a data-driven analysis across India's river catchments</h3>
-        <p>Tripathi, V., Deopa, R., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">EGU General Assembly 2025, Vienna, Austria, 27 Apr–2 May 2025</span>
-        <h3>Suitability of reanalysis products in capturing flood inundation and hazards over India</h3>
-        <p>Singh, H., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">EGU General Assembly 2025, Vienna, Austria, 27 Apr–2 May 2025</span>
-        <h3>Quantifying human health risks from contaminated urban floodwaters using a multi-model framework under climate and socio-economic scenarios</h3>
-        <p>Deopa, R., Mishra, D., Kumar Shahi, N., Tripathi, V., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">EGU General Assembly 2025, Vienna, Austria, 27 Apr–2 May 2025</span>
-        <h3>How divergent are flood risks during monsoon and post-monsoon seasons?</h3>
-        <p>Thakur, D.A., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">EGU General Assembly 2025, Vienna, Austria, 27 Apr–2 May 2025</span>
-        <h3>MANAGE: a consolidated end-to-end multi-hazard web-based flood risk information system for coastal regions</h3>
-        <p>Mohanty, M.P.*, &amp; Thakur, D.A.</p>
-      </li>
-      <li>
-        <span class="when">International Perspectives on Water and Environment (IPWE), Bhopal, India, 8–10 Jan 2025</span>
-        <h3>Development of a GLOF inundation library to strengthen near real-time flood risk management</h3>
-        <p>Mohanty, M.P.*, Saha, S., &amp; Ojha, C.S.P.</p>
-      </li>
-      <li>
-        <span class="when">Young Leaders Conclave (YLC) 2024, Delhi, India, 4–5 June 2024</span>
-        <h3>Quantifying the impact of urbanization and rising rainfall extremes on flood risks in Delhi</h3>
-        <p>Deopa, R., &amp; Mohanty, M.P.* · <span class="chip">Best paper award</span></p>
-      </li>
-      <li>
-        <span class="when">Multi-hazard DRR Academy, Barcelona, Spain, 23–26 Oct 2024</span>
-        <h3>A novel bivariate risk classifier to capture compound risks from floods and droughts over multi-hazard coastal catchments</h3>
-        <p>Mohanty, M.P.*, Tyagi, M., Singh, H., &amp; Thakur, D. · <span class="chip">Travel grant; convened a session</span></p>
-      </li>
-      <li>
-        <span class="when">9th International Symposium on IWRM, Florianópolis, Brazil, 4–7 Nov 2024</span>
-        <h3>An integrated framework to bridge and map flood risks and human health risks from contaminated floodwaters</h3>
-        <p>Mohanty, M.P.*, &amp; Deopa, R. · <span class="chip">SYSTA travel grant, IAHS</span></p>
-      </li>
-      <li>
-        <span class="when">American Chemical Society Fall 2024, 21 Aug 2024</span>
-        <h3>Assessment of the microbial risk in contaminated flood waters: implications of climate and socio-economic dynamics</h3>
-        <p>Mohanty, M.P.*, &amp; Deopa, R.</p>
-      </li>
-      <li>
-        <span class="when">HIWeather Final Conference 2024, Munich, Germany, 9–13 Sept 2024</span>
-        <h3>A hybrid framework integrating geomorphic flood descriptors and machine learning models for flood risk over an ungauged basin</h3>
-        <p>Tripathi, V., &amp; Mohanty, M.P.* · <span class="chip">WMO student travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">6th WCRP International Conference on Reanalysis (ICR6), Tokyo, Japan, 28 Oct–1 Nov 2024</span>
-        <h3>Suitability of reanalysis products in capturing flood inundation and hazards over India</h3>
-        <p>Singh, H., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">ICRC-CORDEX 2023, Trieste, Italy, 25–29 Sept 2023</span>
-        <h3>Fidelity of RCMs in quantification of climate change impacts on flood risk</h3>
-        <p>Thakur, D.A., Singh, H., &amp; Mohanty, M.P.* · <span class="chip">Student travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">ICRC-CORDEX 2023, Trieste, Italy, 25–29 Sept 2023</span>
-        <h3>Leveraging CORDEX simulations with geomorphic flood descriptors: a machine learning based approach over the Ganga sub-basin</h3>
-        <p>Tripathi, V., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">ICRC-CORDEX 2023, Trieste, Italy, 25–29 Sept 2023</span>
-        <h3>Integrating regional climate models in flood modelling to quantify human health risks from contaminated urban floodwaters</h3>
-        <p>Deopa, R., &amp; Mohanty, M.P.* · <span class="chip">Student travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">ICRC-CORDEX 2023, Trieste, Italy, 25–29 Sept 2023</span>
-        <h3>Checking the performance of regional climate models in determining flooding at basin scale using a global hydrodynamic model</h3>
-        <p>Singh, H., &amp; Mohanty, M.P.* · <span class="chip">Student travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">WCRP Open Science Conference 2023, Rwanda, 23–27 Oct 2023</span>
-        <h3>An amalgamated approach to quantify climate change impacts on flood risk</h3>
-        <p>Thakur, D.A., Singh, H., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">12th World Congress on Water Resources and Environment (EWRA 2023), Thessaloniki, Greece</span>
-        <h3>Is ERA5 able to reproduce flood inundation at the regional scale? A systematic analysis using LISFLOOD-FP</h3>
-        <p>Singh, H., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">WCRP Open Science Conference 2023, Rwanda, 23–27 Oct 2023</span>
-        <h3>Can regional climate models represent flood hazards at regional scales?</h3>
-        <p>Singh, H., Tripathi, V., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">EWRA 2023, Thessaloniki, Greece</span>
-        <h3>Fidelity of machine learning models in capturing flood inundation through geomorphic descriptors over Ganga sub-basin, India</h3>
-        <p>Tripathi, V., Singh, H., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">WCRP Open Science Conference 2023, Rwanda, 23–27 Oct 2023</span>
-        <h3>Employing CORDEX-RCMs for augmenting the performance of geomorphic flood descriptors</h3>
-        <p>Tripathi, V., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">WCRP Open Science Conference 2023, Rwanda, 23–27 Oct 2023</span>
-        <h3>Capturing the teleconnections of climate change and socio-economic structures on flood and human health risks</h3>
-        <p>Deopa, R., Tripathi, V., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">WCRP Open Science Conference 2023, Rwanda, 23–27 Oct 2023</span>
-        <h3>Identifying nuisance flood risks by aggregating hazard and vulnerability dimensions</h3>
-        <p>Shirsath, V., Thakur, D.A., &amp; Mohanty, M.P.*</p>
-      </li>
-      <li>
-        <span class="when">EGU General Assembly 2023, Vienna, Austria, 24–28 Apr 2023</span>
-        <h3>How fitting are open-source flood models in capturing flood risks over mountainous regions? Chamkar Chu Basin, Bhutan</h3>
-        <p>Namgyal, T., Mohanty, M.P.*, &amp; Thakur, D.A.</p>
-      </li>
-      <li>
-        <span class="when">9th International Conference on Flood Management (ICFM9), Tsukuba, Japan, 18–22 Feb 2023</span>
-        <h3>Quantifying the changes in floodplain regimes over Canada under changing climate conditions</h3>
-        <p>Mohanty, M.P.*, &amp; Simonovic, S.P. · <span class="chip">Travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">AGU Fall Meeting, Chicago, USA, 12–16 Dec 2022</span>
-        <h3>Modeling multi-hazard coastal flood risk with satellite precipitation product</h3>
-        <p>Thakur, D.A., &amp; Mohanty, M.P.* · <span class="chip">Student travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">ICCWE 2022, Roorkee, India, 19–20 Sept 2022</span>
-        <h3>Efficacy of CHIRPS V2.0 in characterizing flood hazards in a resource-constrained coastal catchment</h3>
-        <p>Thakur, D.A., &amp; Mohanty, M.P.* · <span class="chip">Best paper award</span></p>
-      </li>
-      <li>
-        <span class="when">International Conference on River Corridor Research and Management, Guwahati, India, 30 May–1 June 2022</span>
-        <h3>Flood Map Viewer: development of a web-based high-resolution flood hazard information system for Canada</h3>
-        <p>Mohanty, M.P.*, &amp; Simonovic, S.P.</p>
-      </li>
-      <li>
-        <span class="when">ICFM 8, Iowa, USA, 17–19 Aug 2021</span>
-        <h3>A comprehensive approach for flood-plain mapping through identification of hazard using publicly available data sets over Canada</h3>
-        <p>Mohanty, M.P.*, &amp; Simonovic, S.P. · <span class="chip">Travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">ICFM 8, Iowa, USA, 17–19 Aug 2021</span>
-        <h3>Tide Equivalent Rainfall: a new metric to improve the resilience of global coastal regions to pluvial and tidal impacts</h3>
-        <p>Mohanty, M.P., &amp; Karmakar, S.* · <span class="chip">Travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">EWRA 2019, Madrid, Spain, 23–25 June 2019</span>
-        <h3>WebFRIS: a web-based flood information system for enhanced resilience through risk awareness</h3>
-        <p>Mohanty, M.P., Karmakar, S.*, &amp; Ghosh, S. · <span class="chip">Travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">AGU Fall Meeting, New Orleans, USA, 11–15 Dec 2017</span>
-        <h3>An exhaustive approach for identification of flood risk hotspots in data-poor regions</h3>
-        <p>Mohanty, M.P., Vittal, H., Karmakar, S.*, &amp; Ghosh, S.</p>
-      </li>
-      <li>
-        <span class="when">UN International Conference on Space-based Technologies for DRR, Beijing, China, 23–25 Oct 2017</span>
-        <h3>Impacts of different sources of topographic data and uncertainty assessment on 1D–2D coupled flood inundation modelling</h3>
-        <p>Mohanty, M.P., Nithya, S., Indu, J., Karmakar, S.*, &amp; Ghosh, S.</p>
-      </li>
-      <li>
-        <span class="when">ICRC-CORDEX 2016, Stockholm, Sweden, 17–20 May 2016</span>
-        <h3>A comparative flood hazard assessment with climate projections for India</h3>
-        <p>Mohanty, M.P., Gusain, A., Sharma, T., Ranjan, P., Karmakar, S.*, &amp; Ghosh, S. · <span class="chip">Travel grant</span></p>
-      </li>
-      <li>
-        <span class="when">9th International Geographical Union Conference, New Delhi, India, 18–20 Mar 2016</span>
-        <h3>Estimation of design rainfall for flood risk mapping in a data-scarce situation</h3>
-        <p>Mohanty, M.P., Gusain, A., Sherly, M.A., Karmakar, S.*, &amp; Ghosh, S.</p>
-      </li>
-      </ul>
-    </div>
-
-    <aside class="conf-side" aria-label="Summary figures">
-      <div class="metric-v"><b>54</b><span>Conference papers</span></div>
-      <div class="metric-v"><b>22</b><span>Invited lectures</span></div>
-      <div class="metric-v"><b>13</b><span>Countries presented in</span></div>
-      <div class="metric-v"><b>9</b><span>Travel grants &amp; awards</span></div>
-    </aside>
   </div>
 </section>
 
 <section class="section tint">
   <div class="wrap">
-    <div class="section-head"><h2>Invited lectures &amp; talks</h2>
-      <p>Invited contributions to workshops, training programmes and capacity-building events in India and abroad.</p></div>
-    <ul class="timeline" data-list data-label="talks">
-      <li><span class="when">RCA-WRMM-2025, NIT Silchar, 19 Nov 2025</span><h3>Ascertaining multi-hazard risks for improved resilience: challenges and lessons learned in India</h3></li>
-      <li><span class="when">Brainstorming session on Reimagining Lakes of Goa, 19 Sept 2025</span><h3>Rejuvenation of lakes</h3></li>
-      <li><span class="when">American Chemical Society Fall 2025 Global Virtual Symposia, 19 Aug 2025</span><h3>HyEco: an integrated framework to bridge hydrodynamic and ecological risks during unprecedented climate extremes</h3></li>
-      <li><span class="when">Indian Water Resources Society, Meerut — World Water Day 2025, 21 Mar 2025</span><h3>Glacier preservation in a warming world: science and solutions</h3></li>
-      <li><span class="when">National Workshop on Adaptation Planning for India's Water Sector under Climate Change, NIH Roorkee, 21–22 Aug 2025</span><h3>Integrated strategies for flood risk reduction and adaptive water governance</h3></li>
-      <li><span class="when">PARTNER-SDG workshop, Kiel University, Germany, 28 July–2 Aug 2025</span><h3>Socio-technocratic approach towards effective multi-hazard risk management</h3></li>
-      <li><span class="when">SWAMP Summer School, Kiel University, Germany, 5–14 Aug 2025</span><h3>HyEco: bridging hydrodynamic and ecological risks during unprecedented climate extremes</h3></li>
-      <li><span class="when">National Institute of Disaster Management, New Delhi, 7 Apr 2025</span><h3>Urban flood risk assessment in India: challenges, lessons, and the way forward</h3></li>
-      <li><span class="when">Faculty Development Programme, NIT Patna, 17–28 Feb 2025</span><h3>Advancing flood risk mapping through machine learning techniques and geomorphic classifiers</h3></li>
-      <li><span class="when">International Workshop on Flood Risk and Climate Change, IIT Madras &amp; University of Leeds, 9–10 Dec 2024</span><h3>Flood risk modelling: from hydrological to human-health perspectives</h3></li>
-      <li><span class="when">River Basin Management workshop, NIT Rourkela, 30 Nov 2024</span><h3>Flood management in sensitive catchments of India: an appraisal through hydrodynamic inundation modelling</h3></li>
-      <li><span class="when">Multi-hazard DRR Academy, Barcelona, Spain, 23–26 Oct 2024</span><h3>Compound risks from floods and droughts through a novel concept of bivariate risk classifier</h3></li>
-      <li><span class="when">National Water Academy, Central Water Commission, Pune, 1–4 July 2024</span><h3>Urban flood risk mapping and flood plain zoning</h3></li>
-      <li><span class="when">RAWREA 2024, NIT Patna, 20–24 May 2024</span><h3>A socio-technocratic approach towards effective flood management</h3></li>
-      <li><span class="when">Indian Institute for Human Settlements, Jaipur, under Jal Jeevan Mission, 21 Mar 2024</span><h3>Climate resilience and interventions: engineering design, planning and implementation</h3></li>
-      <li><span class="when">Iranian Hydraulic Association, 21 Oct 2023</span><h3>Flood risk management</h3></li>
-      <li><span class="when">JNU, New Delhi, 12 Oct 2023</span><h3>Sustainable flood management: impacts of climate change and socio-economic dynamics</h3></li>
-      <li><span class="when">NEERI Nagpur, 7 Mar 2023</span><h3>Climate change impacts assessment and its responses</h3></li>
-      <li><span class="when">INSA, New Delhi — ACS Environment and Sustainability event, 6–8 Nov 2022</span><h3>Shifting towards a socio-technocratic approach for sustainable flood risk management</h3></li>
-      <li><span class="when">CONECTA AL II, CIVGEO, Lima, Peru, 24 July 2021</span><h3>Fidelity of reanalysis datasets in floodplain mapping</h3></li>
-      <li><span class="when">CUSE, IIT Bombay, 10–14 Dec 2018</span><h3>Advances in urban water management</h3></li>
-      <li><span class="when">SVNIT, Surat, 20–21 Aug 2018</span><h3>Flooding in cities: warning and dissemination</h3></li>
+    <div class="section-head"><h2>Education &amp; experience</h2></div>
+    <ul class="timeline">
+      <li><span class="when">Present</span><h3>Associate Professor, WRD&amp;M, IIT Roorkee</h3></li>
+      <li><span class="when">Earlier</span><h3>Postdoctoral Fellow, Department of Civil and Environmental Engineering, Western University, Canada</h3></li>
+      <li><span class="when">PhD</span><h3>Environmental Science and Engineering / Centre for Climate Studies, IIT Bombay</h3></li>
+      <li><span class="when">Earlier</span><h3>Add MTech and BTech entries with institution and year</h3></li>
     </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Research interests</h2></div>
+    <div>
+      <span class="chip">Flood hazard &amp; risk mapping</span>
+      <span class="chip">Hydroclimatological extremes</span>
+      <span class="chip">Climate change impact assessment</span>
+      <span class="chip">Multi-hazard risk</span>
+      <span class="chip">Population exposure &amp; social vulnerability</span>
+      <span class="chip">Human health risk / QMRA</span>
+      <span class="chip">Hydrodynamic modelling</span>
+      <span class="chip">Machine learning for hydrology</span>
+      <span class="chip">Statistical downscaling</span>
+      <span class="chip">Design rainfall in data-poor catchments</span>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Achievements</h2></div>
+    <ul class="timeline">
+      <li><span class="when">Year</span><h3>Add award / fellowship / editorial role</h3></li>
+      <li><span class="when">Year</span><h3>Add keynote or invited lecture series</h3></li>
+      <li><span class="when">Year</span><h3>Add media coverage of lab research</h3></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected publications</h2>
+      <p>The five most representative papers. The complete list lives on the <a href="publications.html">publications page</a>.</p>
+    </div>
+    <div class="pub-full">
+      <span class="yr">2026</span>
+      <div><div class="t">Interpretable deep learning reveals influence and interactions of hydroclimatic drivers on floods across India</div><p class="a">Tripathi, V., Mohanty, M.P., AghaKouchak, A., et al.</p><p class="j"><em>Earth's Future</em></p></div>
+    </div>
+    <div class="pub-full">
+      <span class="yr">2025</span>
+      <div><div class="t">Need for judicious selection of runoff inputs in a global flood model</div><p class="a">Mohanty, M.P., Karmakar, S.</p><p class="j"><em>Environmental Research Letters</em></p></div>
+    </div>
+    <div class="pub-full">
+      <span class="yr">2021</span>
+      <div><div class="t">Changes in floodplain regimes over Canada due to climate change impacts: observations from CMIP6 models</div><p class="a">Mohanty, M.P., Simonovic, S.P.</p><p class="j"><em>Science of the Total Environment</em></p></div>
+    </div>
+    <div class="pub-full">
+      <span class="yr">2021</span>
+      <div><div class="t">WebFRIS: an efficient web-based decision support tool to disseminate end-to-end risk information for flood management</div><p class="a">Mohanty, M.P., Karmakar, S.</p><p class="j"><em>Journal of Environmental Management</em></p></div>
+    </div>
   </div>
 </section>
 
 </main>
 
+<!-- ===================== FOOTER ===================== -->
 <footer class="site-footer">
   <div class="wrap foot-grid">
     <div class="foot-brand">
-      <img class="emblem" src="assets/images/crawl-mark.png" alt="">
+      <img class="emblem" src="assets/images/iitr-emblem.png" alt="IIT Roorkee emblem">
       <div>
-        <h3>Climate Research and Water Lab (CRaWL)</h3>
-        <p>Department of Water Resources Development and Management<br>Indian Institute of Technology Roorkee, Uttarakhand 247667, India</p>
+        <h3>Climate Research and Water Modelling Lab (CRaWL)</h3>
+        <p>Department of Water Resources Development and Management<br>Indian Institute of Technology Roorkee, Uttarakhand, India</p>
         <div class="socials">
-          <a href="https://scholar.google.com/citations?user=7THkWAEAAAAJ&hl=en" aria-label="Google Scholar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 8l11 6 9-4.9V16h2V8zM5 13.2V17c0 2.2 3.1 4 7 4s7-1.8 7-4v-3.8l-7 3.8z"/></svg></a>
-          <a href="https://orcid.org/0000-0001-7783-2073" aria-label="ORCID"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><text x="12" y="16" font-size="11" text-anchor="middle" fill="#08264A" font-family="sans-serif" font-weight="700">iD</text></svg></a>
-          <a href="https://www.researchgate.net/profile/Mohit-Mohanty-2" aria-label="ResearchGate"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.3 5.6h2.1c1.6 0 2.7.9 2.7 2.4 0 1.1-.6 1.9-1.6 2.2l2 3.7h-1.9l-1.8-3.4h-.9v3.4h-1.7V7.6zm1.7 1.4v2.2h.5c.8 0 1.3-.4 1.3-1.1 0-.7-.5-1.1-1.3-1.1h-.5z"/></svg></a>
-          <a href="mailto:mohit.mohanty@wr.iitr.ac.in" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.06-1.9-3.06-1.9 0-2.2 1.45-2.2 2.96V21H9z"/></svg></a>
+          <a href="#" aria-label="Twitter / X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.9c-.7.3-1.5.5-2.4.6.9-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 00-7 3.7A11.6 11.6 0 013.4 4.6a4.1 4.1 0 001.3 5.5c-.7 0-1.3-.2-1.9-.5 0 2 1.4 3.7 3.3 4.1-.6.2-1.2.2-1.8.1a4.1 4.1 0 003.8 2.9A8.2 8.2 0 012 18.4 11.6 11.6 0 008.3 20c7.5 0 11.6-6.2 11.6-11.6v-.5c.8-.6 1.5-1.3 2.1-2z"/></svg></a>
+          <a href="#" aria-label="Google Scholar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L1 8l11 6 9-4.9V16h2V8zM5 13.2V17c0 2.2 3.1 4 7 4s7-1.8 7-4v-3.8l-7 3.8z"/></svg></a>
+          <a href="mailto:crawl@iitr.ac.in" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg></a>
         </div>
       </div>
     </div>
+
     <div>
       <h4>Quick Links</h4>
       <ul>
@@ -499,15 +192,16 @@
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
+
     <div>
       <h4>Resources</h4>
       <ul>
         <li><a href="data-tools.html">Data &amp; Tools</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="training-workshops.html">Training &amp; Workshops</a></li>
-        <li><a href="https://manage.wr.iitr.ac.in/">MANAGE platform</a></li>
       </ul>
     </div>
+
     <div>
       <h4>Contact</h4>
       <div class="contact-li">
@@ -516,28 +210,22 @@
       </div>
       <div class="contact-li">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg>
-        <a href="mailto:mohit.mohanty@wr.iitr.ac.in">mohit.mohanty@wr.iitr.ac.in</a>
+        <a href="mailto:crawl@iitr.ac.in">crawl@iitr.ac.in</a>
       </div>
       <div class="contact-li">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 006 6L16 13l5 2v3a2 2 0 01-2.2 2A17 17 0 014 5.2 2 2 0 016 3z"/></svg>
-        <span>+91-1332-284984</span>
+        <span>+91 1332 285 XXX</span>
       </div>
     </div>
-    <div class="foot-analytics" id="footAnalytics" hidden></div>
   </div>
+
   <div class="wrap foot-bottom">
     <span>© <span id="yr"></span> CRaWL, IIT Roorkee. All rights reserved.</span>
     <span>Last updated: August 2026</span>
   </div>
 </footer>
 
-<script src="assets/js/site-data.js"></script>
 <script src="assets/js/nav.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="assets/js/conf-map.js"></script>
-<script src="assets/js/logo-marquee.js"></script>
-<script src="assets/js/list-filter.js"></script>
 
-<script src="assets/js/analytics.js"></script>
 </body>
 </html>
