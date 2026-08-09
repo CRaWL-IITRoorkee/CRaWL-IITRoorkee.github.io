@@ -520,3 +520,89 @@ button{font:inherit}
 /* seven tools in the card: a touch more breathing room per row, which
    also lifts the list just past the height where the ticker engages */
 .tool{padding:13px 0}
+
+/* ============================================================
+   Gallery — equal-size grid, See-More buttons & lightbox
+   Added for the CRaWL gallery redesign. Reuses existing tokens.
+   ============================================================ */
+
+/* Equal-size responsive photo grid (landing preview + detail pages).
+   Overrides the older 1/1 auto-fill grid used by the carousel viewer. */
+.gallery-grid.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.gallery-grid.photo-grid .g-item{
+  margin:0;padding:0;border:1px solid var(--line);
+  border-radius:var(--r);overflow:hidden;cursor:pointer;
+  aspect-ratio:4/3;background:var(--line-soft);
+  display:block;width:100%;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.gallery-grid.photo-grid .g-item img{
+  width:100%;height:100%;display:block;object-fit:cover;
+}
+.gallery-grid.photo-grid .g-item:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 26px rgba(8,38,72,.18);
+}
+.gallery-grid.photo-grid .g-item:focus-visible{
+  outline:2px solid var(--blue-600);outline-offset:2px;
+}
+@media (max-width:1024px){ .gallery-grid.photo-grid{grid-template-columns:repeat(3,1fr)} }
+@media (max-width:720px){ .gallery-grid.photo-grid{grid-template-columns:repeat(2,1fr);gap:12px} }
+@media (max-width:440px){ .gallery-grid.photo-grid{grid-template-columns:repeat(2,1fr);gap:10px} }
+
+/* See More button (matches the site's navy pill buttons) */
+.see-more-row{margin-top:22px;display:flex;justify-content:flex-start}
+.btn-see-more{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 20px;background:var(--navy-800);color:#fff;
+  border-radius:8px;font-size:13.5px;font-weight:600;
+  transition:background .2s ease;
+}
+.btn-see-more:hover{background:var(--navy-700)}
+.btn-see-more svg{width:15px;height:15px}
+
+.gallery-empty{
+  color:var(--muted);font-size:13.5px;padding:14px 0;
+}
+
+/* ---- Lightbox ---- */
+.lightbox{
+  position:fixed;inset:0;z-index:1000;display:none;
+  align-items:center;justify-content:center;
+  background:rgba(8,38,72,.92);
+  padding:clamp(16px,4vw,56px);
+}
+.lightbox.is-open{display:flex}
+.lightbox img{
+  max-width:100%;max-height:82vh;object-fit:contain;
+  border-radius:8px;box-shadow:0 24px 60px rgba(0,0,0,.5);
+}
+.lightbox-caption{
+  position:absolute;left:0;right:0;bottom:22px;text-align:center;
+  color:#DCE9F5;font-size:14px;padding:0 20px;pointer-events:none;
+}
+.lb-btn{
+  position:absolute;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.10);color:#fff;border:0;cursor:pointer;
+  border-radius:50%;transition:background .2s ease;
+}
+.lb-btn:hover{background:rgba(255,255,255,.22)}
+.lb-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.lb-close{top:20px;right:24px;width:44px;height:44px;font-size:26px;line-height:1}
+.lb-nav{top:50%;transform:translateY(-50%);width:52px;height:52px}
+.lb-prev{left:clamp(10px,3vw,40px)}
+.lb-next{right:clamp(10px,3vw,40px)}
+.lb-nav svg{width:26px;height:26px}
+.lb-prev svg{transform:rotate(180deg)}
+@media (max-width:520px){
+  .lb-nav{width:44px;height:44px}
+  .lb-nav svg{width:22px;height:22px}
+  .lightbox img{max-height:74vh}
+}
+@media (prefers-reduced-motion:reduce){
+  .gallery-grid.photo-grid .g-item{transition:none}
+}
