@@ -62,7 +62,7 @@ button{font:inherit}
 .header-in{display:flex;align-items:center;gap:22px;height:78px}
 
 .brand{display:flex;align-items:center;gap:14px;flex:none}
-.brand .building{height:40px;width:auto;flex:none}
+.brand .building{height:30px;width:auto;flex:none}
 .brand .logo{height:44px;width:auto;flex:none}
 .brand .rule{width:1px;height:40px;background:var(--line)}
 .brand .sub{font-size:11.5px;line-height:1.42;color:var(--body);font-weight:500}
@@ -354,7 +354,7 @@ button{font:inherit}
 
 @media(max-width:1079px){
   .brand .logo{height:38px}
-  .brand .building{height:34px}
+  .brand .building{height:26px}
   .brand .rule,.brand .sub{display:none}
 }
 @media(max-width:420px){ .brand .logo{height:32px} .brand .building{display:none} }
