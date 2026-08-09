@@ -1,0 +1,25 @@
+/* ============================================================
+   Add this to the END of assets/css/style.css
+   IIT Roorkee mark beside the CRaWL brand in the header
+   ============================================================ */
+.header-in .iitr-mark{
+  display:flex; align-items:center;
+  margin-right:auto;              /* keeps the nav pushed to the right */
+  margin-left:18px;
+  padding-left:18px;
+  border-left:1px solid rgba(8,38,74,.16);
+  flex:0 0 auto;
+}
+.header-in .iitr-mark img{
+  height:44px; width:auto; display:block;
+  transition:opacity .18s ease;
+}
+.header-in .iitr-mark:hover img{opacity:.78}
+.header-in .iitr-mark:focus-visible{outline:2px solid #08264A; outline-offset:3px; border-radius:4px}
+
+@media (max-width:1100px){ .header-in .iitr-mark img{height:36px} }
+@media (max-width:860px){
+  .header-in .iitr-mark{margin-left:12px; padding-left:12px}
+  .header-in .iitr-mark img{height:30px}
+}
+@media (max-width:520px){ .header-in .iitr-mark{display:none} }
