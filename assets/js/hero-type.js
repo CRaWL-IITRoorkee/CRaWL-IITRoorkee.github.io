@@ -46,6 +46,28 @@
 
   /* ---------------- reveal: per-character choreography ---------------- */
 
+  var GRADIENT = "linear-gradient(96deg,#8fdcff 0%,#4da3ff 42%,#9db8ff 100%)";
+
+  /* Paint one continuous gradient across the whole line by giving every
+     character the same background image, sized to the line box, and offset by
+     that character's own position. Each character therefore carries its own
+     background and survives being promoted to a compositing layer — unlike a
+     background-clip:text set on the parent, which silently renders nothing
+     once a descendant has a filter or will-change on it. */
+  function paintGradient(chars) {
+    if (!chars.length) return;
+    var box = el.getBoundingClientRect();
+    if (!box.width || !box.height) return;          // not laid out yet — keep solid colour
+    for (var k = 0; k < chars.length; k++) {
+      var s = chars[k], r = s.getBoundingClientRect();
+      s.style.backgroundImage = GRADIENT;
+      s.style.backgroundSize = box.width + "px " + box.height + "px";
+      s.style.backgroundPosition = -(r.left - box.left) + "px " + -(r.top - box.top) + "px";
+      s.style.backgroundRepeat = "no-repeat";
+      s.classList.add("grad");
+    }
+  }
+
   function splitInto(text) {
     el.textContent = "";
     var chars = [];
@@ -70,6 +92,7 @@
     var chars = splitInto(CFG.phrases[i]);
 
     chars.forEach(function (s, k) { s.style.transitionDelay = (k * CFG.stagger) + "ms"; });
+    paintGradient(chars);                       // measure once, while still invisible
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         chars.forEach(function (s) { s.classList.add("in"); });
