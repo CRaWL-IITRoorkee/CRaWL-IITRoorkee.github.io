@@ -53,16 +53,27 @@
      that character's own position. Each character therefore carries its own
      background and survives being promoted to a compositing layer — unlike a
      background-clip:text set on the parent, which silently renders nothing
-     once a descendant has a filter or will-change on it. */
+     once a descendant has a filter or will-change on it.
+
+     Positions come from offsetLeft/offsetTop, NOT getBoundingClientRect():
+     the characters are measured while still transformed (translateY + scale)
+     for the reveal, and a client rect reports the transformed box. That shifts
+     every background up by ~0.42em and shears the bottom off the glyphs on the
+     last line. Offset values are layout positions and ignore transforms. */
   function paintGradient(chars) {
     if (!chars.length) return;
-    var box = el.getBoundingClientRect();
-    if (!box.width || !box.height) return;          // not laid out yet — keep solid colour
+    var w = el.offsetWidth, h = el.offsetHeight;
+    if (!w || !h) return;                           // not laid out yet — keep solid colour
+
+    var pad = Math.round(parseFloat(getComputedStyle(el).fontSize) * 0.4) || 12;
+    var bgH = h + pad;                              // headroom so descenders never clip
+    var x0 = el.offsetLeft, y0 = el.offsetTop;
+
     for (var k = 0; k < chars.length; k++) {
-      var s = chars[k], r = s.getBoundingClientRect();
+      var s = chars[k];
       s.style.backgroundImage = GRADIENT;
-      s.style.backgroundSize = box.width + "px " + box.height + "px";
-      s.style.backgroundPosition = -(r.left - box.left) + "px " + -(r.top - box.top) + "px";
+      s.style.backgroundSize = w + "px " + bgH + "px";
+      s.style.backgroundPosition = -(s.offsetLeft - x0) + "px " + -(s.offsetTop - y0) + "px";
       s.style.backgroundRepeat = "no-repeat";
       s.classList.add("grad");
     }
