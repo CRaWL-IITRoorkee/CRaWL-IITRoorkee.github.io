@@ -25,24 +25,33 @@
   background:none; margin:0 0 .34em;
 }
 
-/* the rotating line */
+/* the rotating line
+   NOTE: the gradient is applied per-character by hero-type.js, never on this
+   parent. A parent-level background-clip:text is invisible on any machine whose
+   browser promotes the animated characters to their own compositing layer
+   (which filter/will-change both force) — that was the "works on some systems,
+   blank on others" bug. Solid colour below is the guaranteed fallback. */
 .hero h1 .kinetic-line,
 .kinetic .kinetic-line{
   display:block; line-height:1.14; min-height:2.28em;   /* exactly two lines — block never shifts */
   padding-bottom:.08em; overflow:visible;
   font-size:clamp(34px,5.4vw,76px); font-weight:800; letter-spacing:-.02em;
-  background:linear-gradient(96deg,#8fdcff 0%,#4da3ff 42%,#9db8ff 100%);
-  -webkit-background-clip:text; background-clip:text;
-  color:transparent; -webkit-text-fill-color:transparent;
+  background:none;
+  color:#8fdcff; -webkit-text-fill-color:#8fdcff;
 }
 .kinetic-line .kw{display:inline-block; white-space:nowrap}
 .kinetic-line .kc{
   display:inline-block; padding-bottom:.12em; margin-bottom:-.12em;  /* room for descenders */
-  will-change:transform,opacity,filter;
   opacity:0; transform:translateY(.42em) scale(.94); filter:blur(9px);
   transition:opacity .58s cubic-bezier(.22,.68,.28,1),
              transform .58s cubic-bezier(.22,.68,.28,1),
              filter .58s ease;
+}
+/* per-character gradient painted by JS; safe because each character carries
+   its own background rather than inheriting a clipped one from the parent */
+.kinetic-line .kc.grad{
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent;
 }
 .kinetic-line .kc.in{opacity:1; transform:none; filter:blur(0)}
 .kinetic-line .kc.out{
@@ -115,7 +124,7 @@
     <div>
       <h1 class="kinetic">
         <span class="kinetic-eyebrow">CRaWL working on</span>
-        <span class="kinetic-line" id="heroRotate" aria-hidden="true"></span>
+        <span class="kinetic-line" id="heroRotate" aria-hidden="true">Urban Flooding</span>
       </h1>
       <p class="sr">CRaWL works on urban flooding; digital twin flood modelling; AI-ML flood assessment; Glacial Outburst Flooding; Human-Health Riks; drought-flood compound risk; multi-hazard assessment using deep learning; water security under climate change; and hydroclimatic extremes.</p>
     </div>
@@ -397,7 +406,7 @@
         </div>
         <p class="areas"><b>Areas:</b> flood and climate modelling, machine learning, remote sensing, water quality and health risk.</p>
       </div>
-      <a class="btn" href="join.html">Get in touch</a>
+      <a class="btn" href="contact.html">Get in touch</a>
     </div>
 
     <div class="panel">
