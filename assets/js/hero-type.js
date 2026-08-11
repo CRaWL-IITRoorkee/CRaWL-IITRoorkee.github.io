@@ -16,6 +16,8 @@
       "Digital Twin Flood Modelling",
       "AI–ML Flood Assessment",
       "Drought–Flood Compound Risk",
+      "Human Health Risks",
+      "Glacial Outburst Flood",
       "Multi-Hazard Assessment using Deep Learning",
       "Water Security under Climate Change",
       "Hydroclimatic Extremes"
