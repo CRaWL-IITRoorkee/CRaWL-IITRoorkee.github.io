@@ -56,3 +56,27 @@ window.CRAWL.analytics = {
   code: "",                               // e.g. "crawl-iitr"
   dataFile: "assets/data/analytics.json"  // written by the monthly workflow
 };
+
+/* ---------------------------------------------------------
+   3. SEASONAL THEME  (Independence Day)
+   ---------------------------------------------------------
+   Runs ONLY between `from` and `to` (inclusive, local time),
+   then the site returns to normal on its own. Nothing to undo.
+
+   To switch it off early : set enabled to false.
+   To reuse it next year  : change the two dates to 2027.
+   To retire it for good  : delete this block, theme.js,
+                            theme-independence.css and the two
+                            tags in each page's HTML.
+   --------------------------------------------------------- */
+window.CRAWL.theme = {
+  enabled: true,
+  from: "2026-08-14",
+  to:   "2026-08-16",
+  badge: { date: "15 August", text: "Happy Independence Day" },
+  hero: {
+    line: 'Proud of <span class="n">our Nation</span>. Committed to <span class="p">our Planet</span>.',
+    sub:  "Celebrating India's 79th Independence Day."
+  },
+  footerArt: true
+};
