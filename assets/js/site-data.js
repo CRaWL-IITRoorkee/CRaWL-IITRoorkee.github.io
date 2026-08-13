@@ -71,7 +71,7 @@ window.CRAWL.analytics = {
    --------------------------------------------------------- */
 window.CRAWL.theme = {
   enabled: true,
-  from: "2026-08-14",
+  from: "2026-08-13",
   to:   "2026-08-16",
   badge: { date: "15 August", text: "Happy Independence Day" },
   hero: {
