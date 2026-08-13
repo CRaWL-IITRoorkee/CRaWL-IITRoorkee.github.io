@@ -68,7 +68,7 @@
     badge: { date: "15 August", text: "Happy Independence Day" },
     hero: {
       line: 'Proud of <span class="n">our Nation</span>. Committed to <span class="p">our Planet</span>.',
-      sub:  "Celebrating India\u2019s 79th Independence Day."
+      sub:  "Celebrating India\u2019s 80th Independence Day."
     },
     footerArt: true
   };
