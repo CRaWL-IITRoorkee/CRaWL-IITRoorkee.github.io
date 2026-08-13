@@ -18,7 +18,7 @@
       "Drought–Flood Compound Risk",
       "Human Health Risks from Contaminated Flood",
       "Glacial Outburst Flood",
-      "Multi-Hazard Assessment using Deep Learning",
+      "Multi-Hazard Risk Assessment",
       "Water Security under Climate Change",
       "Hydroclimatic Extremes"
     ],
