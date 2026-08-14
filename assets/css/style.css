@@ -555,6 +555,12 @@ button{font:inherit}
 .gallery-grid.photo-grid .g-item:focus-visible{
   outline:2px solid var(--blue-600);outline-offset:2px;
 }
+/* --- auto-loaded gallery (assets/js/gallery-auto.js) --- */
+.gallery-grid.photo-grid[hidden]{display:none}
+.gallery-grid.photo-grid[data-loading]{min-height:180px;position:relative}
+.gallery-grid.photo-grid[data-loading]::after{
+  content:"Loading photos\2026";position:absolute;inset:0;display:grid;place-items:center;
+  font-size:13px;color:var(--muted)}
 @media (max-width:1024px){ .gallery-grid.photo-grid{grid-template-columns:repeat(3,1fr)} }
 @media (max-width:720px){ .gallery-grid.photo-grid{grid-template-columns:repeat(2,1fr);gap:12px} }
 @media (max-width:440px){ .gallery-grid.photo-grid{grid-template-columns:repeat(2,1fr);gap:10px} }
