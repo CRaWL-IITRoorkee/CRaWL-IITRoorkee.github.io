@@ -184,16 +184,16 @@
 /* ---- 5. footer artwork band ---- */
 .theme-id .site-footer{position:relative;overflow:hidden}
 .theme-id .id-footer-art{
-  width:100%;height:clamp(96px,15.5vw,220px);
-  background:url("assets/images/independence-footer.png") no-repeat center bottom;
-  background-size:cover;
-  margin-top:26px;pointer-events:none;
+  width:100%;height:clamp(120px,17vw,260px);
+  background:url("assets/images/independence-footer.webp") no-repeat center bottom;
+  background-size:100% 100%;
+  margin-top:-18px;pointer-events:none;
 }
 /* the copyright bar sits below the artwork on solid navy, always legible */
 .theme-id .foot-bottom{border-top:0;margin-top:0}
 
 @media(max-width:760px){
-  .theme-id .id-footer-art{margin-top:18px}
+  .theme-id .id-footer-art{height:clamp(96px,26vw,150px);margin-top:-8px}
 }
 
 /* respect reduced-motion / print: theme is decorative only */
