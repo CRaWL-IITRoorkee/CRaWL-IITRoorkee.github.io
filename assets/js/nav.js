@@ -141,12 +141,10 @@
   line-height:1.2;white-space:nowrap;
 }
 .theme-id .id-badge .ribbon{
-  width:16px;height:16px;border-radius:3px;flex:none;
-  background:linear-gradient(180deg,
-    var(--tri-saffron) 0 33.33%,
-    #fff 33.33% 66.66%,
-    var(--tri-green) 66.66% 100%);
+  width:24px;height:16px;border-radius:2px;flex:none;
+  background:url("assets/images/flag-india.svg") center/100% 100% no-repeat;
   border:1px solid rgba(0,0,0,.10);
+  box-shadow:0 1px 2px rgba(0,0,0,.10);
 }
 .theme-id .id-badge b{
   display:block;font-size:10px;font-weight:800;letter-spacing:.08em;
