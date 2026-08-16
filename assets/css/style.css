@@ -120,15 +120,19 @@ button{font:inherit}
   background:rgba(9,32,60,.82);border:1px solid rgba(120,170,215,.22);border-radius:14px;
   backdrop-filter:blur(3px);overflow:hidden;display:grid;
 }
-@media(min-width:620px){.featured{grid-template-columns:250px 1fr}}
-.featured-map{position:relative;min-height:290px;background:#0A2748}
-.featured-map .ph{position:absolute;inset:0}
-.legend{position:absolute;left:14px;bottom:16px;z-index:3;font-size:9.5px;color:#D6E6F4;line-height:1.5}
-.legend h4{font-size:9.5px;color:#D6E6F4;font-weight:600;margin-bottom:5px;letter-spacing:.01em}
-.legend .scale{display:flex;gap:6px;align-items:stretch}
-.legend .bar{width:11px;border-radius:2px;background:linear-gradient(to bottom,#B3141B 0%,#E8501F 16%,#F79438 32%,#F6D64B 48%,#8FD07E 64%,#4EB7E0 80%,#2C5FBF 100%)}
-.legend ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;justify-content:space-between}
-.legend li{font-variant-numeric:tabular-nums}
+
+/* Kicker and title on top, one wide figure, two highlights, then the CTA.
+   The figure sits on a light panel and is fitted, never cropped, because
+   the study figures are portrait multi-panel plots — cropping them to a
+   wide band would cut whole panels away. Add .is-cover to a figure that
+   is genuinely landscape and should fill the band edge to edge. */
+.featured-figure{
+  margin-top:15px;aspect-ratio:16/9;border-radius:10px;
+  background:#EEF4FA;border:1px solid rgba(120,170,215,.20);
+}
+.featured-figure img{width:100%;height:100%;object-fit:contain;padding:6px}
+.featured-figure.is-cover img{object-fit:cover;padding:0}
+.featured-figure.ph.dark::after{content:none}
 
 .featured-body{padding:22px 24px 24px}
 .featured .kicker{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:.01em}
@@ -138,8 +142,20 @@ button{font:inherit}
 .stat svg{width:19px;height:19px;flex:none;color:#7FB4DE;margin-top:2px}
 .stat b{display:block;color:#fff;font-size:16.5px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
 .stat span{display:block;font-size:11px;line-height:1.4;color:#A9C4DC;margin-top:4px}
+
+/* the two highlights: boxed icon, value, label, split by a hairline */
+.featured-deck .stat-grid{gap:0;margin-top:17px}
+.featured-deck .stat{gap:12px;align-items:flex-start;padding:2px 0}
+.featured-deck .stat+.stat{border-left:1px solid rgba(120,170,215,.20);padding-left:20px;margin-left:20px}
+.featured-deck .stat svg{
+  width:36px;height:36px;padding:8px;margin-top:0;box-sizing:border-box;
+  border-radius:9px;background:rgba(46,155,232,.13);
+  border:1px solid rgba(120,170,215,.22);color:#8FC0E6;
+}
+.featured-deck .stat b{font-size:18px}
+.featured-deck .stat span{font-size:11.5px;margin-top:3px}
 .featured .cta{
-  display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:24px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:20px;
   border:1px solid rgba(140,185,225,.35);border-radius:8px;padding:13px 17px;
   color:#fff;font-size:14.5px;font-weight:600;transition:background .18s;
 }
@@ -151,23 +167,28 @@ button{font:inherit}
 .research-grid{display:grid;gap:26px}
 @media(min-width:1180px){.research-grid{grid-template-columns:210px repeat(6,1fr);gap:20px}}
 .research-head h2{font-size:29px;line-height:1.17;letter-spacing:-.028em}
+.themes-grid .research-head{align-self:start}
 .link-arrow{display:inline-flex;align-items:center;gap:8px;margin-top:18px;color:var(--blue-600);font-size:14px;font-weight:600}
 .link-arrow svg{width:15px;height:15px;transition:transform .18s}
 .link-arrow:hover svg{transform:translateX(4px)}
 
-.rcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:18px}
-@media(min-width:1180px){.rcards{display:contents}}
-.rcard{
-  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff;
-  display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;
+/* Research themes — plain, non-clickable cards. No images, no links:
+   the theme and its description are the whole content. */
+.themes-grid{display:grid;gap:26px}
+@media(min-width:1180px){.themes-grid{grid-template-columns:210px 1fr;gap:34px}}
+.tcards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+@media(min-width:820px){.tcards{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1180px){.tcards{grid-template-columns:repeat(3,1fr);gap:18px}}
+.tcard{
+  border:1px solid var(--line);border-radius:var(--r);background:#fff;
+  padding:18px 18px 20px;
 }
-.rcard:hover{box-shadow:0 14px 30px rgba(12,45,87,.11);transform:translateY(-3px)}
-.rcard .ph{aspect-ratio:16/11}
-.rcard .txt{padding:15px 15px 13px;flex:1;display:flex;flex-direction:column}
-.rcard h3{font-size:14.5px;line-height:1.3;letter-spacing:-.012em}
-.rcard p{font-size:12.4px;line-height:1.48;color:var(--muted);margin-top:8px;flex:1}
-.rcard .go{align-self:flex-end;margin-top:14px;color:var(--blue-600)}
-.rcard .go svg{width:16px;height:16px}
+.tnum{
+  display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;
+  color:var(--blue-600);font-variant-numeric:tabular-nums;
+}
+.tcard h3{font-size:15px;line-height:1.32;letter-spacing:-.014em;margin-top:9px}
+.tcard p{font-size:12.6px;line-height:1.55;color:var(--muted);margin-top:9px}
 
 /* ================= PANEL BAND ================= */
 .band{background:var(--panel);padding:34px 0 40px}
@@ -252,8 +273,13 @@ button{font:inherit}
   .site-header.nav-open .dropdown{position:static;border:0;box-shadow:none;padding:4px 0 10px 12px}
 }
 @media(max-width:619px){
-  .featured-map{min-height:230px}
   .hero h1{font-size:2rem}
+  .featured-figure{aspect-ratio:4/3}
+  .featured-deck .stat-grid{grid-template-columns:1fr}
+  .featured-deck .stat+.stat{
+    border-left:0;border-top:1px solid rgba(120,170,215,.20);
+    padding-left:0;margin-left:0;padding-top:14px;margin-top:14px;
+  }
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 
@@ -374,7 +400,7 @@ button{font:inherit}
 /* the card holds one height for all five studies, so the hero never jumps;
    spare room settles above the button rather than below it */
 .featured-body{display:flex;flex-direction:column}
-.featured-deck .stat-grid{margin-bottom:24px}
+.featured-deck .stat-grid{margin-bottom:20px}
 .featured-deck .cta{margin-top:auto}
 .featured .kicker{display:flex;align-items:center;gap:8px}
 .featured .kicker .ref{
