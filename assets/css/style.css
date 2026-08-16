@@ -746,10 +746,13 @@ button{font:inherit}
 }
 .logo-grid{
   list-style:none;margin:20px 0 0;padding:0;
-  display:grid;gap:14px;grid-template-columns:repeat(3,1fr);
+  /* minmax(0,1fr) — not 1fr — or a wide logo sets the column's minimum width
+     and pushes the last column past the edge of the card */
+  display:grid;gap:14px;grid-template-columns:repeat(3,minmax(0,1fr));
 }
 .logo-cell{
   display:grid;place-items:center;aspect-ratio:1/.92;padding:10px;
+  min-width:0;overflow:hidden;
   border:1px dashed var(--line);border-radius:9px;background:#FAFCFE;
   transition:border-color .2s ease,background .2s ease,transform .2s ease;
 }
@@ -764,3 +767,9 @@ button{font:inherit}
 }
 .logo-cell:has(img)::after{display:none}
 @media(max-width:459px){.logo-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Two cards across, and the second card carries two titled sections */
+.stack-card{display:flex;flex-direction:column}
+.stack-card .logo-grid{flex:1;align-content:start}
+.stack-sub{display:flex;flex-direction:column}
+.stack-sub+.stack-sub{margin-top:24px;padding-top:22px;border-top:1px solid var(--line-soft)}
