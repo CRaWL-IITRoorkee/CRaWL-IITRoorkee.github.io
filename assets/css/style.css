@@ -121,32 +121,48 @@ button{font:inherit}
   backdrop-filter:blur(3px);overflow:hidden;display:grid;
 }
 
-/* Kicker and title on top, one wide figure, two highlights, then the CTA.
-   The figure sits on a light panel and is fitted, never cropped, because
-   the study figures are portrait multi-panel plots — cropping them to a
-   wide band would cut whole panels away. Add .is-cover to a figure that
-   is genuinely landscape and should fill the band edge to edge. */
+/* Hierarchy: label + journal on one row, title with a compact CTA beside it,
+   then one 16:9 figure, then four findings in a 2x2 grid.
+   The figures are landscape 16:9, so they fill the band edge to edge
+   (.is-cover). Drop .is-cover on a figure that must be shown whole. */
+.featured-body{padding:22px 24px 24px}
+
+/* row 1 — label left, journal/year right */
+.featured-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+}
+.featured .kicker{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:.01em}
+.featured-head .ref{
+  font-weight:500;color:#A9C8E2;font-size:13px;letter-spacing:0;
+  white-space:nowrap;text-align:right;
+}
+
+/* row 2 — title on the left, compact button beside it on the right */
+.featured-title-row{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:18px;margin-top:10px;
+}
+.featured h2{
+  color:#fff;font-size:20px;margin:0;letter-spacing:-.02em;
+  line-height:1.3;text-wrap:balance;
+}
+
+/* the 16:9 featured image */
 .featured-figure{
-  margin-top:15px;aspect-ratio:16/9;border-radius:10px;
+  margin-top:16px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;
   background:#EEF4FA;border:1px solid rgba(120,170,215,.20);
 }
 .featured-figure img{width:100%;height:100%;object-fit:contain;padding:6px}
 .featured-figure.is-cover img{object-fit:cover;padding:0}
 .featured-figure.ph.dark::after{content:none}
 
-.featured-body{padding:22px 24px 24px}
-.featured .kicker{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:.01em}
-.featured h2{color:#fff;font-size:20px;margin-top:10px;letter-spacing:-.02em;line-height:1.3;text-wrap:balance}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 22px;margin-top:22px}
-.stat{display:flex;gap:10px}
+/* four findings in a clean 2x2 grid */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin-top:18px}
+.stat{display:flex;gap:12px;align-items:flex-start}
 .stat svg{width:19px;height:19px;flex:none;color:#7FB4DE;margin-top:2px}
 .stat b{display:block;color:#fff;font-size:16.5px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
 .stat span{display:block;font-size:11px;line-height:1.4;color:#A9C4DC;margin-top:4px}
 
-/* the two highlights: boxed icon, value, label, split by a hairline */
-.featured-deck .stat-grid{gap:0;margin-top:17px}
-.featured-deck .stat{gap:12px;align-items:flex-start;padding:2px 0}
-.featured-deck .stat+.stat{border-left:1px solid rgba(120,170,215,.20);padding-left:20px;margin-left:20px}
 .featured-deck .stat svg{
   width:36px;height:36px;padding:8px;margin-top:0;box-sizing:border-box;
   border-radius:9px;background:rgba(46,155,232,.13);
@@ -154,13 +170,15 @@ button{font:inherit}
 }
 .featured-deck .stat b{font-size:18px}
 .featured-deck .stat span{font-size:11.5px;margin-top:3px}
+
+/* compact "Explore the Study" button beside the title */
 .featured .cta{
-  display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:20px;
-  border:1px solid rgba(140,185,225,.35);border-radius:8px;padding:13px 17px;
-  color:#fff;font-size:14.5px;font-weight:600;transition:background .18s;
+  display:inline-flex;align-items:center;gap:9px;flex:none;white-space:nowrap;
+  border:1px solid rgba(140,185,225,.35);border-radius:8px;padding:9px 15px;
+  color:#fff;font-size:13.5px;font-weight:600;transition:background .18s;
 }
 .featured .cta:hover{background:rgba(46,155,232,.18)}
-.featured .cta svg{width:17px;height:17px}
+.featured .cta svg{width:16px;height:16px;flex:none}
 
 /* ================= RESEARCH IN ACTION ================= */
 .research{padding:56px 0 52px}
@@ -297,14 +315,16 @@ button{font:inherit}
   .site-header.nav-open .nav a.top,.site-header.nav-open .nav button.top{padding:13px 0;width:100%;justify-content:space-between;border-bottom:1px solid var(--line-soft)}
   .site-header.nav-open .dropdown{position:static;border:0;box-shadow:none;padding:4px 0 10px 12px}
 }
+/* tablet & smaller: let the title wrap the compact button underneath it */
+@media(max-width:760px){
+  .featured-title-row{flex-direction:column;gap:14px;align-items:flex-start}
+  .featured-title-row .cta{align-self:flex-start}
+}
 @media(max-width:619px){
   .hero h1{font-size:2rem}
-  .featured-figure{aspect-ratio:4/3}
-  .featured-deck .stat-grid{grid-template-columns:1fr}
-  .featured-deck .stat+.stat{
-    border-left:0;border-top:1px solid rgba(120,170,215,.20);
-    padding-left:0;margin-left:0;padding-top:14px;margin-top:14px;
-  }
+  .featured-body{padding:20px}
+  .featured h2{font-size:18px}
+  .featured-deck .stat-grid{grid-template-columns:1fr;gap:14px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 
@@ -464,15 +484,9 @@ button{font:inherit}
 @keyframes fslide-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 /* the card holds one height for all five studies, so the hero never jumps;
-   spare room settles above the button rather than below it */
+   the 2x2 findings grid settles at the bottom, spare room above it */
 .featured-body{display:flex;flex-direction:column}
-.featured-deck .stat-grid{margin-bottom:20px}
-.featured-deck .cta{margin-top:auto}
-.featured .kicker{display:flex;align-items:center;gap:8px}
-.featured .kicker .ref{
-  margin-left:auto;font-weight:500;color:#A9C8E2;font-size:13px;
-  letter-spacing:0;white-space:nowrap;
-}
+.featured-deck .stat-grid{margin-top:auto;padding-top:18px}
 .fstatus{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
 /* controls sit on the card's bottom edge, out of the way of the CTA */
