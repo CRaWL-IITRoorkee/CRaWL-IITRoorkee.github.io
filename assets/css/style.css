@@ -115,71 +115,111 @@ button{font:inherit}
 .pillar svg{width:30px;height:30px;flex:none;color:var(--blue);margin-top:1px}
 .pillar p{font-size:12.6px;line-height:1.42;color:#DCE9F4;font-weight:500}
 
-/* featured research card — single-column: header, 16:9 image, 2×2 findings */
+/* featured research card */
 .featured{
   background:rgba(9,32,60,.82);border:1px solid rgba(120,170,215,.22);border-radius:14px;
-  backdrop-filter:blur(3px);overflow:hidden;display:block;
+  backdrop-filter:blur(3px);overflow:hidden;display:grid;
 }
 
-.featured-body{padding:24px 26px 26px}
+/* Kicker and title on top, one wide figure, two highlights, then the CTA.
+   The figure sits on a light panel and is fitted, never cropped, because
+   the study figures are portrait multi-panel plots — cropping them to a
+   wide band would cut whole panels away. Add .is-cover to a figure that
+   is genuinely landscape and should fill the band edge to edge. */
+.featured-figure{
+  margin-top:15px;aspect-ratio:16/9;border-radius:10px;
+  background:#EEF4FA;border:1px solid rgba(120,170,215,.20);
+}
+.featured-figure img{width:100%;height:100%;object-fit:contain;padding:6px}
+.featured-figure.is-cover img{object-fit:cover;padding:0}
+.featured-figure.ph.dark::after{content:none}
+
+.featured-body{padding:22px 24px 24px}
 .featured .kicker{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:.01em}
-
-/* title row: research title on the left, compact CTA aligned beside it */
-.featured-title{
-  display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-top:11px;
-}
-.featured h2{color:#fff;font-size:22px;margin:0;letter-spacing:-.02em;line-height:1.24;flex:1 1 auto}
-
-/* 16:9 featured figure — never crop or distort the scientific figure */
-.featured-fig{
-  position:relative;margin:20px 0 0;aspect-ratio:16/9;border-radius:10px;overflow:hidden;
-  background:#0A2748;display:flex;align-items:center;justify-content:center;
-}
-.featured-fig img{width:100%;height:100%;object-fit:contain}
-
+.featured h2{color:#fff;font-size:20px;margin-top:10px;letter-spacing:-.02em;line-height:1.3;text-wrap:balance}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 22px;margin-top:22px}
 .stat{display:flex;gap:10px}
 .stat svg{width:19px;height:19px;flex:none;color:#7FB4DE;margin-top:2px}
 .stat b{display:block;color:#fff;font-size:16.5px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
 .stat span{display:block;font-size:11px;line-height:1.4;color:#A9C4DC;margin-top:4px}
 
-/* compact inline CTA beside the title (replaces the old full-width button) */
+/* the two highlights: boxed icon, value, label, split by a hairline */
+.featured-deck .stat-grid{gap:0;margin-top:17px}
+.featured-deck .stat{gap:12px;align-items:flex-start;padding:2px 0}
+.featured-deck .stat+.stat{border-left:1px solid rgba(120,170,215,.20);padding-left:20px;margin-left:20px}
+.featured-deck .stat svg{
+  width:36px;height:36px;padding:8px;margin-top:0;box-sizing:border-box;
+  border-radius:9px;background:rgba(46,155,232,.13);
+  border:1px solid rgba(120,170,215,.22);color:#8FC0E6;
+}
+.featured-deck .stat b{font-size:18px}
+.featured-deck .stat span{font-size:11.5px;margin-top:3px}
 .featured .cta{
-  display:inline-flex;align-items:center;gap:9px;flex:none;white-space:nowrap;margin-top:2px;
-  border:1px solid rgba(140,185,225,.35);border-radius:8px;padding:9px 15px;
-  color:#fff;font-size:13.5px;font-weight:600;transition:background .18s;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:20px;
+  border:1px solid rgba(140,185,225,.35);border-radius:8px;padding:13px 17px;
+  color:#fff;font-size:14.5px;font-weight:600;transition:background .18s;
 }
 .featured .cta:hover{background:rgba(46,155,232,.18)}
-.featured .cta svg{width:16px;height:16px}
+.featured .cta svg{width:17px;height:17px}
 
 /* ================= RESEARCH IN ACTION ================= */
 .research{padding:56px 0 52px}
 .research-grid{display:grid;gap:26px}
 @media(min-width:1180px){.research-grid{grid-template-columns:210px repeat(6,1fr);gap:20px}}
 .research-head h2{font-size:29px;line-height:1.17;letter-spacing:-.028em}
+.themes-grid .research-head{align-self:start}
 .link-arrow{display:inline-flex;align-items:center;gap:8px;margin-top:18px;color:var(--blue-600);font-size:14px;font-weight:600}
 .link-arrow svg{width:15px;height:15px;transition:transform .18s}
 .link-arrow:hover svg{transform:translateX(4px)}
 
-.rcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:18px}
-@media(min-width:1180px){.rcards{display:contents}}
-.rcard{
-  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff;
-  display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;
+/* Research themes — photo cards: picture, round icon badge sitting on the
+   picture's edge, number, title, description, and a blue bar along the foot.
+   Six across on a wide screen, folding to 3 / 2 / 1 as the screen narrows. */
+.themes-grid{display:block}
+.themes-grid .research-head{margin-bottom:26px}
+.research-head .head-rule{
+  display:block;width:88px;height:5px;margin-top:14px;border-radius:99px;
+  background:linear-gradient(90deg,var(--blue-600) 0%,var(--blue-600) 55%,#A8D4F5 100%);
 }
-.rcard:hover{box-shadow:0 14px 30px rgba(12,45,87,.11);transform:translateY(-3px)}
-.rcard .ph{aspect-ratio:16/11}
-.rcard .txt{padding:15px 15px 13px;flex:1;display:flex;flex-direction:column}
-.rcard h3{font-size:14.5px;line-height:1.3;letter-spacing:-.012em}
-.rcard p{font-size:12.4px;line-height:1.48;color:var(--muted);margin-top:8px;flex:1}
-.rcard .go{align-self:flex-end;margin-top:14px;color:var(--blue-600)}
-.rcard .go svg{width:16px;height:16px}
+.tcards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+@media(min-width:820px){.tcards{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1240px){.tcards{grid-template-columns:repeat(6,1fr);gap:14px}}
+.tcard{
+  position:relative;border:1px solid var(--line);border-radius:var(--r);background:#fff;
+  overflow:visible;display:flex;flex-direction:column;
+  box-shadow:0 1px 2px rgba(9,30,66,.04),0 14px 28px -22px rgba(9,30,66,.45);
+  transition:transform .3s cubic-bezier(.22,.68,.28,1),box-shadow .3s ease,border-color .3s ease;
+}
+.tcard::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:3px;border-radius:99px;
+  background:linear-gradient(90deg,var(--blue-600),var(--blue));
+}
+.tcard:hover{
+  transform:translateY(-5px);border-color:#C8DDF0;
+  box-shadow:0 1px 2px rgba(9,30,66,.04),0 22px 38px -24px rgba(9,30,66,.5);
+}
+.tphoto{aspect-ratio:4/3;margin:0;border-radius:var(--r) var(--r) 0 0;overflow:hidden}
+.tphoto img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,.68,.28,1)}
+.tcard:hover .tphoto img{transform:scale(1.06)}
+.tcard>:not(.tphoto):not(.ticon){padding-left:18px;padding-right:18px}
+.ticon{
+  position:relative;z-index:2;align-self:center;margin:-29px 0 12px;
+  width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:#fff;border:1px solid var(--line);box-shadow:0 6px 14px -8px rgba(9,30,66,.45);
+}
+.ticon svg{width:26px;height:26px;color:var(--blue-600)}
+.tnum{
+  display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;
+  color:var(--blue-600);font-variant-numeric:tabular-nums;
+}
+.tcard h3{font-size:15px;line-height:1.32;letter-spacing:-.014em;margin-top:7px}
+.tcard p{font-size:12.6px;line-height:1.55;color:var(--muted);margin-top:9px;padding-bottom:22px;flex:1}
 
 /* ================= PANEL BAND ================= */
 .band{background:var(--panel);padding:34px 0 40px}
 .panels{display:grid;gap:20px}
 @media(min-width:900px){.panels{grid-template-columns:1fr 1fr}}
-@media(min-width:1280px){.panels{grid-template-columns:1.42fr 1.24fr .72fr 1.02fr}}
+@media(min-width:1280px){.panels{grid-template-columns:1.5fr .8fr 1.2fr}}
 .panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 22px 22px}
 .panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:16px}
 .panel-head h2{font-size:18.5px;letter-spacing:-.02em}
@@ -257,17 +297,14 @@ button{font:inherit}
   .site-header.nav-open .nav a.top,.site-header.nav-open .nav button.top{padding:13px 0;width:100%;justify-content:space-between;border-bottom:1px solid var(--line-soft)}
   .site-header.nav-open .dropdown{position:static;border:0;box-shadow:none;padding:4px 0 10px 12px}
 }
-/* tablet & down: stack the CTA under the title */
-@media(max-width:760px){
-  .featured-title{flex-direction:column;gap:14px}
-  .featured .cta{margin-top:0}
-}
 @media(max-width:619px){
-  .featured-body{padding:20px 18px 22px}
-  .featured h2{font-size:19px}
-  .featured-fig{margin-top:16px}
-  .stat-grid{grid-template-columns:1fr;gap:16px}
   .hero h1{font-size:2rem}
+  .featured-figure{aspect-ratio:4/3}
+  .featured-deck .stat-grid{grid-template-columns:1fr}
+  .featured-deck .stat+.stat{
+    border-left:0;border-top:1px solid rgba(120,170,215,.20);
+    padding-left:0;margin-left:0;padding-top:14px;margin-top:14px;
+  }
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 
@@ -300,6 +337,47 @@ button{font:inherit}
 .filterbar input{min-width:210px;flex:1}
 .filterbar .count{margin-left:auto;font-size:12.5px;color:var(--blue-600);font-weight:600;white-space:nowrap}
 .empty-note{padding:30px 0;color:var(--muted);font-size:13.5px}
+
+/* Lab Updates rows — one running list of everything new in the lab */
+.update{padding:11px 0;border-bottom:1px solid var(--line-soft)}
+.update:last-child{border-bottom:0;padding-bottom:0}
+.utag{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--blue-600);
+  background:rgba(46,155,232,.09);border-radius:4px;padding:3px 7px;
+}
+.utxt{display:block;font-size:12.4px;line-height:1.45;color:var(--ink);font-weight:500;margin-top:7px}
+.update time{display:block;font-size:11px;color:var(--muted);margin-top:5px}
+
+/* Collaborator logos — one continuous left-to-right lane */
+.collabs .logo-marquee{
+  position:relative;overflow:hidden;
+  border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:22px 0;
+}
+.collabs .logo-marquee::before,.collabs .logo-marquee::after{
+  content:"";position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none;
+}
+.collabs .logo-marquee::before{left:0;background:linear-gradient(90deg,#fff,rgba(255,255,255,0))}
+.collabs .logo-marquee::after{right:0;background:linear-gradient(270deg,#fff,rgba(255,255,255,0))}
+.logo-lane{display:flex;align-items:center;gap:56px;width:max-content}
+.logo-marquee.is-rolling .logo-lane{animation:logo-roll var(--logo-duration,40s) linear infinite}
+.logo-marquee.is-rolling:hover .logo-lane{animation-play-state:paused}
+@keyframes logo-roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.logo-lane img{
+  height:52px;width:auto;max-width:170px;object-fit:contain;flex:none;
+  /* logos stay in their own colours at all times — the old grayscale(1)
+     only cleared on :hover, which on a touch screen meant the first tap
+     both coloured the lane and froze it */
+  filter:none;opacity:1;transition:transform .25s ease;
+}
+.logo-lane a:hover img{transform:scale(1.06)}
+/* a tap is not a hover: on touch screens the lane must keep rolling */
+@media(hover:none),(pointer:coarse){
+  .logo-marquee.is-rolling:hover .logo-lane,
+  .logo-marquee.is-rolling:active .logo-lane{animation-play-state:running}
+}
+@media(max-width:619px){.logo-lane{gap:38px}.logo-lane img{height:42px}}
+@media(prefers-reduced-motion:reduce){.logo-marquee.is-rolling .logo-lane{animation:none}}
 
 /* full publication list (extends .pub from home panel) */
 .pub-full{padding:15px 0;border-bottom:1px solid var(--line-soft);display:grid;grid-template-columns:44px 1fr;gap:14px}
@@ -386,12 +464,13 @@ button{font:inherit}
 @keyframes fslide-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 /* the card holds one height for all five studies, so the hero never jumps;
-   spare room settles above the findings grid rather than below it */
+   spare room settles above the button rather than below it */
 .featured-body{display:flex;flex-direction:column}
-.featured-deck .stat-grid{margin-top:auto;padding-top:22px}
+.featured-deck .stat-grid{margin-bottom:20px}
+.featured-deck .cta{margin-top:auto}
 .featured .kicker{display:flex;align-items:center;gap:8px}
 .featured .kicker .ref{
-  margin-left:auto;font-weight:500;color:#9BBBD8;font-size:10.5px;
+  margin-left:auto;font-weight:500;color:#A9C8E2;font-size:13px;
   letter-spacing:0;white-space:nowrap;
 }
 .fstatus{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -428,9 +507,19 @@ button{font:inherit}
 .panels{--panel-body:290px}
 .ticker{
   position:relative;overflow:hidden;--ticker-duration:30s;
-  /* min-height:0 stops a long list from dictating the card's height —
-     every card keeps the same height and the list scrolls inside it */
+  /* min-height:0 stops a long list from dictating the card's height, the basis
+     (--panel-body above) is the height the card asks for, and flex-grow lets the
+     list take whatever extra height the tallest panel in the row creates — so no
+     blank strip is ever left under it */
   flex:1 1 var(--panel-body);min-height:0;
+}
+/* if the list is not scrolling — it fits, JS is off, or the reader has asked
+   for reduced motion — let them scroll it by hand instead of clipping it */
+.ticker:not(.is-ticking){overflow-y:auto}
+/* and in that case spread the rows over the full height of the card, so a short
+   list fills its box instead of stopping halfway down */
+.ticker:not(.is-ticking) .ticker-track{
+  display:flex;flex-direction:column;justify-content:space-between;min-height:100%;
 }
 .ticker.is-ticking{
   -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 16px,#000 calc(100% - 20px),transparent 100%);
@@ -568,6 +657,12 @@ button{font:inherit}
 .gallery-grid.photo-grid .g-item:focus-visible{
   outline:2px solid var(--blue-600);outline-offset:2px;
 }
+/* --- auto-loaded gallery (assets/js/gallery-auto.js) --- */
+.gallery-grid.photo-grid[hidden]{display:none}
+.gallery-grid.photo-grid[data-loading]{min-height:180px;position:relative}
+.gallery-grid.photo-grid[data-loading]::after{
+  content:"Loading photos\2026";position:absolute;inset:0;display:grid;place-items:center;
+  font-size:13px;color:var(--muted)}
 @media (max-width:1024px){ .gallery-grid.photo-grid{grid-template-columns:repeat(3,1fr)} }
 @media (max-width:720px){ .gallery-grid.photo-grid{grid-template-columns:repeat(2,1fr);gap:12px} }
 @media (max-width:440px){ .gallery-grid.photo-grid{grid-template-columns:repeat(2,1fr);gap:10px} }
@@ -624,3 +719,57 @@ button{font:inherit}
 @media (prefers-reduced-motion:reduce){
   .gallery-grid.photo-grid .g-item{transition:none}
 }
+
+/* ============================================================
+   DATA & TOOLS — computational stack: three logo cards
+   Logos live in assets/images/tools/ as <name>.png. A tile whose
+   file is missing simply keeps its dashed outline, so the card can
+   be filled in gradually.
+   ============================================================ */
+.stack-cards{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.stack-card{
+  position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:26px 22px 24px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(9,30,66,.04),0 14px 28px -24px rgba(9,30,66,.45);
+}
+.stack-card::before{                     /* blue bar across the top edge */
+  content:"";position:absolute;left:0;right:0;top:0;height:3px;
+  background:linear-gradient(90deg,var(--blue-600),var(--blue));
+}
+.stack-card h3{
+  font-size:16.5px;line-height:1.3;text-align:center;color:var(--navy-700);
+  letter-spacing:-.018em;padding:0 6px;
+}
+.stack-card h3::after{                   /* short rule under the title */
+  content:"";display:block;width:52px;height:2px;margin:12px auto 0;
+  border-radius:99px;background:var(--blue-600);
+}
+.logo-grid{
+  list-style:none;margin:20px 0 0;padding:0;
+  /* minmax(0,1fr) — not 1fr — or a wide logo sets the column's minimum width
+     and pushes the last column past the edge of the card */
+  display:grid;gap:14px;grid-template-columns:repeat(3,minmax(0,1fr));
+}
+.logo-cell{
+  display:grid;place-items:center;aspect-ratio:1/.92;padding:10px;
+  min-width:0;overflow:hidden;
+  border:1px dashed var(--line);border-radius:9px;background:#FAFCFE;
+  transition:border-color .2s ease,background .2s ease,transform .2s ease;
+}
+.logo-cell:has(img){border-style:solid;background:#fff}
+.logo-cell:hover{border-color:var(--blue);transform:translateY(-2px)}
+.logo-cell img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.logo-cell::after{                       /* placeholder glyph while the logo is missing */
+  content:"";width:26px;height:22px;border:1.6px solid #C9D6E2;border-radius:4px;
+  background:
+    radial-gradient(circle at 7px 7px,#C9D6E2 2px,transparent 2.5px),
+    linear-gradient(45deg,transparent 46%,#C9D6E2 46% 54%,transparent 54%);
+}
+.logo-cell:has(img)::after{display:none}
+@media(max-width:459px){.logo-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Two cards across, and the second card carries two titled sections */
+.stack-card{display:flex;flex-direction:column}
+.stack-card .logo-grid{flex:1;align-content:start}
+.stack-sub{display:flex;flex-direction:column}
+.stack-sub+.stack-sub{margin-top:24px;padding-top:22px;border-top:1px solid var(--line-soft)}
