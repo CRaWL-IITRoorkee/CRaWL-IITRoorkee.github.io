@@ -507,18 +507,20 @@ button{font:inherit}
 .panels{--panel-body:290px}
 .ticker{
   position:relative;overflow:hidden;--ticker-duration:30s;
-  /* min-height:0 stops a long list from dictating the card's height —
-     every card keeps the same height and the list scrolls inside it */
+  /* min-height:0 stops a long list from dictating the card's height, the basis
+     (--panel-body above) is the height the card asks for, and flex-grow lets the
+     list take whatever extra height the tallest panel in the row creates — so no
+     blank strip is ever left under it */
   flex:1 1 var(--panel-body);min-height:0;
-  /* max-height is what makes the list actually scroll: without it the box
-     simply grew to the height of its own content, so nothing ever overflowed
-     and home.js left the card still (this was the "In the News" card).
-     Change --panel-body above to make every ticker taller or shorter. */
-  max-height:var(--panel-body);
 }
 /* if the list is not scrolling — it fits, JS is off, or the reader has asked
    for reduced motion — let them scroll it by hand instead of clipping it */
 .ticker:not(.is-ticking){overflow-y:auto}
+/* and in that case spread the rows over the full height of the card, so a short
+   list fills its box instead of stopping halfway down */
+.ticker:not(.is-ticking) .ticker-track{
+  display:flex;flex-direction:column;justify-content:space-between;min-height:100%;
+}
 .ticker.is-ticking{
   -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 16px,#000 calc(100% - 20px),transparent 100%);
           mask-image:linear-gradient(180deg,transparent 0,#000 16px,#000 calc(100% - 20px),transparent 100%);
