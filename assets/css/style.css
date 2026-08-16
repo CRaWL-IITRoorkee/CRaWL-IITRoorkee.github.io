@@ -544,8 +544,9 @@ button{font:inherit}
 .ticker.is-ticking .ticker-reel{animation:ticker-up var(--ticker-duration) linear infinite;will-change:transform}
 .ticker.is-ticking:hover .ticker-reel,
 .ticker.is-ticking:focus-within .ticker-reel{animation-play-state:paused}
-/* the reel holds the list plus one identical copy, so -50% is exactly one loop */
-@keyframes ticker-up{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+/* the reel holds the list plus as many copies as the panel needs, so shifting
+   by exactly one list-height (--ticker-shift, set in JS) is one clean loop */
+@keyframes ticker-up{from{transform:translateY(0)}to{transform:translateY(calc(-1 * var(--ticker-shift,50%)))}}
 
 /* the last row keeps its rule while scrolling, so the loop has no gap */
 .ticker.is-ticking .pub:last-child,
