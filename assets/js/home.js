@@ -1,7 +1,6 @@
 /* ==========================================================
    CRaWL — home page behaviour
    1. Featured Research carousel   2. Panel tickers
-   3. Impact metrics (count-up, reads assets/js/site-data.js)
    Everything degrades to plain, readable HTML without JS.
    ========================================================== */
 (function () {
@@ -166,60 +165,4 @@
     window.addEventListener("load", function () { scrollers.forEach(setup); });
   })();
 
-  /* --------------------------------------------------------
-     3. IMPACT METRICS
-     -------------------------------------------------------- */
-  (function metrics() {
-    var strip = document.getElementById("metrics");
-    if (!strip || !window.CRAWL || !window.CRAWL.metrics) return;
-
-    var ICONS = {
-      quote: '<path d="M9 7H5a2 2 0 00-2 2v4a2 2 0 002 2h2l-2 4h3l3-6V9a2 2 0 00-2-2zM20 7h-4a2 2 0 00-2 2v4a2 2 0 002 2h2l-2 4h3l3-6V9a2 2 0 00-2-2z"/>',
-      paper: '<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/>',
-      scholar: '<path d="M12 3L2 8l10 5 8-4v6"/><path d="M6 11v4c0 1.7 2.7 3 6 3s6-1.3 6-3v-4"/>',
-      project: '<path d="M3 20V10M9 20V4M15 20v-7M21 20V7"/>'
-    };
-
-    strip.innerHTML = window.CRAWL.metrics.map(function (m) {
-      var glyph = ICONS[m.icon] || ICONS.project;
-      return '<div class="metric">' +
-        '<svg class="metric-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
-        'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-        glyph + '</svg>' +
-        '<b class="metric-n" data-to="' + m.value + '" ' +
-        'data-prefix="' + (m.prefix || "") + '" data-suffix="' + (m.suffix || "") + '">' +
-        (m.prefix || "") + m.value.toLocaleString("en-IN") + (m.suffix || "") + '</b>' +
-        '<span class="metric-l">' + m.label + '</span>' +
-        (m.note ? '<span class="metric-note">' + m.note + '</span>' : "") +
-        '</div>';
-    }).join("");
-
-    var nums = [].slice.call(strip.querySelectorAll(".metric-n"));
-    if (reduceMotion || !("IntersectionObserver" in window)) return;
-
-    function countUp(el) {
-      var to = parseFloat(el.dataset.to);
-      var pre = el.dataset.prefix, suf = el.dataset.suffix;
-      var dur = 1100, t0 = null;
-      el.textContent = pre + "0" + suf;
-      function step(ts) {
-        if (t0 === null) t0 = ts;
-        var p = Math.min((ts - t0) / dur, 1);
-        var eased = 1 - Math.pow(1 - p, 3);           // ease-out, no bounce
-        el.textContent = pre + Math.round(to * eased).toLocaleString("en-IN") + suf;
-        if (p < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        countUp(en.target);
-        io.unobserve(en.target);
-      });
-    }, { threshold: 0.5 });
-
-    nums.forEach(function (n) { io.observe(n); });
-  })();
 })();

@@ -3,36 +3,13 @@
    ----------------------------------------------------------
    EDIT THIS FILE ONLY. Nothing here is duplicated elsewhere.
 
-   1. metrics   — the impact strip on the home page
-   2. analytics — the footer "Website analytics" panel
+   1. analytics — the footer "Website analytics" panel
    ========================================================== */
 
 window.CRAWL = window.CRAWL || {};
 
 /* ---------------------------------------------------------
-   1. IMPACT METRICS  (home page strip)
-   ---------------------------------------------------------
-   value  : the number, as a plain number (no commas)
-   label  : the caption under the number
-   note   : small source line — keep it honest and short
-   prefix : optional, e.g. "~"  |  suffix : optional, e.g. "+"
-   icon   : quote | paper | scholar | project  (see metrics.js)
-
-   Last verified: August 2026
-     • citations   — Google Scholar profile
-     • papers      — publications.html (49 journal articles)
-     • scholars    — research-scholars.html (12 scholars)
-     • projects    — projects.html (12 marked "Ongoing")
-   --------------------------------------------------------- */
-window.CRAWL.metrics = [
-  { value: 1984, label: "Citations",        note: "Google Scholar", icon: "quote"   },
-  { value: 49,   label: "Journal papers",   note: "Peer-reviewed",  icon: "paper"   },
-  { value: 12,   label: "Doctoral scholars",note: "Current cohort", icon: "scholar" },
-  { value: 12,   label: "Ongoing projects", note: "Sponsored",      icon: "project" }
-];
-
-/* ---------------------------------------------------------
-   2. ANALYTICS  (footer panel)
+   1. ANALYTICS  (footer panel)
    ---------------------------------------------------------
    The footer shows REAL numbers or nothing at all. It never
    invents a figure and never calls a page view a "click".
