@@ -719,3 +719,48 @@ button{font:inherit}
 @media (prefers-reduced-motion:reduce){
   .gallery-grid.photo-grid .g-item{transition:none}
 }
+
+/* ============================================================
+   DATA & TOOLS — computational stack: three logo cards
+   Logos live in assets/images/tools/ as <name>.png. A tile whose
+   file is missing simply keeps its dashed outline, so the card can
+   be filled in gradually.
+   ============================================================ */
+.stack-cards{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.stack-card{
+  position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:26px 22px 24px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(9,30,66,.04),0 14px 28px -24px rgba(9,30,66,.45);
+}
+.stack-card::before{                     /* blue bar across the top edge */
+  content:"";position:absolute;left:0;right:0;top:0;height:3px;
+  background:linear-gradient(90deg,var(--blue-600),var(--blue));
+}
+.stack-card h3{
+  font-size:16.5px;line-height:1.3;text-align:center;color:var(--navy-700);
+  letter-spacing:-.018em;padding:0 6px;
+}
+.stack-card h3::after{                   /* short rule under the title */
+  content:"";display:block;width:52px;height:2px;margin:12px auto 0;
+  border-radius:99px;background:var(--blue-600);
+}
+.logo-grid{
+  list-style:none;margin:20px 0 0;padding:0;
+  display:grid;gap:14px;grid-template-columns:repeat(3,1fr);
+}
+.logo-cell{
+  display:grid;place-items:center;aspect-ratio:1/.92;padding:10px;
+  border:1px dashed var(--line);border-radius:9px;background:#FAFCFE;
+  transition:border-color .2s ease,background .2s ease,transform .2s ease;
+}
+.logo-cell:has(img){border-style:solid;background:#fff}
+.logo-cell:hover{border-color:var(--blue);transform:translateY(-2px)}
+.logo-cell img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.logo-cell::after{                       /* placeholder glyph while the logo is missing */
+  content:"";width:26px;height:22px;border:1.6px solid #C9D6E2;border-radius:4px;
+  background:
+    radial-gradient(circle at 7px 7px,#C9D6E2 2px,transparent 2.5px),
+    linear-gradient(45deg,transparent 46%,#C9D6E2 46% 54%,transparent 54%);
+}
+.logo-cell:has(img)::after{display:none}
+@media(max-width:459px){.logo-grid{grid-template-columns:repeat(2,1fr)}}
