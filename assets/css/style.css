@@ -136,7 +136,7 @@ button{font:inherit}
 
 .featured-body{padding:22px 24px 24px}
 .featured .kicker{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:.01em}
-.featured h2{color:#fff;font-size:20px;margin-top:9px;letter-spacing:-.02em;line-height:1.28}
+.featured h2{color:#fff;font-size:20px;margin-top:10px;letter-spacing:-.02em;line-height:1.3;text-wrap:balance}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 22px;margin-top:22px}
 .stat{display:flex;gap:10px}
 .stat svg{width:19px;height:19px;flex:none;color:#7FB4DE;margin-top:2px}
@@ -404,7 +404,7 @@ button{font:inherit}
 .featured-deck .cta{margin-top:auto}
 .featured .kicker{display:flex;align-items:center;gap:8px}
 .featured .kicker .ref{
-  margin-left:auto;font-weight:500;color:#9BBBD8;font-size:10.5px;
+  margin-left:auto;font-weight:500;color:#A9C8E2;font-size:13px;
   letter-spacing:0;white-space:nowrap;
 }
 .fstatus{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
