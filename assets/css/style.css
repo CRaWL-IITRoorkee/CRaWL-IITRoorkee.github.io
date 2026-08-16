@@ -172,27 +172,48 @@ button{font:inherit}
 .link-arrow svg{width:15px;height:15px;transition:transform .18s}
 .link-arrow:hover svg{transform:translateX(4px)}
 
-/* Research themes — plain, non-clickable cards. No images, no links:
-   the theme and its description are the whole content. */
-.themes-grid{display:grid;gap:26px}
-@media(min-width:1180px){.themes-grid{grid-template-columns:210px 1fr;gap:34px}}
-.tcards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
-@media(min-width:820px){.tcards{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1180px){.tcards{grid-template-columns:repeat(3,1fr);gap:18px}}
-.tcard{
-  border:1px solid var(--line);border-radius:var(--r);background:#fff;
-  overflow:hidden;display:flex;flex-direction:column;
+/* Research themes — photo cards: picture, round icon badge sitting on the
+   picture's edge, number, title, description, and a blue bar along the foot.
+   Six across on a wide screen, folding to 3 / 2 / 1 as the screen narrows. */
+.themes-grid{display:block}
+.themes-grid .research-head{margin-bottom:26px}
+.research-head .head-rule{
+  display:block;width:88px;height:5px;margin-top:14px;border-radius:99px;
+  background:linear-gradient(90deg,var(--blue-600) 0%,var(--blue-600) 55%,#A8D4F5 100%);
 }
-.tphoto{aspect-ratio:16/10}
-.tcard>:not(.tphoto){padding-left:18px;padding-right:18px}
-.tcard .tnum{padding-top:15px}
-.tcard p{padding-bottom:19px;flex:1}
+.tcards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+@media(min-width:820px){.tcards{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1240px){.tcards{grid-template-columns:repeat(6,1fr);gap:14px}}
+.tcard{
+  position:relative;border:1px solid var(--line);border-radius:var(--r);background:#fff;
+  overflow:visible;display:flex;flex-direction:column;
+  box-shadow:0 1px 2px rgba(9,30,66,.04),0 14px 28px -22px rgba(9,30,66,.45);
+  transition:transform .3s cubic-bezier(.22,.68,.28,1),box-shadow .3s ease,border-color .3s ease;
+}
+.tcard::after{
+  content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:3px;border-radius:99px;
+  background:linear-gradient(90deg,var(--blue-600),var(--blue));
+}
+.tcard:hover{
+  transform:translateY(-5px);border-color:#C8DDF0;
+  box-shadow:0 1px 2px rgba(9,30,66,.04),0 22px 38px -24px rgba(9,30,66,.5);
+}
+.tphoto{aspect-ratio:4/3;margin:0;border-radius:var(--r) var(--r) 0 0;overflow:hidden}
+.tphoto img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,.68,.28,1)}
+.tcard:hover .tphoto img{transform:scale(1.06)}
+.tcard>:not(.tphoto):not(.ticon){padding-left:18px;padding-right:18px}
+.ticon{
+  position:relative;z-index:2;align-self:center;margin:-29px 0 12px;
+  width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:#fff;border:1px solid var(--line);box-shadow:0 6px 14px -8px rgba(9,30,66,.45);
+}
+.ticon svg{width:26px;height:26px;color:var(--blue-600)}
 .tnum{
   display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;
   color:var(--blue-600);font-variant-numeric:tabular-nums;
 }
 .tcard h3{font-size:15px;line-height:1.32;letter-spacing:-.014em;margin-top:7px}
-.tcard p{font-size:12.6px;line-height:1.55;color:var(--muted);margin-top:9px}
+.tcard p{font-size:12.6px;line-height:1.55;color:var(--muted);margin-top:9px;padding-bottom:22px;flex:1}
 
 /* ================= PANEL BAND ================= */
 .band{background:var(--panel);padding:34px 0 40px}
@@ -344,9 +365,17 @@ button{font:inherit}
 @keyframes logo-roll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .logo-lane img{
   height:52px;width:auto;max-width:170px;object-fit:contain;flex:none;
-  filter:grayscale(1);opacity:.72;transition:filter .2s,opacity .2s;
+  /* logos stay in their own colours at all times — the old grayscale(1)
+     only cleared on :hover, which on a touch screen meant the first tap
+     both coloured the lane and froze it */
+  filter:none;opacity:1;transition:transform .25s ease;
 }
-.logo-marquee:hover .logo-lane img{filter:none;opacity:1}
+.logo-lane a:hover img{transform:scale(1.06)}
+/* a tap is not a hover: on touch screens the lane must keep rolling */
+@media(hover:none),(pointer:coarse){
+  .logo-marquee.is-rolling:hover .logo-lane,
+  .logo-marquee.is-rolling:active .logo-lane{animation-play-state:running}
+}
 @media(max-width:619px){.logo-lane{gap:38px}.logo-lane img{height:42px}}
 @media(prefers-reduced-motion:reduce){.logo-marquee.is-rolling .logo-lane{animation:none}}
 
@@ -481,7 +510,15 @@ button{font:inherit}
   /* min-height:0 stops a long list from dictating the card's height —
      every card keeps the same height and the list scrolls inside it */
   flex:1 1 var(--panel-body);min-height:0;
+  /* max-height is what makes the list actually scroll: without it the box
+     simply grew to the height of its own content, so nothing ever overflowed
+     and home.js left the card still (this was the "In the News" card).
+     Change --panel-body above to make every ticker taller or shorter. */
+  max-height:var(--panel-body);
 }
+/* if the list is not scrolling — it fits, JS is off, or the reader has asked
+   for reduced motion — let them scroll it by hand instead of clipping it */
+.ticker:not(.is-ticking){overflow-y:auto}
 .ticker.is-ticking{
   -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 16px,#000 calc(100% - 20px),transparent 100%);
           mask-image:linear-gradient(180deg,transparent 0,#000 16px,#000 calc(100% - 20px),transparent 100%);
