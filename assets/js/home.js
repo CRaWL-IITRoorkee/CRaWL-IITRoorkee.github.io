@@ -120,27 +120,35 @@
       var track = box.querySelector(".ticker-track");
       if (!track || track.dataset.ready === "1") return;
 
-      if (track.scrollHeight - box.clientHeight < 10 || reduceMotion) {
-        box.classList.remove("is-ticking");         // it fits — leave it still
+      if (reduceMotion) {
+        box.classList.remove("is-ticking");   // reader asked for stillness
         return;
       }
 
       var height = track.scrollHeight;
+      if (height < 40) return;                // nothing worth rolling
 
-      /* Wrap the list and one identical copy in a reel. Sliding the
-         reel up by half its height lands exactly back at the start,
-         so the loop has no visible seam. The copy is hidden from
-         screen readers and skipped by the keyboard. */
+      /* Wrap the list and enough identical copies in a reel that the
+         reel is always taller than the panel. Sliding the reel up by
+         exactly one list-height lands back at the start, so the loop
+         has no visible seam. A short list that already fits still
+         rolls — it simply needs more copies to fill the panel.
+         Copies are hidden from screen readers and skipped by the
+         keyboard. */
       var reel = document.createElement("div");
       reel.className = "ticker-reel";
       track.parentNode.insertBefore(reel, track);
       reel.appendChild(track);
 
-      var copy = track.cloneNode(true);
-      copy.classList.add("ticker-copy");
-      copy.setAttribute("aria-hidden", "true");
-      [].forEach.call(copy.querySelectorAll("a"), function (a) { a.tabIndex = -1; });
-      reel.appendChild(copy);
+      var copies = Math.max(1, Math.ceil(box.clientHeight / height));
+      for (var i = 0; i < copies; i++) {
+        var copy = track.cloneNode(true);
+        copy.classList.add("ticker-copy");
+        copy.setAttribute("aria-hidden", "true");
+        [].forEach.call(copy.querySelectorAll("a"), function (a) { a.tabIndex = -1; });
+        reel.appendChild(copy);
+      }
+      box.style.setProperty("--ticker-shift", height + "px");
 
       /* Constant, unhurried speed everywhere: ~22px per second. */
       var seconds = Math.max(18, Math.round(height / 22));
