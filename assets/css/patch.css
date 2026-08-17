@@ -450,3 +450,39 @@ h1,h2,h3,h4,h5,h6,
   .stat-grid:hover,.stat-grid:focus-within{max-height:290px}
   .featured-title-row .cta{margin:0 12px 12px 0}
 }
+
+
+/* ==========================================================
+   11. COMPUTATIONAL STACK (data-tools.html) — smaller logos
+   The card/section itself is left alone — its size does not
+   change. Only the icons shrink and the grid packs tighter, so
+   however many logo files exist fit inside the same region
+   instead of overflowing or forcing the card taller.
+   ========================================================== */
+.stack-cards .logo-grid{
+  display:flex !important;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px !important;
+  margin:0;padding:0;list-style:none;
+}
+.stack-cards .logo-cell{
+  flex:0 0 auto;
+  width:auto;height:auto;
+  display:flex;align-items:center;justify-content:center;
+  padding:6px 9px;
+  border-radius:8px;
+}
+.stack-cards .logo-cell img{
+  width:auto !important;height:auto !important;
+  max-width:52px !important;
+  max-height:28px !important;
+  object-fit:contain;
+  display:block;
+}
+@media(max-width:700px){
+  .stack-cards .logo-grid{gap:6px !important}
+  .stack-cards .logo-cell{padding:5px 7px}
+  .stack-cards .logo-cell img{max-width:42px !important;max-height:24px !important}
+}
