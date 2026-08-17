@@ -78,6 +78,12 @@
 .map-note{margin:12px 0 0; font-size:13px; color:var(--muted,#6b7a90)}
 .leaflet-container{font:inherit}
 .leaflet-popup-content{font-size:13px; line-height:1.5}
+/* the map's only text: our own English place names */
+.conf-label{white-space:nowrap; pointer-events:none}
+.conf-label span{
+  display:inline-block; font-size:12px; line-height:1;
+  color:#0d2c4f; text-shadow:0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff, 0 0 6px #fff;
+}
 
 @media (max-width:820px){ .lm-track .lm-logo{width:158px; height:100px; padding:12px 14px} #confMap{height:360px} }
 @media (max-width:520px){ .lm-track .lm-logo{width:132px; height:86px; padding:10px 12px} .lm-arrow{width:32px;height:32px} }
