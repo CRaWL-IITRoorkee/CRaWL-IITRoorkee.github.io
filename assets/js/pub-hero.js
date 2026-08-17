@@ -24,11 +24,17 @@
     exts: [".jpg", ".jpeg", ".png", ".webp", ".JPG", ".JPEG", ".PNG", ".WEBP"],
     pad: true,                     // also try 01.jpg, 02.jpg …
 
+    hoverPreview: false,           /* false = the cursor does nothing over the
+                                      grid. true = hovering a cover throws it
+                                      onto the big panel and holds the reel
+                                      there, which is what made it flip about
+                                      as the pointer crossed the tiles. */
+
     hold: 1000,                    // ms each cover holds the big panel
     holdReduced: 2000,             // slower pace when the OS asks for reduced motion
     hideActiveTile: true,          // featured cover is not repeated as a thumbnail
     stopAfterMisses: 3,            // end the scan after this many consecutive missing numbers
-    debug: true                    // console summary — set false once happy
+    debug: false                   // console summary — set true while fault-finding
   };
 
   var stage, grid, reel, reduce;
@@ -143,7 +149,15 @@
       slot.thumb.className = "thumb";
       slot.thumb.setAttribute("aria-label", "Show publication front page " + (i + 1));
       slot.thumb.appendChild(t);
-      slot.thumb.addEventListener("mouseenter", function () { paused = true; show(slides.indexOf(slot)); });
+      /* Hover deliberately does nothing: the pointer only has to cross the
+         grid on its way somewhere else for every cover it passes to be
+         thrown onto the big panel, and the hero reads as flickering.
+         Clicking still works, and so does tabbing to a cover. */
+      if (CFG.hoverPreview) {
+        slot.thumb.addEventListener("mouseenter", function () {
+          paused = true; show(slides.indexOf(slot));
+        });
+      }
       slot.thumb.addEventListener("focus", function () { paused = true; show(slides.indexOf(slot)); });
       slot.thumb.addEventListener("click", function () { show(slides.indexOf(slot)); });
       grid.appendChild(slot.thumb);
@@ -154,7 +168,7 @@
     layout();
     show(0);
 
-    grid.addEventListener("mouseleave", function () { paused = false; });
+    if (CFG.hoverPreview) grid.addEventListener("mouseleave", function () { paused = false; });
     grid.addEventListener("focusout", function (e) { if (!grid.contains(e.relatedTarget)) paused = false; });
     document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
     window.addEventListener("resize", layout);
