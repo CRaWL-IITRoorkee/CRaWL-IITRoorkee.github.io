@@ -93,7 +93,7 @@ h1,h2,h3,h4,h5,h6,
 
 
 /* ==========================================================
-   2. HERO — water only, and Unica One for its text
+   2. HERO — water only, Unica One for the headline
    The photograph is gone from index.html. The hero paints its
    own depth gradient, the canvas paints the water on top of
    it, and a soft scrim over the canvas keeps the headline
@@ -116,26 +116,40 @@ h1,h2,h3,h4,h5,h6,
 }
 .hero .hero-in{position:relative;z-index:2;min-height:var(--hero-min);align-content:center}
 
-/* ---- Unica One, hero only ----------------------------------------
-   Every word inside the hero section — headline, eyebrow, the
-   Featured Research bar and the card behind it. Everything outside
-   the hero stays Times New Roman.
+/* ---- Unica One, headline only -------------------------------------
+   The rotating headline and its eyebrow are Unica One, bold and a size
+   up. Featured Research — the bar and the card behind it — is left in
+   Times New Roman with the rest of the site, because a display face
+   set at 13px in a stat label is unreadable.
 
-   Unica One ships in one weight, so the site-wide bold rule is lifted
-   here: a browser asked to bolden a single-weight display face smears
-   it. Delete the font-weight line below if you want it emboldened
-   anyway.
-
-   To put Unica One on the headline alone and leave the card in Times,
-   replace `.hero, .hero *` with `.hero h1, .hero h1 *`. */
-.hero, .hero *{
+   Unica One ships in one weight, so the bold here is the browser's own
+   synthetic bold. That is fine at headline size and only at headline
+   size; do not extend this rule down into the card.
+   ------------------------------------------------------------------ */
+.hero h1,.hero h1 *{
   font-family:"Unica One",var(--font) !important;
-  font-weight:400 !important;
+  font-weight:700 !important;
 }
-.hero h1 .kinetic-eyebrow,.kinetic .kinetic-eyebrow{letter-spacing:.26em}
-.hero h1 .kinetic-line,.kinetic .kinetic-line{line-height:1.08;letter-spacing:.01em}
-.hero .featured h2{line-height:1.22}
-.fpeek-kicker,.featured .kicker{letter-spacing:.04em}
+.hero h1 .kinetic-eyebrow,.kinetic .kinetic-eyebrow{
+  font-size:clamp(16px,1.6vw,24px);letter-spacing:.26em;
+}
+.hero h1 .kinetic-line,.kinetic .kinetic-line{
+  font-size:clamp(40px,6.4vw,92px);line-height:1.08;letter-spacing:.012em;
+}
+@media(max-width:700px){
+  .kinetic .kinetic-line{font-size:clamp(34px,9.2vw,52px)}
+}
+
+/* Featured Research stays Times New Roman and stays bold, like the
+   rest of the page. This rule only has to exist because the headline
+   rule above sits inside the same hero. */
+.hero .featured-deck,.hero .featured-deck *,
+.hero .fpeek,.hero .fpeek *{
+  font-family:var(--font) !important;
+  font-weight:700 !important;
+}
+.hero .featured h2{line-height:1.24}
+.fpeek-kicker,.featured .kicker{letter-spacing:.02em}
 
 
 /* ==========================================================
