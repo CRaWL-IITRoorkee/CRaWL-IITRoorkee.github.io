@@ -100,19 +100,19 @@ h1,h2,h3,h4,h5,h6,
    readable on the left.
    ========================================================== */
 .hero{
-  --hero-min:clamp(460px,62vh,660px);
-  background:linear-gradient(180deg,#04203F 0%,#072A4F 36%,#0A3767 66%,#052648 100%);
+  --hero-min:clamp(470px,64vh,680px);
+  /* the water fades out into this at the far edge, which is the TOP of
+     the frame, so the top must be the shader's HAZE colour, #0B2B52 */
+  background:linear-gradient(180deg,#0B2B52 0%,#0A2748 45%,#071F3B 100%);
 }
-.hero::before{                       /* the old photo wash, softened */
-  background:linear-gradient(180deg,rgba(4,22,44,.35) 0%,rgba(5,26,52,.10) 55%,rgba(4,20,40,.30) 100%);
-}
+.hero::before{ background:none }     /* the old photo wash is not needed */
 .hero-water{
   position:absolute;left:0;top:0;width:100%;height:100%;
   z-index:0;pointer-events:none;display:block;
 }
 .hero::after{                        /* legibility scrim, over the water */
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(100deg,rgba(4,22,44,.74) 0%,rgba(5,26,52,.48) 44%,rgba(6,30,58,.10) 100%);
+  background:linear-gradient(100deg,rgba(3,17,36,.70) 0%,rgba(4,22,44,.42) 44%,rgba(6,30,58,.06) 100%);
 }
 .hero .hero-in{position:relative;z-index:2;min-height:var(--hero-min);align-content:center}
 
