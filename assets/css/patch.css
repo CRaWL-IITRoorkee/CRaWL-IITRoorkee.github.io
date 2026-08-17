@@ -8,14 +8,18 @@
    so deleting this one file restores the original site.
 
    1  Typography — Times New Roman, larger, bold
-   2  Hero — water only, no photograph
+   2  Hero — water only, Unica One for the headline
    3  Featured Research — collapsed bar
    4  Recent Updates — up / down arrows
    5  Recent Updates — "New" badge
    6  Research themes — description on hover
    7  Collaborators — full width, bigger, faster
-   8  Footer — social icons
+   8  Social icons — the files in assets/images/Social Link/
+   8b Alumni — current affiliation block
    9  Footer — page visit counter
+   10 Featured Research card — compact, fits inside the hero
+   11 Computational stack (data-tools) — uniform logo size
+   12 Inner pages — the same type lift the home page has
    ========================================================== */
 
 /* ==========================================================
@@ -296,23 +300,75 @@ h1,h2,h3,h4,h5,h6,
 
 
 /* ==========================================================
-   8. FOOTER — social icons
+   8. SOCIAL ICONS — the files in assets/images/Social Link/
+   Three of those files are transparent, three carry their own
+   background, and one is a wordmark on white. A white tile
+   under all of them is what makes a mixed set read as a set:
+   every logo then sits on the same ground, whatever it was
+   exported with.
    ========================================================== */
+.socials a img{
+  width:100%;height:100%;display:block;object-fit:contain;
+}
+
+/* footer, on the dark ground */
 .site-footer .socials{gap:10px;flex-wrap:wrap;margin-top:16px}
 .site-footer .socials a{
-  width:38px;height:38px;border-radius:9px;
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
-  color:#DCEAF6;
-  transition:transform .18s ease,background .18s ease,color .18s ease,border-color .18s ease;
+  width:40px;height:40px;padding:5px;border-radius:10px;
+  background:#fff;border:1px solid rgba(255,255,255,.22);
+  overflow:hidden;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
 }
-.site-footer .socials svg{width:19px;height:19px}
-.site-footer .socials a:hover{transform:translateY(-2px)}
-.site-footer .socials a[data-net="scholar"]:hover{background:#4285F4;border-color:#4285F4;color:#fff}
-.site-footer .socials a[data-net="orcid"]:hover{background:#A6CE39;border-color:#A6CE39;color:#123018}
-.site-footer .socials a[data-net="researchgate"]:hover{background:#00CCBB;border-color:#00CCBB;color:#04322D}
-.site-footer .socials a[data-net="scopus"]:hover{background:#E9711C;border-color:#E9711C;color:#fff}
-.site-footer .socials a[data-net="linkedin"]:hover{background:#0A66C2;border-color:#0A66C2;color:#fff}
-.site-footer .socials a[data-net="email"]:hover{background:var(--blue-600);border-color:var(--blue-600);color:#fff}
+.site-footer .socials a:hover{
+  transform:translateY(-2px);
+  border-color:#fff;box-shadow:0 8px 18px -8px rgba(0,0,0,.75);
+}
+
+/* on a light page — contact.html research profiles */
+.socials.on-light{display:flex;gap:10px;flex-wrap:wrap}
+.socials.on-light a{
+  width:42px;height:42px;padding:5px;border-radius:10px;
+  background:#fff;border:1px solid var(--line);overflow:hidden;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.socials.on-light a:hover{
+  transform:translateY(-2px);border-color:var(--blue-600);
+  box-shadow:0 10px 20px -12px rgba(9,30,66,.6);
+}
+
+/* person cards — smaller, quieter */
+.socials.sm{display:flex;gap:7px;margin-top:10px}
+.socials.sm a{
+  width:28px;height:28px;padding:3px;border-radius:7px;
+  background:#fff;border:1px solid var(--line);overflow:hidden;
+  transition:transform .16s ease,border-color .16s ease;
+}
+.socials.sm a:hover{transform:translateY(-1px);border-color:var(--blue-600)}
+
+
+/* ==========================================================
+   8b. ALUMNI — where they are now
+   The logo is optional: if the file is missing the <img> removes
+   itself and the line closes up, so the layout never breaks on a
+   404.
+   ========================================================== */
+.affil{
+  display:flex;align-items:flex-start;gap:12px;margin-top:10px;
+  padding:11px 13px;border-radius:10px;
+  background:var(--panel);border:1px solid var(--line);
+  border-left:3px solid var(--blue-600);
+}
+.affil-logo{
+  flex:none;width:44px;height:44px;object-fit:contain;
+  background:#fff;border-radius:7px;padding:3px;border:1px solid var(--line-soft);
+}
+.affil p{margin:0;font-size:14px;line-height:1.5;color:var(--body)}
+.affil-label{
+  display:block;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--blue-600);margin-bottom:3px;
+}
+.affil a{color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--blue-300)}
+.affil a:hover{color:var(--blue-600);border-bottom-color:var(--blue-600)}
 
 
 /* ==========================================================
@@ -488,3 +544,69 @@ h1,h2,h3,h4,h5,h6,
   .stack-cards .logo-grid{gap:6px !important}
   .stack-cards .logo-cell{width:70px;height:44px;padding:5px 7px}
 }
+
+
+/* ==========================================================
+   12. INNER PAGES — the same lift the home page already had
+   style.css sets most of its type in fixed px, so a larger
+   body size alone does not reach it. Every one of those sizes
+   is raised by about 15% here.
+   ========================================================== */
+.pillar p{font-size:14.5px}
+.link-arrow{font-size:16.1px}
+.pub .t{font-size:14.3px}
+.pub .src{font-size:13.2px}
+.pub .doi{font-size:13.2px}
+.tool .t{font-size:14.7px}
+.tool .d{font-size:13.1px}
+.tool .go{font-size:14.3px}
+.page-hero .crumb{font-size:14.4px}
+.section-head p{font-size:16.1px}
+.filterbar label{font-size:14.4px}
+.filterbar select,.filterbar input{font-size:15.5px}
+.filterbar .count{font-size:14.4px}
+.empty-note{font-size:15.5px}
+.pub-full .yr{font-size:16.1px}
+.pub-full .t{font-size:16.7px}
+.pub-full .a{font-size:14.7px}
+.pub-full .j{font-size:14.7px}
+.pub-full .doi{font-size:13.8px}
+.chip{font-size:12.6px}
+.timeline .when{font-size:13.2px}
+.timeline h3{font-size:17.8px}
+.timeline p{font-size:14.9px}
+.card h3{font-size:16.7px}
+.card p{font-size:14.5px}
+.card .foot{font-size:13.2px}
+.gallery-grid figcaption.cap{font-size:13.2px}
+.person h3{font-size:16.7px}
+.person .role{font-size:12.6px}
+.person .ri{font-size:14.3px}
+.mapbox{font-size:14.4px}
+.join .areas{font-size:13.1px}
+.metric-l{font-size:14.9px}
+.metric-note{font-size:12.6px}
+.an-stat b+span{font-size:13.1px}
+.an-foot{font-size:12.6px}
+.gallery-grid.photo-grid[data-loading]::after{font-size:14.9px}
+.btn-see-more{font-size:15.5px}
+.gallery-empty{font-size:15.5px}
+.lightbox-caption{font-size:16.1px}
+.stack-card h3{font-size:19px}
+
+/* Some inner pages set their sizes inline, which beats any
+   stylesheet — these substring matches are the only way to reach
+   them without editing seventeen files by hand. */
+[style*="font-size:11px"]{font-size:13px !important}
+[style*="font-size:11.5px"]{font-size:13.5px !important}
+[style*="font-size:12px"]{font-size:14px !important}
+[style*="font-size:12.5px"]{font-size:14.5px !important}
+[style*="font-size:13px"]{font-size:15px !important}
+[style*="font-size:13.5px"]{font-size:15.5px !important}
+[style*="font-size:14px"]{font-size:16px !important}
+[style*="font-size:15px"]{font-size:17px !important}
+[style*="font-size:16px"]{font-size:18px !important}
+[style*="font-size:18px"]{font-size:20px !important}
+[style*="font-size:20px"]{font-size:22px !important}
+[style*="font-size:24px"]{font-size:26px !important}
+[style*="font-size:30px"]{font-size:33px !important}
