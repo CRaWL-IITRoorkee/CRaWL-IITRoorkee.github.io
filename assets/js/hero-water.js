@@ -1,23 +1,28 @@
 /* ==========================================================
-   CRaWL — HERO WATER
-   File: assets/js/hero-water.js
+   CRaWL — HERO WATER  (v2, natural swell)
+   File: assets/js/hero-water.js   — replaces the earlier file
    ----------------------------------------------------------
-   A living water surface behind the hero: four sine-composed
-   wave layers moving at different speeds, rising bubbles and
-   a light spray of droplets over the crest.
+   No photograph behind it any more: the hero IS the water.
 
-   Nothing to configure. It finds <canvas id="heroWater"> in
-   .hero, or creates one if the tag is missing, and paints
-   behind the headline and the Featured Research card.
+   Six layers of open water, each surface built from three
+   sine waves whose wavelengths do not divide into one another,
+   so the pattern never visibly repeats. Each layer is filled
+   with its own depth gradient, carries a lit crest, and its
+   height breathes on a slow swell. Bands of caustic light
+   drift under the surface and one broad glare slides across it.
 
-   It stops itself when the hero scrolls out of view or the
-   tab is hidden, and paints a single still frame for readers
-   who have asked for reduced motion.
+   No bubbles, no droplets, no particles — those are what made
+   the first version read as an effect rather than as water.
 
-   Tuning: the LAYERS array below. `top` is the layer's rest
-   line as a fraction of hero height, `amp` its wave height in
-   px, `len` the wavelength in px, `speed` the drift in px per
-   second (negative drifts the other way).
+   Tuning, in LAYERS below:
+     base   rest line, as a fraction of hero height
+     amp    the three wave heights in px, largest first
+     len    their three wavelengths in px
+     sp     their three drift speeds, px per second
+            (mixing signs is what keeps the surface unsettled)
+     swell  how slowly that layer breathes
+     top    colour at the crest, bot colour at depth
+     crest  the lit line along the surface
    ========================================================== */
 (function () {
   "use strict";
@@ -39,152 +44,115 @@
   var still = window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- wave layers, back to front ---------- */
   var LAYERS = [
-    { top: 0.50, amp: 22, len: 620, speed:  26, len2: 210, amp2: 7,
-      fill: "rgba(23, 88, 150, 0.26)", crest: "rgba(158, 212, 248, 0.13)" },
-    { top: 0.60, amp: 18, len: 480, speed: -34, len2: 165, amp2: 6,
-      fill: "rgba(18, 72, 128, 0.30)", crest: "rgba(158, 212, 248, 0.17)" },
-    { top: 0.71, amp: 15, len: 360, speed:  46, len2: 130, amp2: 5,
-      fill: "rgba(13, 57, 105, 0.34)", crest: "rgba(170, 220, 250, 0.20)" },
-    { top: 0.82, amp: 12, len: 260, speed: -58, len2:  95, amp2: 4,
-      fill: "rgba(9, 42, 80, 0.40)",  crest: "rgba(190, 230, 252, 0.22)" }
+    { base: 0.20, amp: [17, 9, 4.5], len: [980, 430, 173], sp: [ 11,  -7,   5], swell: 0.07,
+      top: "rgba(72,158,214,0.20)", bot: "rgba(10,46,86,0.02)", crest: "rgba(168,216,250,0.13)" },
+    { base: 0.34, amp: [21, 11, 5],  len: [820, 355, 149], sp: [-14,   9,  -6], swell: 0.09,
+      top: "rgba(58,142,204,0.24)", bot: "rgba(9,42,80,0.05)",  crest: "rgba(176,222,252,0.16)" },
+    { base: 0.48, amp: [24, 12, 6],  len: [690, 296, 127], sp: [ 17, -11,   8], swell: 0.11,
+      top: "rgba(44,124,190,0.28)", bot: "rgba(8,38,74,0.10)",  crest: "rgba(184,226,253,0.19)" },
+    { base: 0.62, amp: [26, 13, 6],  len: [575, 247, 109], sp: [-21,  13,  -9], swell: 0.13,
+      top: "rgba(32,104,170,0.34)", bot: "rgba(7,33,66,0.18)",  crest: "rgba(192,230,253,0.22)" },
+    { base: 0.76, amp: [26, 12, 5],  len: [478, 205,  91], sp: [ 26, -16,  11], swell: 0.16,
+      top: "rgba(22,84,146,0.42)",  bot: "rgba(6,28,58,0.30)",  crest: "rgba(200,234,254,0.24)" },
+    { base: 0.89, amp: [22, 10, 4],  len: [396, 171,  77], sp: [-32,  20, -13], swell: 0.19,
+      top: "rgba(14,62,114,0.55)",  bot: "rgba(5,22,48,0.52)",  crest: "rgba(206,238,255,0.26)" }
   ];
 
-  var W = 0, H = 0, dpr = 1, bubbles = [], drops = [];
-
-  function rand(a, b) { return a + Math.random() * (b - a); }
-
-  function surface(layer, x, t) {
-    return layer.top * H +
-      layer.amp * Math.sin((x + t * layer.speed) / layer.len) +
-      layer.amp2 * Math.sin((x - t * layer.speed * 0.6) / layer.len2);
-  }
-
-  /* ---------- particles ---------- */
-  function seed() {
-    var nB = Math.max(26, Math.min(90, Math.round(W / 18)));
-    var nD = Math.max(10, Math.min(34, Math.round(W / 52)));
-    bubbles = [];
-    drops = [];
-    for (var i = 0; i < nB; i++) {
-      bubbles.push({
-        x: rand(0, W), y: rand(H * 0.45, H),
-        r: rand(0.9, 3.4), vy: rand(9, 30), sway: rand(6, 20),
-        phase: rand(0, Math.PI * 2), a: rand(0.06, 0.24)
-      });
-    }
-    for (var j = 0; j < nD; j++) {
-      drops.push({
-        x: rand(0, W), y: rand(H * 0.18, H * 0.55),
-        r: rand(0.7, 1.9), vy: rand(-16, -5), vx: rand(-9, 9),
-        a: rand(0.10, 0.30)
-      });
-    }
-  }
+  var W = 0, H = 0, dpr = 1, grads = [];
 
   function resize() {
     var rect = hero.getBoundingClientRect();
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = Math.max(320, Math.round(rect.width));
-    H = Math.max(280, Math.round(rect.height));
+    H = Math.max(300, Math.round(rect.height));
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
     canvas.style.width = W + "px";
     canvas.style.height = H + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    seed();
+
+    grads = LAYERS.map(function (L) {
+      var g = ctx.createLinearGradient(0, L.base * H - 40, 0, H);
+      g.addColorStop(0, L.top);
+      g.addColorStop(1, L.bot);
+      return g;
+    });
   }
 
-  /* ---------- one frame ---------- */
+  function surface(L, x, t) {
+    var breathe = 1 + 0.22 * Math.sin(t * L.swell);
+    return L.base * H +
+      L.amp[0] * breathe * Math.sin((x + t * L.sp[0]) / L.len[0]) +
+      L.amp[1] * Math.sin((x + t * L.sp[1]) / L.len[1] + 1.7) +
+      L.amp[2] * Math.sin((x + t * L.sp[2]) / L.len[2] + 3.9);
+  }
+
+  function trace(L, t, step) {
+    ctx.beginPath();
+    ctx.moveTo(0, surface(L, 0, t));
+    for (var x = step; x <= W + step; x += step) ctx.lineTo(x, surface(L, x, t));
+  }
+
+  /* long, soft bands of light travelling under the surface */
+  function caustics(t, step) {
+    var L = LAYERS[3], k, x, y;
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    for (k = 0; k < 3; k++) {
+      var drift = t * (9 + k * 6);
+      var depth = 34 + k * 46;
+      ctx.beginPath();
+      for (x = 0; x <= W + step; x += step) {
+        y = surface(L, x + drift, t) + depth +
+            9 * Math.sin((x - drift * 1.6) / (180 + k * 70));
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = "rgba(150,208,246," + (0.05 - k * 0.012).toFixed(3) + ")";
+      ctx.lineWidth = 10 + k * 7;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  /* one broad glare sliding slowly across the water */
+  function glare(t) {
+    var cx = W * 0.5 + Math.sin(t * 0.06) * W * 0.42;
+    var cy = H * 0.46 + Math.sin(t * 0.09) * 26;
+    var r = Math.max(W, H) * 0.42;
+    var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    g.addColorStop(0, "rgba(140,198,240,0.10)");
+    g.addColorStop(1, "rgba(140,198,240,0)");
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+    ctx.restore();
+  }
+
   function draw(t) {
     ctx.clearRect(0, 0, W, H);
+    var step = W > 1400 ? 9 : (W > 800 ? 7 : 5);
 
-    var step = W > 1200 ? 10 : 7, i, x, y;
-
-    for (i = 0; i < LAYERS.length; i++) {
+    for (var i = 0; i < LAYERS.length; i++) {
       var L = LAYERS[i];
 
-      ctx.beginPath();
-      ctx.moveTo(0, surface(L, 0, t));
-      for (x = step; x <= W; x += step) ctx.lineTo(x, surface(L, x, t));
-      ctx.lineTo(W, H);
+      trace(L, t, step);
+      ctx.lineTo(W + step, H);
       ctx.lineTo(0, H);
       ctx.closePath();
-      ctx.fillStyle = L.fill;
+      ctx.fillStyle = grads[i];
       ctx.fill();
 
-      ctx.beginPath();
-      ctx.moveTo(0, surface(L, 0, t));
-      for (x = step; x <= W; x += step) ctx.lineTo(x, surface(L, x, t));
-      ctx.lineWidth = 1.4;
+      trace(L, t, step);
       ctx.strokeStyle = L.crest;
+      ctx.lineWidth = i > 3 ? 1.6 : 1.2;
       ctx.stroke();
 
-      /* bubbles ride between the second and third layer, so they read
-         as being inside the water rather than painted on top of it */
-      if (i === 1) paintBubbles(t);
+      if (i === 3) caustics(t, step);
     }
 
-    paintDrops(t);
-  }
-
-  function paintBubbles(t) {
-    for (var i = 0; i < bubbles.length; i++) {
-      var b = bubbles[i];
-      var x = b.x + Math.sin(t * 0.7 + b.phase) * b.sway;
-      ctx.beginPath();
-      ctx.arc(x, b.y, b.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(203, 232, 252, " + b.a.toFixed(3) + ")";
-      ctx.fill();
-      if (b.r > 2.3) {
-        ctx.beginPath();
-        ctx.arc(x, b.y, b.r + 1.2, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(203, 232, 252, " + (b.a * 0.5).toFixed(3) + ")";
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
-      }
-    }
-  }
-
-  function paintDrops(t) {
-    for (var i = 0; i < drops.length; i++) {
-      var d = drops[i];
-      ctx.beginPath();
-      ctx.ellipse ? ctx.ellipse(d.x, d.y, d.r, d.r * 1.5, 0, 0, Math.PI * 2)
-                  : ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(224, 243, 255, " + d.a.toFixed(3) + ")";
-      ctx.fill();
-    }
-  }
-
-  /* ---------- movement ---------- */
-  function advance(dt, t) {
-    var i, b, d;
-    for (i = 0; i < bubbles.length; i++) {
-      b = bubbles[i];
-      b.y -= b.vy * dt;
-      if (b.y + b.r < surface(LAYERS[0], b.x, t) - 6) {
-        b.y = H + b.r;
-        b.x = rand(0, W);
-        b.r = rand(0.9, 3.4);
-        b.vy = rand(9, 30);
-        b.a = rand(0.06, 0.24);
-      }
-    }
-    for (i = 0; i < drops.length; i++) {
-      d = drops[i];
-      d.y += d.vy * dt;
-      d.x += d.vx * dt;
-      d.vy += 11 * dt;                       /* gravity pulls them back down */
-      if (d.y > H * 0.9 || d.x < -20 || d.x > W + 20) {
-        d.x = rand(0, W);
-        d.y = surface(LAYERS[1], d.x, t) - rand(2, 26);
-        d.vy = rand(-16, -5);
-        d.vx = rand(-9, 9);
-        d.a = rand(0.10, 0.30);
-      }
-    }
+    glare(t);
   }
 
   /* ---------- loop ---------- */
@@ -195,11 +163,9 @@
     var dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
     last = now;
     clock += dt;
-    advance(dt, clock);
     draw(clock);
     raf = window.requestAnimationFrame(frame);
   }
-
   function start() {
     if (running || still || !visible || document.hidden) return;
     running = true;
@@ -213,7 +179,7 @@
   }
 
   resize();
-  if (still) { draw(0); } else { start(); }
+  if (still) draw(0); else start();
 
   var rt;
   window.addEventListener("resize", function () {
@@ -229,8 +195,8 @@
   });
 
   if (window.IntersectionObserver) {
-    new IntersectionObserver(function (entries) {
-      visible = entries[0].isIntersecting;
+    new IntersectionObserver(function (e) {
+      visible = e[0].isIntersecting;
       if (visible) start(); else stop();
     }, { threshold: 0 }).observe(hero);
   }
