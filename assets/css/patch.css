@@ -1,27 +1,32 @@
 /* ==========================================================
-   CRaWL — CORRECTION STYLESHEET
+   CRaWL — CORRECTION STYLESHEET  (v2)
    File: assets/css/patch.css
    Load it AFTER style.css and after the inline <style> block
    in index.html, i.e. as the last line before </head>.
 
-   Nothing in style.css needs editing. Everything below is an
-   override, so deleting this one file restores the old look.
+   style.css is never edited. Everything below is an override,
+   so deleting this one file restores the original site.
 
-   1  Typography — Times New Roman throughout
-   2  Hero — water canvas layer
+   1  Typography — Times New Roman, larger, bold
+   2  Hero — water only, no photograph
    3  Featured Research — collapsed bar
-   4  Research themes — description on hover
+   4  Recent Updates — up / down arrows
    5  Recent Updates — "New" badge
-   6  Collaborators — bigger lane
-   7  Footer — social icons
-   8  Footer — page visit counter
+   6  Research themes — description on hover
+   7  Collaborators — full width, bigger, faster
+   8  Footer — social icons
+   9  Footer — page visit counter
    ========================================================== */
 
 /* ==========================================================
-   1. TYPOGRAPHY — Times New Roman
-   Times sets smaller and narrower than Inter, so the base size
-   goes up a little and the tight tracking built for Inter is
+   1. TYPOGRAPHY — Times New Roman, one step larger, all bold
+   Times sets smaller and narrower than Inter, so sizes go up
+   across the board and the tracking built for Inter is
    released back to normal.
+
+   The single line marked BOLD below is what makes every word
+   on the site bold. Delete that one rule to go back to mixed
+   weights; nothing else depends on it.
    ========================================================== */
 :root{
   --font:"Times New Roman",Times,"Liberation Serif","Nimbus Roman",serif;
@@ -32,30 +37,82 @@ body,button,input,select,textarea,
 h1,h2,h3,h4,h5,h6{
   font-family:var(--font);
 }
-body{font-size:17px}
+body,body *{font-weight:700 !important}          /* BOLD — see note above */
+
+body{font-size:18.5px;line-height:1.62}
 h1,h2,h3,h4,h5,h6,
 .hero h1,.page-hero h1,
 .kinetic .kinetic-line,.kinetic .kinetic-eyebrow{letter-spacing:0}
-.hero h1 .kinetic-line,.kinetic .kinetic-line{font-weight:700}
-.brand .sub{font-size:12.5px}
-.nav a.top,.nav button.top{font-size:15px}
-.dropdown a{font-size:15px}
-.site-footer{font-size:13.5px}
-.tcard h3{font-size:16.5px}
-.utxt,.news-item .t,.pub .t{font-size:13.4px}
+
+/* header and navigation */
+.brand .sub{font-size:13px}
+.nav a.top,.nav button.top{font-size:16.5px}
+.dropdown a{font-size:16px}
+
+/* hero */
+.kinetic .kinetic-eyebrow{font-size:clamp(15px,1.35vw,21px)}
+.hero .lede{font-size:18px}
+
+/* featured research card */
+.featured h2{font-size:23px}
+.featured .kicker,.featured-head .ref{font-size:14.5px}
+.featured .cta{font-size:15px}
+.featured-deck .stat b{font-size:18.5px}
+.featured-deck .stat span{font-size:13px}
+
+/* research theme cards */
+.tcard h3{font-size:18px}
+.tnum{font-size:13px}
+
+/* panels */
+.panel-head h2{font-size:21px}
+.panel-head a{font-size:14px}
+.utag{font-size:11.5px}
+.utxt{font-size:14.5px}
+.update time{font-size:12.5px}
+.news-item .t{font-size:14px}
+.news-item time{font-size:12.5px}
+.join p{font-size:14.5px}
+.join-open h3{font-size:12px}
+.join-open li{font-size:13.8px}
+.join-open li span{font-size:12.8px}
+.join .btn{font-size:15.5px}
+
+/* section heads, inner pages, footer */
+.research-head h2{font-size:32px}
+.section-head h2{font-size:24px}
+.page-hero .lede{font-size:17px}
+.impact-head{font-size:16px}
+.site-footer{font-size:14.5px}
+.foot-brand h3{font-size:16px}
+.foot-brand p{font-size:13.5px}
+.site-footer h4{font-size:15px}
+.site-footer li{font-size:14px}
+.contact-li{font-size:13.8px}
+.foot-bottom{font-size:13px}
 
 
 /* ==========================================================
-   2. HERO — moving water
-   The canvas sits above the photograph and the navy wash, and
-   below the headline and the Featured Research card.
+   2. HERO — water only
+   The photograph is gone from index.html. The hero paints its
+   own depth gradient, the canvas paints the water on top of
+   it, and a soft scrim over the canvas keeps the headline
+   readable on the left.
    ========================================================== */
 .hero{
-  --hero-min:clamp(400px,56vh,600px);
+  --hero-min:clamp(460px,62vh,660px);
+  background:linear-gradient(180deg,#04203F 0%,#072A4F 36%,#0A3767 66%,#052648 100%);
+}
+.hero::before{                       /* the old photo wash, softened */
+  background:linear-gradient(180deg,rgba(4,22,44,.35) 0%,rgba(5,26,52,.10) 55%,rgba(4,20,40,.30) 100%);
 }
 .hero-water{
   position:absolute;left:0;top:0;width:100%;height:100%;
   z-index:0;pointer-events:none;display:block;
+}
+.hero::after{                        /* legibility scrim, over the water */
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(100deg,rgba(4,22,44,.74) 0%,rgba(5,26,52,.48) 44%,rgba(6,30,58,.10) 100%);
 }
 .hero .hero-in{position:relative;z-index:2;min-height:var(--hero-min);align-content:center}
 
@@ -70,28 +127,23 @@ h1,h2,h3,h4,h5,h6,
 
 .fpeek{
   display:flex;align-items:center;gap:14px;width:100%;
-  padding:13px 16px 13px 18px;margin:0;cursor:pointer;text-align:left;
-  background:rgba(9,32,60,.86);border:1px solid rgba(120,170,215,.22);
-  border-radius:14px;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+  padding:14px 16px 14px 18px;margin:0;cursor:pointer;text-align:left;
+  background:rgba(6,26,52,.86);border:1px solid rgba(120,170,215,.24);
+  border-radius:14px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
   color:#fff;font-family:var(--font);
   transition:background .2s ease,border-color .2s ease;
 }
-.fpeek:hover{background:rgba(14,46,82,.94);border-color:rgba(140,190,230,.42)}
-.fpeek-kicker{
-  flex:none;font-size:13px;font-weight:700;color:var(--blue);
-  letter-spacing:.01em;white-space:nowrap;
-}
+.fpeek:hover{background:rgba(11,40,74,.94);border-color:rgba(140,190,230,.44)}
+.fpeek-kicker{flex:none;font-size:14.5px;color:var(--blue);white-space:nowrap}
 .fpeek-meta{min-width:0;display:flex;flex-direction:column;gap:1px}
-.fpeek-ref{font-size:13px;color:#A9C8E2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fpeek-title{
-  font-size:14px;color:#E7F1F9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
+.fpeek-ref{font-size:14px;color:#A9C8E2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fpeek-title{font-size:15px;color:#E7F1F9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fpeek-ic{
-  margin-left:auto;flex:none;width:30px;height:30px;display:grid;place-items:center;
+  margin-left:auto;flex:none;width:31px;height:31px;display:grid;place-items:center;
   border-radius:50%;border:1px solid rgba(140,185,225,.35);color:#CFE4F5;
   transition:transform .3s cubic-bezier(.22,.68,.28,1),background .2s ease,color .2s ease;
 }
-.fpeek-ic svg{width:15px;height:15px}
+.fpeek-ic svg{width:16px;height:16px}
 .fpeek:hover .fpeek-ic{background:rgba(46,155,232,.24);color:#fff}
 
 /* shut */
@@ -107,29 +159,68 @@ h1,h2,h3,h4,h5,h6,
 .featured-deck:not(.is-collapsed) .featured-head{display:none}
 .featured-deck:not(.is-collapsed) .featured-title-row{margin-top:0}
 
-/* the hero no longer needs room under the card for the dots */
 @media(min-width:1080px){
   .hero-in:has(.featured-deck.is-collapsed){padding-bottom:60px}
 }
 @media(max-width:619px){
-  .fpeek{gap:10px;padding:11px 12px 11px 14px}
-  .fpeek-kicker{font-size:12px}
-  .fpeek-ref,.fpeek-title{font-size:12.5px}
+  .fpeek{gap:10px;padding:12px 12px 12px 14px}
+  .fpeek-kicker{font-size:13px}
+  .fpeek-ref,.fpeek-title{font-size:13px}
 }
 
 
 /* ==========================================================
-   4. RESEARCH THEMES — text on hover only
+   4. RECENT UPDATES — up / down arrows
+   Added by assets/js/updates-nav.js. The list rolls on its own
+   until an arrow is used, then it belongs to the reader.
+   ========================================================== */
+.panel-head .tnav{display:flex;gap:7px;margin-left:auto;flex:none}
+.tnav-btn{
+  width:30px;height:30px;display:grid;place-items:center;padding:0;
+  background:#fff;border:1px solid var(--line);border-radius:8px;
+  color:var(--blue-600);cursor:pointer;
+  transition:background .18s ease,border-color .18s ease,opacity .18s ease;
+}
+.tnav-btn:hover:not(:disabled){background:var(--panel);border-color:#C8DDF0}
+.tnav-btn:disabled{opacity:.32;cursor:default}
+.tnav-btn svg{width:14px;height:14px}
+
+.ticker.is-manual{scroll-behavior:smooth;overscroll-behavior:contain;scrollbar-width:thin}
+.ticker.is-manual .ticker-track{display:block;min-height:0}
+.ticker.is-manual::-webkit-scrollbar{width:6px}
+.ticker.is-manual::-webkit-scrollbar-thumb{background:#CFDDE9;border-radius:4px}
+
+
+/* ==========================================================
+   5. RECENT UPDATES — "New" badge
+   Added by assets/js/updates-new.js to anything dated within
+   the last two months.
+   ========================================================== */
+.unew{
+  display:inline-flex;align-items:center;gap:4px;margin-left:7px;
+  padding:3px 8px;border-radius:4px;vertical-align:middle;
+  font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  color:#fff;background:linear-gradient(90deg,#E0532B,#F08A38);
+  box-shadow:0 3px 10px -4px rgba(224,83,43,.9);
+  animation:unew-pulse 2.6s ease-in-out infinite;
+}
+.unew svg{width:12px;height:12px;flex:none}
+@keyframes unew-pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@media(prefers-reduced-motion:reduce){.unew{animation:none}}
+
+
+/* ==========================================================
+   6. RESEARCH THEMES — text on hover only
    Photo, number and title always visible. The description
-   drops out of the card as a panel on hover or keyboard focus,
-   so the grid never reflows and the row height never jumps.
+   drops out of the card on hover or keyboard focus, so the
+   grid never reflows and the row height never jumps.
    ========================================================== */
 .tcards .tcard{position:relative;overflow:visible}
 .tcards .tcard h3{padding-bottom:20px}
 .tcards .tcard p{
   position:absolute;left:-1px;right:-1px;top:100%;z-index:6;
-  margin:0;padding:14px 18px 17px;
-  font-size:13.2px;line-height:1.55;color:var(--body);
+  margin:0;padding:15px 18px 18px;
+  font-size:14.4px;line-height:1.55;color:var(--body);
   background:#fff;border:1px solid #C8DDF0;border-top:0;
   border-radius:0 0 var(--r) var(--r);
   box-shadow:0 24px 38px -20px rgba(9,30,66,.55);
@@ -141,7 +232,6 @@ h1,h2,h3,h4,h5,h6,
 .tcards .tcard:hover p,.tcards .tcard:focus-within p{
   opacity:1;visibility:visible;transform:none;transition-delay:0s;
 }
-/* touch screens have no cursor — there the text simply stays in the card */
 @media(hover:none),(pointer:coarse){
   .tcards .tcard p{
     position:static;opacity:1;visibility:visible;transform:none;
@@ -152,51 +242,35 @@ h1,h2,h3,h4,h5,h6,
 
 
 /* ==========================================================
-   5. RECENT UPDATES — "New" badge
-   Added by assets/js/updates-new.js to anything dated within
-   the last two months.
+   7. COLLABORATORS — edge to edge
+   The lane now spans the full window instead of stopping at
+   the 1400px column. Speed is set in assets/js/collaborators.js.
    ========================================================== */
-.unew{
-  display:inline-flex;align-items:center;gap:4px;margin-left:7px;
-  padding:3px 8px;border-radius:4px;vertical-align:middle;
-  font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-  color:#fff;background:linear-gradient(90deg,#E0532B,#F08A38);
-  box-shadow:0 3px 10px -4px rgba(224,83,43,.9);
-  animation:unew-pulse 2.6s ease-in-out infinite;
+.impact.collabs{padding:56px 0 58px}
+.impact.collabs>.wrap{max-width:none;padding-inline:0}
+.collabs .impact-head{padding-inline:var(--gutter);margin-bottom:24px}
+.collabs .logo-marquee{
+  border-radius:0;border-left:0;border-right:0;padding:34px 0;
 }
-.unew svg{width:11px;height:11px;flex:none}
-@keyframes unew-pulse{0%,100%{opacity:1}50%{opacity:.6}}
-@media(prefers-reduced-motion:reduce){.unew{animation:none}}
-
-
-/* ==========================================================
-   6. COLLABORATORS — a bigger lane
-   Speed is set in assets/js/collaborators.js (one line, see
-   the notes file).
-   ========================================================== */
-.impact.collabs{padding:52px 0 60px}
-.collabs .impact-head{font-size:15.5px}
-.collabs .logo-marquee{padding:30px 0}
-.collabs .logo-marquee::before,.collabs .logo-marquee::after{width:96px}
-.collabs .logo-lane{gap:78px}
-.collabs .logo-lane img{height:80px;max-width:245px}
+.collabs .logo-marquee::before,.collabs .logo-marquee::after{width:110px}
+.collabs .logo-lane{gap:84px}
+.collabs .logo-lane img{height:84px;max-width:260px}
 .collabs .logo-lane a:hover img{transform:scale(1.09)}
-@media(max-width:900px){.collabs .logo-lane{gap:54px}.collabs .logo-lane img{height:62px}}
-@media(max-width:619px){.collabs .logo-lane{gap:40px}.collabs .logo-lane img{height:50px}}
+@media(max-width:900px){.collabs .logo-lane{gap:56px}.collabs .logo-lane img{height:64px}}
+@media(max-width:619px){.collabs .logo-lane{gap:40px}.collabs .logo-lane img{height:52px}}
 
 
 /* ==========================================================
-   7. FOOTER — social icons
-   Square tiles, brand colour on hover, one per profile.
+   8. FOOTER — social icons
    ========================================================== */
 .site-footer .socials{gap:10px;flex-wrap:wrap;margin-top:16px}
 .site-footer .socials a{
-  width:36px;height:36px;border-radius:9px;
+  width:38px;height:38px;border-radius:9px;
   background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
   color:#DCEAF6;
   transition:transform .18s ease,background .18s ease,color .18s ease,border-color .18s ease;
 }
-.site-footer .socials svg{width:18px;height:18px}
+.site-footer .socials svg{width:19px;height:19px}
 .site-footer .socials a:hover{transform:translateY(-2px)}
 .site-footer .socials a[data-net="scholar"]:hover{background:#4285F4;border-color:#4285F4;color:#fff}
 .site-footer .socials a[data-net="orcid"]:hover{background:#A6CE39;border-color:#A6CE39;color:#123018}
@@ -207,13 +281,13 @@ h1,h2,h3,h4,h5,h6,
 
 
 /* ==========================================================
-   8. FOOTER — page visit counter
+   9. FOOTER — page visit counter
    Hidden until assets/js/visit-count.js has a real number.
    ========================================================== */
 .foot-bottom .visits{
   display:inline-flex;align-items:center;gap:7px;margin-left:auto;
-  font-size:12px;color:#8FA9C0;
+  font-size:13px;color:#8FA9C0;
 }
-.foot-bottom .visits svg{width:15px;height:15px;color:#7FA0BC;flex:none}
-.foot-bottom .visits b{color:#D6E4F0;font-weight:700;font-variant-numeric:tabular-nums}
+.foot-bottom .visits svg{width:16px;height:16px;color:#7FA0BC;flex:none}
+.foot-bottom .visits b{color:#D6E4F0;font-variant-numeric:tabular-nums}
 @media(max-width:619px){.foot-bottom .visits{margin-left:0}}
