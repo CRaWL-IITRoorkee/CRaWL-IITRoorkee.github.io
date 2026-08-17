@@ -53,7 +53,7 @@
   var CAM_H = 2.35;      /* metres above the surface        */
   var PITCH = 0.64;      /* radians below horizontal        */
   var FOV   = 1.05;      /* larger = wider                  */
-  var MAXS  = 6;         /* splashes alive at once          */
+  var MAXS  = 8;         /* raindrop impacts alive at once  */
 
   var VERT =
     "attribute vec2 aPos;" +
@@ -79,11 +79,12 @@
     "const float FAR   = 15.0;",   /* water has faded out entirely     */
     "const vec2  WIND  = vec2(0.9285, 0.3714);",
     "const vec3  SUN   = vec3(-0.34, 0.40, -0.85);",
-    "const vec3  DEEP  = vec3(0.031, 0.129, 0.243);",
-    "const vec3  BODY  = vec3(0.086, 0.325, 0.518);",
-    "const vec3  SHAL  = vec3(0.239, 0.541, 0.741);",
-    "const vec3  FOAM  = vec3(0.870, 0.945, 1.000);",
-    "const vec3  HAZE  = vec3(0.043, 0.169, 0.322);",
+    "const vec3  DEEP  = vec3(0.075, 0.255, 0.400);",   /* trough      */
+    "const vec3  BODY  = vec3(0.165, 0.455, 0.640);",   /* body        */
+    "const vec3  SHAL  = vec3(0.400, 0.680, 0.850);",   /* crest       */
+    "const vec3  FOAM  = vec3(0.910, 0.965, 1.000);",   /* white water */
+    "const vec3  HAZE  = vec3(0.130, 0.360, 0.530);",   /* far edge    */
+    "const vec3  RAIN  = vec3(0.780, 0.890, 1.000);",   /* falling drops */
 
     /* ---------------- noise ---------------- */
     /* hash without sin(): mobile drivers band badly on the sin trick */
@@ -181,9 +182,29 @@
     "  hz = mix(0.5, waves(q + ez, t, lod) * amp / wsum, k) + splashH(pw + vec2(0.0, e), uTime);",
     "}",
 
+    /* ---------------- rain ---------------- */
+    /* Screen-space streaks, because that is what rain is to a camera:
+       a drop is not a shape at this shutter speed, it is the line it
+       drew while the shutter was open. Three layers at different
+       scales and speeds give the parallax that makes them read as
+       falling through a volume rather than sliding down glass. Only
+       about a fifth of the cells carry a drop, or it turns into
+       hatching. */
+    "float rainLayer(vec2 uv, float t, float scale, float speed,",
+    "                float slant, float thin, float bright){",
+    "  vec2 p = vec2((uv.x + uv.y * slant) * scale, uv.y * scale * 0.42 - t * speed);",
+    "  vec2 id = floor(p);",
+    "  vec2 f = fract(p);",
+    "  float r = hash(id);",
+    "  float on = step(0.80, fract(r * 7.13));",
+    "  float streak = smoothstep(thin, 0.0, abs(f.x - 0.5)) *",
+    "                 smoothstep(0.0, 0.16, f.y) * smoothstep(1.0, 0.58, f.y);",
+    "  return streak * on * bright * (0.5 + 0.5 * fract(r * 31.7));",
+    "}",
+
     "vec3 sky(vec3 rd){",
     "  float u = clamp(rd.y * 0.5 + 0.5, 0.0, 1.0);",
-    "  vec3 c = mix(vec3(0.36, 0.56, 0.75), vec3(0.07, 0.22, 0.42),",
+    "  vec3 c = mix(vec3(0.52, 0.70, 0.86), vec3(0.17, 0.40, 0.62),",
     "               smoothstep(0.50, 0.98, u));",
     "  float s = max(dot(rd, normalize(SUN)), 0.0);",
     "  c += vec3(1.00, 0.94, 0.82) * pow(s, 260.0) * 1.7;",
@@ -241,6 +262,16 @@
     "  float far = smoothstep(NEAR, FAR, dist);",
     "  col = mix(col, HAZE, far * 0.92);",
     "  float a = 1.0 - smoothstep(NEAR + 2.0, FAR, dist);",
+
+    /* the rain that is causing all of this, drawn over everything and
+       thinning out toward the far edge */
+    "  float rn = rainLayer(uv, uTime,       34.0,  6.0, 0.10, 0.05, 0.16)",
+    "           + rainLayer(uv, uTime + 3.1, 22.0,  9.0, 0.13, 0.07, 0.22)",
+    "           + rainLayer(uv, uTime + 7.7, 13.0, 13.0, 0.16, 0.09, 0.26);",
+    "  rn = clamp(rn, 0.0, 1.0) * (0.18 + 0.82 * smoothstep(0.45, -0.45, uv.y));",
+    "  col += RAIN * rn;",
+    "  a = max(a, rn);",
+
     "  gl_FragColor = vec4(col, a);",
     "}"
   ].join("\n");
@@ -340,8 +371,12 @@
   }
 
   function randomSplash(now) {
-    var p = planeAt((Math.random() - 0.5) * 1.5, Math.random() * 0.72 - 0.5);
-    if (p) addSplash(p[0], p[1], 0.55 + Math.random() * 0.85, now);
+    var p = planeAt((Math.random() - 0.5) * 1.8, Math.random() * 0.95 - 0.5);
+    if (!p) return;
+    /* mostly ordinary drops, and now and then a heavy one */
+    var big = Math.random() < 0.18;
+    addSplash(p[0], p[1], big ? 0.95 + Math.random() * 0.45
+                              : 0.30 + Math.random() * 0.35, now);
   }
 
   var lastPointer = 0;
@@ -375,7 +410,7 @@
     clock += dt;
     if (clock > nextDrop) {
       randomSplash(clock);
-      nextDrop = clock + 0.35 + Math.random() * 0.85;
+      nextDrop = clock + 0.12 + Math.random() * 0.30;
     }
     render();
     raf = window.requestAnimationFrame(frame);
