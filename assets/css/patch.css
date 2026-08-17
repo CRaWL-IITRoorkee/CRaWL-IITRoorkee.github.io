@@ -93,7 +93,7 @@ h1,h2,h3,h4,h5,h6,
 
 
 /* ==========================================================
-   2. HERO — water only
+   2. HERO — water only, and Unica One for its text
    The photograph is gone from index.html. The hero paints its
    own depth gradient, the canvas paints the water on top of
    it, and a soft scrim over the canvas keeps the headline
@@ -115,6 +115,27 @@ h1,h2,h3,h4,h5,h6,
   background:linear-gradient(100deg,rgba(3,17,36,.72) 0%,rgba(4,22,44,.46) 44%,rgba(6,30,58,.08) 100%);
 }
 .hero .hero-in{position:relative;z-index:2;min-height:var(--hero-min);align-content:center}
+
+/* ---- Unica One, hero only ----------------------------------------
+   Every word inside the hero section — headline, eyebrow, the
+   Featured Research bar and the card behind it. Everything outside
+   the hero stays Times New Roman.
+
+   Unica One ships in one weight, so the site-wide bold rule is lifted
+   here: a browser asked to bolden a single-weight display face smears
+   it. Delete the font-weight line below if you want it emboldened
+   anyway.
+
+   To put Unica One on the headline alone and leave the card in Times,
+   replace `.hero, .hero *` with `.hero h1, .hero h1 *`. */
+.hero, .hero *{
+  font-family:"Unica One",var(--font) !important;
+  font-weight:400 !important;
+}
+.hero h1 .kinetic-eyebrow,.kinetic .kinetic-eyebrow{letter-spacing:.26em}
+.hero h1 .kinetic-line,.kinetic .kinetic-line{line-height:1.08;letter-spacing:.01em}
+.hero .featured h2{line-height:1.22}
+.fpeek-kicker,.featured .kicker{letter-spacing:.04em}
 
 
 /* ==========================================================
