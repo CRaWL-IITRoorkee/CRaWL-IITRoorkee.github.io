@@ -132,49 +132,20 @@
   <div class="wrap">
     <div class="section-head"><h2>Computational stack</h2>
       <p>The modelling and analysis platforms that power our research.</p></div>
-    <!-- Logo slots are numbered, not named: drop any logo into
-         assets/images/tools/ as c1.png, c2.png … (flood modelling),
-         h1.png, h2.png … (hydrological) or g1.png, g2.png … (GIS and
-         programming). The order on screen follows the number, and a slot with
-         no file yet simply keeps its dashed outline. -->
+    <!-- Nothing here is hard-coded any more. Each grid names its prefixes and
+         the script at the foot of this page finds every matching file in
+         assets/images/tools/ — c1, c2 … and h1, h2 … for the modelling card,
+         g1, g2 … for the GIS card. Drop a new logo in the folder with the next
+         number and it appears; delete one and it disappears. No <li> to add,
+         no count to keep in step. .png, .jpg, .jpeg, .webp and .svg all work. -->
     <div class="stack-cards">
       <article class="stack-card">
-        <h3>Weather Forecasting and Flood Modelling Tools</h3>
-        <!-- slots: assets/images/tools/c1.png, c2.png … add or remove an <li> to change the count -->
-        <ul class="logo-grid">
-          <li class="logo-cell"><img src="assets/images/tools/c1.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c2.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c3.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c4.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c5.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c6.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c7.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c8.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c9.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-        </ul>
+        <h3>Weather Forecasting, Flood and Hydrological Modelling Tools</h3>
+        <ul class="logo-grid" data-logos="c,h"></ul>
       </article>
       <article class="stack-card">
-        <section class="stack-sub">
-          <h3>Hydrological Modelling Tools</h3>
-          <!-- slots: assets/images/tools/h1.png, h2.png … add or remove an <li> to change the count -->
-          <ul class="logo-grid">
-            <li class="logo-cell"><img src="assets/images/tools/h1.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-            <li class="logo-cell"><img src="assets/images/tools/h2.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-            <li class="logo-cell"><img src="assets/images/tools/h3.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          </ul>
-        </section>
-        <section class="stack-sub">
-          <h3>GIS Packages and Programming Software</h3>
-          <!-- slots: assets/images/tools/g1.png, g2.png … add or remove an <li> to change the count -->
-          <ul class="logo-grid">
-            <li class="logo-cell"><img src="assets/images/tools/g1.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-            <li class="logo-cell"><img src="assets/images/tools/g2.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-            <li class="logo-cell"><img src="assets/images/tools/g3.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-            <li class="logo-cell"><img src="assets/images/tools/g4.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-            <li class="logo-cell"><img src="assets/images/tools/g5.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-            <li class="logo-cell"><img src="assets/images/tools/g6.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          </ul>
-        </section>
+        <h3>GIS Packages and Programming Software</h3>
+        <ul class="logo-grid" data-logos="g"></ul>
       </article>
     </div>
   </div>
@@ -248,5 +219,86 @@
 
 <script src="assets/js/analytics.js"></script>
 <script src="assets/js/visit-count.js"></script>
+<!-- ===== Computational stack: find the tool logos, do not list them ===== -->
+<script>
+(function () {
+  "use strict";
+
+  var DIR   = "assets/images/tools/";
+  var EXTS  = [".png", ".jpg", ".jpeg", ".webp", ".svg", ".PNG", ".JPG"];
+  var SCAN  = 40;   /* highest number tried for each prefix */
+  var MISSES = 3;   /* give up on a prefix after this many gaps in a row */
+
+  function tryLoad(src) {
+    return new Promise(function (done) {
+      var im = new Image();
+      im.onload = function () { done(src); };
+      im.onerror = function () { done(null); };
+      im.src = src;
+    });
+  }
+
+  /* the first hit fixes the extension for the rest of that prefix, which
+     keeps the console clean instead of 404ing through the whole list */
+  function slot(prefix, n, locked) {
+    var exts = locked.ext ? [locked.ext] : EXTS;
+    return exts.reduce(function (chain, ext) {
+      return chain.then(function (hit) {
+        return hit ? hit : tryLoad(DIR + prefix + n + ext);
+      });
+    }, Promise.resolve(null)).then(function (hit) {
+      if (hit && !locked.ext) {
+        var m = hit.match(/\.[a-z]+$/i);
+        if (m) locked.ext = m[0];
+      }
+      return hit;
+    });
+  }
+
+  function collect(prefix) {
+    var found = [], locked = {}, n = 1, gaps = 0;
+    function step() {
+      if (n > SCAN || gaps >= MISSES) return Promise.resolve(found);
+      return slot(prefix, n++, locked).then(function (hit) {
+        if (hit) { found.push(hit); gaps = 0; } else { gaps++; }
+        return step();
+      });
+    }
+    return step();
+  }
+
+  function fill(grid) {
+    var prefixes = (grid.getAttribute("data-logos") || "").split(",");
+    prefixes.reduce(function (chain, raw) {
+      var prefix = raw.trim();
+      if (!prefix) return chain;
+      return chain.then(function () {
+        return collect(prefix).then(function (srcs) {
+          srcs.forEach(function (src) {
+            var li = document.createElement("li");
+            li.className = "logo-cell";
+            var im = document.createElement("img");
+            im.src = src;
+            im.alt = "";
+            im.loading = "lazy";
+            im.decoding = "async";
+            li.appendChild(im);
+            grid.appendChild(li);
+          });
+        });
+      });
+    }, Promise.resolve());
+  }
+
+  function run() {
+    var grids = document.querySelectorAll(".logo-grid[data-logos]");
+    [].forEach.call(grids, fill);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+  else run();
+})();
+</script>
+
 </body>
 </html>
