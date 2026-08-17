@@ -132,45 +132,83 @@
   <div class="wrap">
     <div class="section-head"><h2>Computational stack</h2>
       <p>The modelling and analysis platforms that power our research.</p></div>
-    <!-- Logo slots are numbered, not named: drop any logo into
-         assets/images/tools/ as c1.png, c2.png … (weather forecasting,
-         flood and hydrological modelling) or g1.png, g2.png … (GIS and
-         programming). The order on screen follows the number, and a slot with
-         no file yet simply keeps its dashed outline. -->
+
+    <!-- Logo slots are auto-detected, not hardcoded.
+         Drop any logo into assets/images/tools/ as:
+           c1.png, c2.png … (weather forecasting, flood & hydrological modelling)
+           h1.png, h2.png … (also weather/flood/hydrological modelling)
+           g1.png, g2.png … (GIS and programming)
+         The script below scans for files with these prefixes automatically —
+         you don't need to add/remove <li> elements or track numbering. -->
+
     <div class="stack-cards">
       <article class="stack-card">
         <h3>Weather Forecasting, Flood &amp; Hydrological Modelling Tools</h3>
-        <!-- slots: assets/images/tools/c1.png, c2.png … add or remove an <li> to change the count -->
-        <ul class="logo-grid">
-          <li class="logo-cell"><img src="assets/images/tools/c1.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c2.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c3.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c4.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c5.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c6.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c7.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c8.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/c9.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/h1.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/h2.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/h3.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-        </ul>
+        <ul class="logo-grid" id="grid-ch"></ul>
       </article>
       <article class="stack-card">
         <h3>GIS Packages and Programming Software</h3>
-        <!-- slots: assets/images/tools/g1.png, g2.png … add or remove an <li> to change the count -->
-        <ul class="logo-grid">
-          <li class="logo-cell"><img src="assets/images/tools/g1.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/g2.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/g3.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/g4.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/g5.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-          <li class="logo-cell"><img src="assets/images/tools/g6.png" alt="" loading="lazy" decoding="async" onerror="this.remove()"></li>
-        </ul>
+        <ul class="logo-grid" id="grid-g"></ul>
       </article>
     </div>
   </div>
 </section>
+
+<script>
+(function () {
+  const basePath = "assets/images/tools/";
+  const maxCheck = 30; // how far to probe per prefix (safe upper bound)
+
+  function imageExists(src) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = src;
+    });
+  }
+
+  async function loadLogos(gridId, prefixes) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+
+    // Check all prefix+number combos in parallel
+    const checks = [];
+    prefixes.forEach((prefix) => {
+      for (let i = 1; i <= maxCheck; i++) {
+        const src = `${basePath}${prefix}${i}.png`;
+        checks.push(
+          imageExists(src).then((exists) => (exists ? { prefix, i, src } : null))
+        );
+      }
+    });
+
+    const results = (await Promise.all(checks)).filter(Boolean);
+
+    // Keep natural order: prefix order given, then numeric order
+    results.sort((a, b) => {
+      const pa = prefixes.indexOf(a.prefix);
+      const pb = prefixes.indexOf(b.prefix);
+      return pa !== pb ? pa - pb : a.i - b.i;
+    });
+
+    results.forEach(({ src }) => {
+      const li = document.createElement("li");
+      li.className = "logo-cell";
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "";
+      img.loading = "lazy";
+      img.decoding = "async";
+      li.appendChild(img);
+      grid.appendChild(li);
+    });
+  }
+
+  loadLogos("grid-ch", ["c", "h"]);
+  loadLogos("grid-g", ["g"]);
+})();
+</script>
 
 </main>
 
