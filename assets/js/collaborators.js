@@ -89,7 +89,7 @@
 
     var width = lane.scrollWidth;
     urls.forEach(function (u) { add(u, true); });   // second pass = seamless loop
-    box.style.setProperty("--logo-duration", Math.max(24, Math.round(width / 26)) + "s");
+    box.style.setProperty("--logo-duration", Math.max(12, Math.round(width / 90)) + "s");
     box.classList.add("is-rolling");
   }
 

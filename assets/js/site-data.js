@@ -57,3 +57,21 @@ window.CRAWL.theme = {
   },
   footerArt: true
 };
+
+/* ---------------------------------------------------------
+   4. PAGE VISIT COUNTER  (footer strip)
+   ---------------------------------------------------------
+   provider "countapi"    — no account, live the moment you
+                            commit. Keep the key unique to you.
+   provider "goatcounter" — free account, unique visitors;
+                            reuses CRAWL.analytics.code above.
+
+   One visit is counted per browser session, so a reload does
+   not inflate the number. If the count cannot be fetched the
+   strip stays hidden — a made-up figure is never shown.
+   --------------------------------------------------------- */
+window.CRAWL.visits = {
+  provider: "countapi",
+  key: "crawl-iitr-wrdm-2026",
+  label: "page visits"
+};
