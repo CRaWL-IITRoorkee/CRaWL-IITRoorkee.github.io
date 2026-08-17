@@ -1,35 +1,44 @@
 /* ==========================================================
-   CRaWL — HERO WATER  (v3, WebGL surface with splashes)
+   CRaWL — HERO WATER  (v4, long swell)
    File: assets/js/hero-water.js
    ----------------------------------------------------------
    A real water surface, not a drawing of one.
 
    Every pixel of the hero casts a ray from a camera 2.35 m
    above open water and hits the surface somewhere between
-   about 2 m and 15 m away. The wave field is evaluated at
+   about 2.6 m and 15 m away. The wave field is evaluated at
    that point, the normal is taken from it, and the pixel is
    lit: sky reflected through a Fresnel term, sun broken into
    glints on the crests, deep water showing through where the
-   surface faces you. That is what gives the perspective and
-   the depth — the near water is coarse and dark, the far
-   water compresses and hazes out into the page.
+   surface faces you. That is where the perspective comes
+   from — near water is coarse and dark, far water compresses
+   and hazes out into the page.
 
-   Splashes land continuously: rings spread outward from each
-   impact, deform the surface, throw a crown of foam, and die
-   away. They are also thrown wherever the pointer moves over
-   the hero, so the water answers the reader.
+   WHAT YOU WATCH
+   Three long-crested swell trains roll toward the camera.
+   Their crests span the full width of the hero, enter at the
+   far edge and leave at the near one, roughly ten seconds
+   from one side to the other, and they never repeat because
+   the three have no common period. Wind ripple rides on top
+   of them, stretched along the same direction so the two read
+   as one sea rather than two effects stacked.
 
-   The wave machinery — ridged noise, anisotropy along the
+   The ripple machinery — ridged noise, anisotropy along the
    wind, drifting octaves on non-doubling frequencies, gusts,
-   domain warp, distance LOD — is the same approach as the
-   water.js in the flood viewer, so the two look like the same
-   substance.
+   domain warp, distance LOD — follows the water.js in the
+   flood viewer, so the two look like the same substance.
+
+   Moving the pointer over the hero still drops a ripple ring
+   where the cursor is. Set POINTER_RIPPLES to false below to
+   turn that off.
 
    No dependencies, no three.js, no textures. If WebGL is
-   unavailable the file falls back to a layered 2D canvas
-   surface at the bottom of this file.
+   unavailable the file falls back to a layered 2D surface at
+   the bottom.
 
-   TUNING: the block of constants at the top of the shader.
+   TUNING: the constants at the top of the shader, and the
+   swell block (directions SD1-SD3, their wave numbers and
+   rates) just above the splash section.
    ========================================================== */
 (function () {
   "use strict";
@@ -53,7 +62,8 @@
   var CAM_H = 2.35;      /* metres above the surface        */
   var PITCH = 0.64;      /* radians below horizontal        */
   var FOV   = 1.05;      /* larger = wider                  */
-  var MAXS  = 8;         /* raindrop impacts alive at once  */
+  var MAXS  = 4;         /* pointer ripples alive at once   */
+  var POINTER_RIPPLES = true;
 
   var VERT =
     "attribute vec2 aPos;" +
@@ -77,14 +87,13 @@
     "const float CHOP  = 0.22;",   /* steepness of the normals         */
     "const float NEAR  = 6.5;",    /* haze starts                      */
     "const float FAR   = 15.0;",   /* water has faded out entirely     */
-    "const vec2  WIND  = vec2(0.9285, 0.3714);",
+    "const vec2  WIND  = vec2(0.3405, -0.9403);",  /* along the swell */
     "const vec3  SUN   = vec3(-0.34, 0.40, -0.85);",
     "const vec3  DEEP  = vec3(0.075, 0.255, 0.400);",   /* trough      */
     "const vec3  BODY  = vec3(0.165, 0.455, 0.640);",   /* body        */
     "const vec3  SHAL  = vec3(0.400, 0.680, 0.850);",   /* crest       */
     "const vec3  FOAM  = vec3(0.910, 0.965, 1.000);",   /* white water */
     "const vec3  HAZE  = vec3(0.130, 0.360, 0.530);",   /* far edge    */
-    "const vec3  RAIN  = vec3(0.780, 0.890, 1.000);",   /* falling drops */
 
     /* ---------------- noise ---------------- */
     /* hash without sin(): mobile drivers band badly on the sin trick */
@@ -128,6 +137,31 @@
     "vec4 lodW(float dist){",
     "  vec4 cut = 70.0 / (SCALE * OCT_F);",
     "  return 1.0 - smoothstep(cut * 0.6, cut * 1.7, vec4(dist));",
+    "}",
+
+    /* ---------------- the swell ---------------- */
+    /* Three long-crested trains rolling toward the camera. These are
+       what carry the eye across the hero: crests that span the full
+       width, enter at the far edge and leave at the near one, about
+       ten seconds from one side to the other.
+       Each is a sine plus a quarter of its second harmonic — that is
+       the first Stokes correction, and it is what gives a swell its
+       sharp crest over a long flat trough instead of the symmetrical
+       roll of a plain sine.
+       These are deliberately outside the distance LOD: fine ripple has
+       to retire before it aliases, but a nine-metre wave must stay
+       visible all the way to the far edge or the water reads as a
+       textured plane. */
+    "const vec2 SD1 = vec2( 0.3405, -0.9403);",
+    "const vec2 SD2 = vec2(-0.4001, -0.9165);",
+    "const vec2 SD3 = vec2( 0.6198, -0.7848);",
+    "float swell(vec2 p, float t){",
+    "  float a = dot(p, SD1) * 1.75 + t * 2.10;",
+    "  float b = dot(p, SD2) * 1.15 - t * 1.35 + 1.9;",
+    "  float c = dot(p, SD3) * 2.60 + t * 3.00 + 4.1;",
+    "  return 0.26 * (sin(a) + 0.24 * sin(2.0 * a))",
+    "       + 0.16 * (sin(b) + 0.18 * sin(2.0 * b))",
+    "       + 0.07 *  sin(c);",
     "}",
 
     /* ---------------- splashes ---------------- */
@@ -177,29 +211,15 @@
     "  float k = smoothstep(0.0, 0.06, dot(OCT_W, lod));",
     "  vec2 ex = vec2(e * SCALE, 0.0);",
     "  vec2 ez = vec2(0.0, e * SCALE);",
-    "  h0 = mix(0.5, waves(q,      t, lod) * amp / wsum, k) + splashH(pw, uTime);",
-    "  hx = mix(0.5, waves(q + ex, t, lod) * amp / wsum, k) + splashH(pw + vec2(e, 0.0), uTime);",
-    "  hz = mix(0.5, waves(q + ez, t, lod) * amp / wsum, k) + splashH(pw + vec2(0.0, e), uTime);",
-    "}",
-
-    /* ---------------- rain ---------------- */
-    /* Screen-space streaks, because that is what rain is to a camera:
-       a drop is not a shape at this shutter speed, it is the line it
-       drew while the shutter was open. Three layers at different
-       scales and speeds give the parallax that makes them read as
-       falling through a volume rather than sliding down glass. Only
-       about a fifth of the cells carry a drop, or it turns into
-       hatching. */
-    "float rainLayer(vec2 uv, float t, float scale, float speed,",
-    "                float slant, float thin, float bright){",
-    "  vec2 p = vec2((uv.x + uv.y * slant) * scale, uv.y * scale * 0.42 - t * speed);",
-    "  vec2 id = floor(p);",
-    "  vec2 f = fract(p);",
-    "  float r = hash(id);",
-    "  float on = step(0.80, fract(r * 7.13));",
-    "  float streak = smoothstep(thin, 0.0, abs(f.x - 0.5)) *",
-    "                 smoothstep(0.0, 0.16, f.y) * smoothstep(1.0, 0.58, f.y);",
-    "  return streak * on * bright * (0.5 + 0.5 * fract(r * 31.7));",
+    /* the ripple is scaled back to 0.6 of its old range and re-centred,
+       so the swell is the thing you see and the ripple is the texture
+       riding on it rather than the other way round */
+    "  h0 = mix(0.5, waves(q,      t, lod) * amp / wsum, k) * 0.60 + 0.20",
+    "     + swell(pw, uTime) + splashH(pw, uTime);",
+    "  hx = mix(0.5, waves(q + ex, t, lod) * amp / wsum, k) * 0.60 + 0.20",
+    "     + swell(pw + vec2(e, 0.0), uTime) + splashH(pw + vec2(e, 0.0), uTime);",
+    "  hz = mix(0.5, waves(q + ez, t, lod) * amp / wsum, k) * 0.60 + 0.20",
+    "     + swell(pw + vec2(0.0, e), uTime) + splashH(pw + vec2(0.0, e), uTime);",
     "}",
 
     "vec3 sky(vec3 rd){",
@@ -238,12 +258,16 @@
     "  vec3 L = normalize(SUN);",
     "  vec3 H = normalize(L + V);",
     "  float ndh = max(dot(n, H), 0.0);",
-    "  float crest = smoothstep(0.58, 0.85, h0);",
+    /* the swell widens the range well past 0..1, so colour reads a
+       compressed copy — otherwise every crest blows out to white while
+       the troughs go black. The normals above keep the full range. */
+    "  float hc = clamp(0.5 + (h0 - 0.5) * 0.62, 0.0, 1.0);",
+    "  float crest = smoothstep(0.58, 0.85, hc);",
 
     /* body colour: three stops, because water spends most of its area
        in the mid tone with crests and troughs as the exceptions */
-    "  vec3 base = mix(DEEP, BODY, smoothstep(0.30, 0.58, h0));",
-    "  base = mix(base, SHAL, smoothstep(0.62, 0.85, h0));",
+    "  vec3 base = mix(DEEP, BODY, smoothstep(0.30, 0.58, hc));",
+    "  base = mix(base, SHAL, smoothstep(0.62, 0.85, hc));",
 
     "  float fres = 0.02 + 0.98 * pow(1.0 - max(dot(n, V), 0.0), 5.0);",
     "  vec3 col = mix(base, sky(reflect(rd, n)), clamp(fres, 0.0, 1.0) * 0.88);",
@@ -254,7 +278,7 @@
     /* whitecaps where the surface is both high and steep, broken up so
        the foam has an edge rather than an outline */
     "  float grain = noise(p.xz * 9.0 + t * 0.6);",
-    "  float caps = smoothstep(0.74, 0.92, h0) * smoothstep(0.25, 0.85, grain) * 0.50;",
+    "  float caps = smoothstep(0.88, 1.00, hc) * smoothstep(0.35, 0.90, grain) * 0.34;",
     "  float foam = clamp(caps + splashFoam(p.xz, uTime) * (0.55 + 0.45 * grain), 0.0, 1.0);",
     "  col = mix(col, FOAM, foam * lod.y);",
 
@@ -262,15 +286,6 @@
     "  float far = smoothstep(NEAR, FAR, dist);",
     "  col = mix(col, HAZE, far * 0.92);",
     "  float a = 1.0 - smoothstep(NEAR + 2.0, FAR, dist);",
-
-    /* the rain that is causing all of this, drawn over everything and
-       thinning out toward the far edge */
-    "  float rn = rainLayer(uv, uTime,       34.0,  6.0, 0.10, 0.05, 0.16)",
-    "           + rainLayer(uv, uTime + 3.1, 22.0,  9.0, 0.13, 0.07, 0.22)",
-    "           + rainLayer(uv, uTime + 7.7, 13.0, 13.0, 0.16, 0.09, 0.26);",
-    "  rn = clamp(rn, 0.0, 1.0) * (0.18 + 0.82 * smoothstep(0.45, -0.45, uv.y));",
-    "  col += RAIN * rn;",
-    "  a = max(a, rn);",
 
     "  gl_FragColor = vec4(col, a);",
     "}"
@@ -370,18 +385,9 @@
     return [d[0] * t, d[2] * t];
   }
 
-  function randomSplash(now) {
-    var p = planeAt((Math.random() - 0.5) * 1.8, Math.random() * 0.95 - 0.5);
-    if (!p) return;
-    /* mostly ordinary drops, and now and then a heavy one */
-    var big = Math.random() < 0.18;
-    addSplash(p[0], p[1], big ? 0.95 + Math.random() * 0.45
-                              : 0.30 + Math.random() * 0.35, now);
-  }
-
   var lastPointer = 0;
   hero.addEventListener("pointermove", function (ev) {
-    if (still) return;
+    if (still || !POINTER_RIPPLES) return;
     var now = clock;
     if (now - lastPointer < 0.10) return;
     lastPointer = now;
@@ -389,11 +395,11 @@
     var ux = (ev.clientX - rect.left - rect.width / 2) / rect.height;
     var uy = (rect.height - (ev.clientY - rect.top) - rect.height / 2) / rect.height;
     var p = planeAt(ux, uy);
-    if (p) addSplash(p[0], p[1], 0.5, now);
+    if (p) addSplash(p[0], p[1], 0.42, now);
   }, { passive: true });
 
   /* ---------- loop ---------- */
-  var running = false, visible = true, last = 0, clock = 0, raf = 0, nextDrop = 0;
+  var running = false, visible = true, last = 0, clock = 0, raf = 0;
 
   function render() {
     gl.uniform2f(uRes, W, H);
@@ -408,10 +414,6 @@
     var dt = last ? Math.min((now - last) / 1000, 0.05) : 0.016;
     last = now;
     clock += dt;
-    if (clock > nextDrop) {
-      randomSplash(clock);
-      nextDrop = clock + 0.12 + Math.random() * 0.30;
-    }
     render();
     raf = window.requestAnimationFrame(frame);
   }
