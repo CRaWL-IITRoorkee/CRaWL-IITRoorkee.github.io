@@ -7,6 +7,17 @@
    VENUES is derived from the two lists on this page.
    When you add an entry to a list, bump the matching c/t below
    (c = conference presentations, t = invited talks).
+
+   ENGLISH-ONLY LABELS
+   The basemap carries no text at all. OpenStreetMap-derived
+   tiles label each place in its own language — Wien, Ελλάδα,
+   東京, नई दिल्ली — and no setting turns that off, because the
+   names are baked into the tile images. So the labels come off
+   the map entirely and the only words on it are the ones in
+   VENUES below, written by us, in English.
+
+   Place names appear beside each circle from zoom 3 upward,
+   and on hover at any zoom.
    ============================================================ */
 (function () {
   "use strict";
@@ -79,10 +90,17 @@
       minZoom: 1
     }).setView([25, 30], 2);
 
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    /* light_nolabels: coastlines, borders and land only — no place names,
+       in any language. Same cartography as before, text removed. */
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
       maxZoom: 12
     }).addTo(map);
+
+    /* our own labels, in English, kept on their own layer so they can come
+       and go with the zoom rather than pile up on top of each other */
+    var labels = L.layerGroup();
+    var LABEL_FROM = 3;
 
     var group = [];
     VENUES.forEach(function (v) {
@@ -103,6 +121,17 @@
 
       m.bindPopup("<b>" + v.name + "</b><br>" + lines.join("<br>"));
       m.bindTooltip(v.name + " · " + total, { direction: "top", offset: [0, -4] });
+
+      L.marker([v.lat, v.lng], {
+        interactive: false,
+        keyboard: false,
+        icon: L.divIcon({
+          className: "conf-label",
+          html: '<span>' + v.name + '</span>',
+          iconSize: [0, 0],
+          iconAnchor: [-(radius(total) + 4), 7]
+        })
+      }).addTo(labels);
       m.on("mouseover", function () { this.setStyle({ fillOpacity: 0.85 }); });
       m.on("mouseout", function () { this.setStyle({ fillOpacity: 0.55 }); });
       group.push(m);
@@ -111,6 +140,14 @@
     if (group.length) {
       map.fitBounds(L.featureGroup(group).getBounds(), { padding: [40, 40] });
     }
+
+    function labelsForZoom() {
+      var on = map.getZoom() >= LABEL_FROM;
+      if (on && !map.hasLayer(labels)) map.addLayer(labels);
+      else if (!on && map.hasLayer(labels)) map.removeLayer(labels);
+    }
+    map.on("zoomend", labelsForZoom);
+    labelsForZoom();
 
     // click once to enable wheel zoom, so the map does not hijack scrolling
     map.on("click", function () { map.scrollWheelZoom.enable(); });
@@ -123,7 +160,8 @@
     var note = document.getElementById("confMapNote");
     if (note) {
       note.textContent = totals.c + " presentations and " + totals.t +
-        " invited talks across " + totals.n + " locations. Circle size shows the number at each place.";
+        " invited talks across " + totals.n + " locations. Circle size shows the number at each place; " +
+        "zoom in for the place names.";
     }
   }
 
