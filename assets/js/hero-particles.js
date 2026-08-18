@@ -2,8 +2,15 @@
    CRaWL — page-hero particles  (torus-knot particle system)
    File: assets/js/hero-particles.js
    ----------------------------------------------------------
-   A knot drawn entirely out of glowing points, turning slowly
-   behind the heading on the People pages.
+   A field of glowing points drifting across the whole hero.
+
+   It is not a scatter: every point sits on a (p,q) torus knot,
+   and the camera is close enough to be inside it. What crosses
+   the band is a slice through the figure — long dotted arcs
+   where a strand of the curve passes through the frame, drifts
+   of dust where it recedes, and a few points close enough to
+   flare. It all turns together, so the arcs sweep sideways
+   rather than wander.
 
    The geometry is a (p,q) torus knot: a curve that winds five
    times around the ring while looping four times through it,
@@ -32,27 +39,28 @@
 
   var CFG = {
     /* the knot */
-    radius: 40,       /* ring radius                                   */
-    tube: 12,         /* how thick the tube is                         */
-    p: 5,             /* times the curve winds around the ring         */
-    q: 4,             /* times it loops through the hole               */
-    heightScale: 3.0, /* stretch along the axis                        */
-    along: 300,       /* points taken along the curve (desktop)        */
-    around: 8,        /* points around the tube at each step           */
+    radius: 40,       /* ring radius                                    */
+    tube: 10,         /* how thick the tube is                          */
+    p: 5,             /* times the curve winds around the ring          */
+    q: 4,             /* times it loops through the hole                */
+    heightScale: 3.0, /* stretch along the axis                         */
+    along: 1000,      /* points taken along the curve (desktop)         */
+    around: 8,        /* points around the tube at each step            */
 
-    /* the view */
-    at: 0.74,         /* horizontal placement, 0 = left edge, 1 = right */
-    fit: 1.35,        /* share of the hero half-height the knot reaches;
-                         above 1 it bleeds a little past the band, which
-                         reads as an object caught mid-frame rather than a
-                         motif dropped into a box                      */
+    /* the view — the camera is inside the knot, not looking at it */
+    zoom: 1.75,       /* knot diameter as a multiple of the hero width;
+                         above 1 the figure is larger than the frame, so
+                         what crosses the hero is a slice through it —
+                         arcs and drifts of points rather than an object */
+    dist: 150,        /* camera distance. Close, so near points swell and
+                         burn while far ones fall to dust — that spread
+                         is the whole sense of depth here               */
     spin: 0.30,       /* radians per second                             */
     tilt: 0.42,       /* fixed lean toward the viewer                   */
-    dist: 520,        /* camera distance — larger flattens perspective  */
 
     /* the light */
-    sprite: 14,       /* px of the glow sprite at unit depth            */
-    gain: 0.55        /* overall brightness                             */
+    sprite: 10,       /* px of the glow sprite at unit depth            */
+    gain: 0.95        /* overall brightness                             */
   };
 
   var hero = document.querySelector(".page-hero");
@@ -161,14 +169,16 @@
 
     /* a narrow screen gets fewer points and a centred knot, or it fights
        the heading for the same few hundred pixels */
+    /* a phone gets a third of the points: the frame is a third as wide,
+       so the same density needs far fewer of them */
     var narrow = W < 760;
-    build(narrow ? 170 : CFG.along, narrow ? 6 : CFG.around);
+    build(narrow ? 380 : CFG.along, narrow ? 6 : CFG.around);
 
-    cx = (narrow ? 0.5 : CFG.at) * W;
+    cx = 0.5 * W;
     cy = 0.5 * H;
-    /* fit the knot to the band: the furthest point of the geometry, seen
-       at the camera distance, should reach `fit` of half the height */
-    scale = (H * 0.5 * CFG.fit) / (maxR * (CFG.dist / (CFG.dist - maxR)));
+    /* scale off the WIDTH, not the height: the band is short and wide, and
+       the figure is meant to run the length of it */
+    scale = CFG.zoom * W / (2 * maxR);
   }
 
   /* ---------- draw ---------- */
@@ -193,8 +203,11 @@
       var y2 = y * ct - z2 * st;
       var z3 = y * st + z2 * ct;
 
-      var k = D / (D + z3);
-      if (k <= 0) continue;
+      /* the camera is inside the knot, so points do pass behind it —
+         clamp instead of dividing by something at or below zero */
+      var den = D + z3;
+      if (den < 20) continue;
+      var k = D / den;
 
       var sx = cx + x2 * k * scale;
       var sy = cy - y2 * k * scale;
