@@ -46,23 +46,21 @@
   border:1px solid var(--line);color:var(--blue-600);font-size:12.5px;
 }
 
-.skillset{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.skillset h3{display:flex;align-items:center;gap:8px;margin-bottom:9px}
-.skillset h3 svg{width:16px;height:16px;color:var(--blue-600);flex:none}
-/* Tool tiles. Each carries a logo and its name; the name shows only when
-   the logo file is missing, so a tool without a logo still reads and a
-   logo dropped in later replaces the text with no edit to this file. */
-.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
-.chiprow li{
+/* The logo wall. No headings, no captions, no names — a tile is its logo
+   on white, nothing else. Tiles are one fixed size so a wide wordmark and a
+   square icon carry the same weight; object-fit does the rest. */
+.logowall{
+  display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0;list-style:none;
+}
+.logowall li{
   display:flex;align-items:center;justify-content:center;
-  min-width:44px;height:46px;padding:6px 10px;
-  border-radius:8px;background:#fff;border:1px solid var(--line);
+  width:112px;height:66px;padding:9px 12px;box-sizing:border-box;
+  background:#fff;border:1px solid var(--line);border-radius:10px;
   transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
 }
-.chiprow li:hover{transform:translateY(-2px);border-color:var(--blue-600);box-shadow:0 6px 14px rgba(3,17,40,.13)}
-.chiprow img{max-height:30px;max-width:104px;width:auto;height:auto;display:block;object-fit:contain}
-.chiprow li.has-logo span{display:none}
-.chiprow span{font-size:12.5px;color:var(--body);white-space:nowrap}
+.logowall li:hover{transform:translateY(-2px);border-color:var(--blue-600);box-shadow:0 7px 16px rgba(3,17,40,.14)}
+.logowall img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+@media(max-width:619px){.logowall li{width:92px;height:56px;padding:7px 9px}}
 
 /* Education — one card per degree, institution logo alongside */
 .edu-list{display:grid;gap:14px;margin:0;padding:0;list-style:none}
@@ -81,7 +79,8 @@
 
 .figrow{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:18px}
 .figrow figure{margin:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
-.figrow img,.figrow video{width:100%;height:auto;display:block;background:#0b2136}
+.figrow img{width:100%;height:auto;display:block;background:#fff}
+.figrow video{width:100%;height:auto;display:block;background:#0b2136}
 .figrow figcaption{padding:10px 13px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line-soft)}
 
 .mini{width:100%;border-collapse:collapse;margin-top:6px}
@@ -275,58 +274,12 @@
 <section class="section">
   <div class="wrap">
     <div class="section-head"><h2>Technical skills</h2></div>
-    <div class="skillset">
-      <div>
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Geospatial tools</h3>
-        <ul class="chiprow">
-          <li title="ArcGIS Pro"><img src="assets/images/tools/logos/arcgis-pro.png" alt="ArcGIS Pro" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>ArcGIS Pro</span></li>
-          <li title="QGIS"><img src="assets/images/tools/logos/qgis.png" alt="QGIS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>QGIS</span></li>
-          <li title="Google Earth Engine"><img src="assets/images/tools/logos/google-earth-engine.png" alt="Google Earth Engine" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Google Earth Engine</span></li>
-          <li title="SNAP"><img src="assets/images/tools/logos/snap.png" alt="SNAP" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>SNAP</span></li>
-          <li title="ENVI"><img src="assets/images/tools/logos/envi.png" alt="ENVI" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>ENVI</span></li>
-          <li title="HEC-RAS"><img src="assets/images/tools/logos/hec-ras.png" alt="HEC-RAS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>HEC-RAS</span></li>
-          <li title="HEC-HMS"><img src="assets/images/tools/logos/hec-hms.png" alt="HEC-HMS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>HEC-HMS</span></li>
-          <li title="SMS Aquaveo"><img src="assets/images/tools/logos/aquaveo-sms.png" alt="SMS Aquaveo" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>SMS Aquaveo</span></li>
-          <li title="AERMOD"><img src="assets/images/tools/logos/aermod.png" alt="AERMOD" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>AERMOD</span></li>
-          <li title="GrADS"><img src="assets/images/tools/logos/grads.png" alt="GrADS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>GrADS</span></li>
-          <li title="Blender"><img src="assets/images/tools/logos/blender.png" alt="Blender" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Blender</span></li>
-          <li title="ParaView"><img src="assets/images/tools/logos/paraview.png" alt="ParaView" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>ParaView</span></li>
-          <li title="MATLAB"><img src="assets/images/tools/logos/matlab.png" alt="MATLAB" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>MATLAB</span></li>
-          <li title="SPSS"><img src="assets/images/tools/logos/spss.png" alt="SPSS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>SPSS</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18l-5-6 5-6M16 6l5 6-5 6"/></svg>Programming</h3>
-        <ul class="chiprow">
-          <li title="Python"><img src="assets/images/tools/logos/python.png" alt="Python" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Python</span></li>
-          <li title="R"><img src="assets/images/tools/logos/r.png" alt="R" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>R</span></li>
-          <li title="Fortran"><img src="assets/images/tools/logos/fortran.png" alt="Fortran" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Fortran</span></li>
-          <li title="Three.js"><img src="assets/images/tools/logos/threejs.png" alt="Three.js" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Three.js</span></li>
-          <li title="IDL"><img src="assets/images/tools/logos/idl.png" alt="IDL" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>IDL</span></li>
-          <li title="Linux"><img src="assets/images/tools/logos/linux.png" alt="Linux" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Linux</span></li>
-          <li title="Unity"><img src="assets/images/tools/logos/unity.png" alt="Unity" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Unity</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 15c2.5-3 5-3 7.5 0s5 3 7.5 0M3 9c2.5-3 5-3 7.5 0s5 3 7.5 0"/></svg>Modelling and analysis</h3>
-        <ul class="chiprow">
-          <li title="WRF"><img src="assets/images/tools/logos/wrf.png" alt="WRF" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>WRF</span></li>
-          <li title="ADCIRC"><img src="assets/images/tools/logos/adcirc.svg" alt="ADCIRC" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>ADCIRC</span></li>
-          <li title="MIKE+ 2D"><img src="assets/images/tools/logos/mike.png" alt="MIKE+ 2D" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>MIKE+ 2D</span></li>
-          <li title="SWMM"><img src="assets/images/tools/logos/swmm.png" alt="SWMM" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>SWMM</span></li>
-          <li title="Bentley OpenFlows FLOOD"><img src="assets/images/tools/logos/bentley.png" alt="Bentley OpenFlows FLOOD" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Bentley OpenFlows FLOOD</span></li>
-          <li title="Bentley SewerGEMS"><img src="assets/images/tools/logos/bentley.png" alt="Bentley SewerGEMS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Bentley SewerGEMS</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 20V10"/></svg>Data and methods</h3>
-        <ul class="chiprow">
-          <li><span>Optical imagery</span></li><li><span>SAR</span></li><li><span>LiDAR</span></li>
-          <li><span>GNSS</span></li><li><span>Digital image processing</span></li>
-          <li><span>Floodplain analysis</span></li><li><span>Data visualisation</span></li>
-        </ul>
-      </div>
-    </div>
+    <!-- The logos are listed in LOGOS at the foot of this page, and the wall
+         also picks up anything named t1, t2, t3 … in the same folder. To add
+         a tool: drop its logo in assets/images/tools/logos/ and either add
+         the filename to that list or name the file t7.png and change nothing
+         here. A name that has no file yet is skipped in silence. -->
+    <ul class="logowall" id="skillWall"></ul>
   </div>
 </section>
 
@@ -506,6 +459,83 @@
       if (v.paused) v.play(); else v.pause();
     });
     v.style.cursor = "pointer";
+  });
+})();
+</script>
+
+<!-- ===== the logo wall: named files, plus anything called t1, t2, t3 ... ===== -->
+<script>
+(function () {
+  "use strict";
+
+  var DIR = "assets/images/tools/logos/";
+
+  /* ADD A LOGO: put the file in that folder and add its name here. Or skip
+     this list entirely and call the file t1.png, t2.png … — the scan below
+     finds those on its own. Either way, a name with no file behind it is
+     dropped without a gap, so it is safe to list one before uploading it. */
+  var LOGOS = [
+    "arcgis-pro.png", "qgis.png", "google-earth-engine.png", "snap.png", "envi.png",
+    "hec-ras.png", "hec-hms.png", "aquaveo-sms.png", "mike.png", "swmm.png",
+    "adcirc.svg", "wrf.png", "bentley.png", "paraview.png", "blender.png",
+    "unity.png", "threejs.png", "python.png", "r.png", "matlab.png",
+    "fortran.png", "idl.png", "grads.png", "aermod.png", "spss.png", "linux.png"
+  ];
+
+  var EXTS = [".png", ".svg", ".jpg", ".jpeg", ".webp"];
+  var SCAN = 40, MISSES = 3;
+
+  var wall = document.getElementById("skillWall");
+  if (!wall) return;
+
+  function load(src) {
+    return new Promise(function (done) {
+      var im = new Image();
+      im.onload = function () { done(src); };
+      im.onerror = function () { done(null); };
+      im.src = src;
+    });
+  }
+
+  function add(src) {
+    var li = document.createElement("li");
+    var im = document.createElement("img");
+    im.src = src;
+    im.alt = "";                       /* decorative: the name is not the point */
+    im.loading = "lazy";
+    im.decoding = "async";
+    li.appendChild(im);
+    wall.appendChild(li);
+  }
+
+  /* named files first, in the order given, so the wall reads deliberately */
+  var chain = LOGOS.reduce(function (c, name) {
+    return c.then(function () {
+      return load(DIR + name).then(function (hit) { if (hit) add(hit); });
+    });
+  }, Promise.resolve());
+
+  /* then anything dropped in as t1, t2, t3 … with no edit to this file */
+  chain.then(function () {
+    var n = 1, gaps = 0, ext = null;
+    function step() {
+      if (n > SCAN || gaps >= MISSES) return;
+      var tries = ext ? [ext] : EXTS;
+      return tries.reduce(function (c, e) {
+        return c.then(function (hit) { return hit ? hit : load(DIR + "t" + n + e); });
+      }, Promise.resolve(null)).then(function (hit) {
+        if (hit) {
+          add(hit);
+          gaps = 0;
+          if (!ext) { var m = hit.match(/\.[a-z]+$/i); if (m) ext = m[0]; }
+        } else {
+          gaps++;
+        }
+        n++;
+        return step();
+      });
+    }
+    return step();
   });
 })();
 </script>
