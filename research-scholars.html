@@ -26,6 +26,9 @@
 .person .social-links a:focus-visible{outline:2px solid var(--blue-600,#1b5fc1); outline-offset:2px}
 .person .social-links img{width:100%; height:100%; object-fit:contain; display:block}
 .note-tag{color:var(--blue-600); font-size:11.5px; margin-top:6px}
+/* a scholar with a page of their own: the name carries the link */
+.person h3 a.pp-link{color:inherit; text-decoration:none; border-bottom:1.5px solid var(--blue-300,#9cc4ea)}
+.person h3 a.pp-link:hover{color:var(--blue-600,#1b5fc1); border-bottom-color:var(--blue-600,#1b5fc1)}
 </style>
 <link rel="stylesheet" href="assets/css/patch.css">
 </head>
@@ -192,13 +195,14 @@
       <article class="person">
         <figure class="ph" data-file="assets/images/people/ankush-charavande.jpg"><img src="assets/images/people/ankush-charavande.jpg" alt="Ankush Charavande" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/people/placeholder.svg'"></figure>
         <div class="body">
-          <h3>Ankush Charavande</h3>
+          <h3><a class="pp-link" href="ankush-charavande.html">Ankush Charavande</a></h3>
           <p class="role">PhD Scholar · since 2025</p>
           <p class="ri">Urban flood modelling and resilience assessment through digital twins: a multi-platform approach for Indian megacities</p>
           <ul class="social-links">
             <li><a href="https://scholar.google.com/citations?user=dhbyM_wAAAAJ&hl=en" title="Google Scholar"><img src="assets/images/Social%20Link/google-scholar.jpg" alt="Google Scholar"></a></li>
             <li><a href="https://orcid.org/0009-0007-4532-9343" title="ORCID"><img src="assets/images/Social%20Link/ORCID_iD.jpg" alt="ORCID"></a></li>
             <li><a href="https://www.linkedin.com/in/ankush-charavande-445a53220/" title="LinkedIn"><img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a></li>
+            <li><a href="ankush-charavande.html" title="Personal page"><img src="assets/images/Social%20Link/p-website.jpg" alt="Personal page"></a></li>
             <li><a href="mailto:ankush_c@wr.iitr.ac.in" title="Email"><img src="assets/images/Social%20Link/email.jpg" alt="Email"></a></li>
           </ul>
         </div>

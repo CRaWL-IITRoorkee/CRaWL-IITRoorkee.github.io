@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ankush Charavande — CRaWL, IIT Roorkee</title>
+<meta name="description" content="Ankush Charavande — PhD scholar at the Climate Research and Water Lab, IIT Roorkee. Digital twins for urban flood forecasting, hydrodynamic and numerical modelling, remote sensing.">
+<link rel="icon" href="assets/images/favicon.png">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<!-- ===== Scholars: image social links ===== -->
+<style>
+.person .social-links{
+  display:flex; flex-wrap:wrap; gap:7px; margin:12px 0 0; padding:0; list-style:none;
+}
+.person .social-links a{
+  display:block; width:32px; height:32px; padding:4px;
+  background:#fff; border:1px solid var(--line,rgba(8,38,74,.14)); border-radius:8px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.person .social-links a:hover{
+  transform:translateY(-2px);
+  border-color:var(--blue-600,#1b5fc1);
+  box-shadow:0 5px 13px rgba(3,17,40,.15);
+}
+.person .social-links a:focus-visible{outline:2px solid var(--blue-600,#1b5fc1); outline-offset:2px}
+.person .social-links img{width:100%; height:100%; object-fit:contain; display:block}
+.note-tag{color:var(--blue-600); font-size:11.5px; margin-top:6px}
+</style>
+<link rel="stylesheet" href="assets/css/patch.css">
+<style>
+/* ---- profile page, scoped to this file ------------------------------- */
+.pp-meta .social-links{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0;padding:0;list-style:none}
+.pp-meta .social-links a{
+  display:block;width:44px;height:44px;padding:6px;background:#fff;
+  border:1px solid var(--line,rgba(8,38,74,.14));border-radius:10px;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.pp-meta .social-links a:hover{transform:translateY(-2px);border-color:var(--blue-600,#1b5fc1);box-shadow:0 6px 16px rgba(3,17,40,.16)}
+.pp-meta .social-links img{width:100%;height:100%;object-fit:contain;display:block}
+.pp-contact{list-style:none;margin:16px 0 0;padding:0;line-height:1.8;color:var(--muted)}
+
+.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding:0;list-style:none}
+.tagrow li{
+  padding:5px 11px;border-radius:999px;background:var(--panel);
+  border:1px solid var(--line);color:var(--blue-600);font-size:12.5px;
+}
+
+.skillset{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.skillset h3{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.skillset h3 svg{width:16px;height:16px;color:var(--blue-600);flex:none}
+/* Tool tiles. Each carries a logo and its name; the name shows only when
+   the logo file is missing, so a tool without a logo still reads and a
+   logo dropped in later replaces the text with no edit to this file. */
+.chiprow{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.chiprow li{
+  display:flex;align-items:center;justify-content:center;
+  min-width:44px;height:46px;padding:6px 10px;
+  border-radius:8px;background:#fff;border:1px solid var(--line);
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+.chiprow li:hover{transform:translateY(-2px);border-color:var(--blue-600);box-shadow:0 6px 14px rgba(3,17,40,.13)}
+.chiprow img{max-height:30px;max-width:104px;width:auto;height:auto;display:block;object-fit:contain}
+.chiprow li.has-logo span{display:none}
+.chiprow span{font-size:12.5px;color:var(--body);white-space:nowrap}
+
+/* Education — one card per degree, institution logo alongside */
+.edu-list{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.edu-list li{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:15px 17px;background:#fff;border:1px solid var(--line);border-radius:var(--r);
+}
+.edu-logo{
+  flex:none;width:64px;height:64px;display:flex;align-items:center;justify-content:center;
+  background:#fff;border:1px solid var(--line-soft);border-radius:10px;padding:6px;
+}
+.edu-logo img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.edu-list h3{font-size:15px;margin:0}
+.edu-list .where{color:var(--body);margin:4px 0 0}
+.edu-list .when{color:var(--blue-600);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;margin:6px 0 0;display:block}
+
+.figrow{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:18px}
+.figrow figure{margin:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.figrow img,.figrow video{width:100%;height:auto;display:block;background:#0b2136}
+.figrow figcaption{padding:10px 13px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line-soft)}
+
+.mini{width:100%;border-collapse:collapse;margin-top:6px}
+.mini th,.mini td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line-soft);font-size:13px;vertical-align:top}
+.mini th{color:var(--blue-600);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase}
+.mini tr:last-child td{border-bottom:0}
+
+.notecard{
+  display:flex;gap:12px;align-items:flex-start;padding:13px 15px;margin-top:14px;
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--blue-600);border-radius:10px;
+}
+.notecard svg{width:18px;height:18px;color:var(--blue-600);flex:none;margin-top:2px}
+.notecard p{margin:0;font-size:13.5px;line-height:1.55}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header" id="header">
+  <div class="wrap header-in">
+    <div class="brand">
+      <a class="brand-building" href="https://www.iitr.ac.in/" target="_blank" rel="noopener" aria-label="Indian Institute of Technology Roorkee (opens in a new tab)" title="Indian Institute of Technology Roorkee">
+        <img class="building" src="assets/images/crawl-building.png" alt="IIT Roorkee main building">
+      </a>
+      <a class="brand-home" href="index.html" aria-label="CRaWL — Climate Research and Water Lab, IIT Roorkee (home)">
+        <img class="logo" src="assets/images/crawl-logo.png" alt="CRaWL — Climate Research and Water Lab">
+        <span class="rule"></span>
+        <span class="sub">Dept. of Water Resources<br>Development &amp; Management<b>IIT Roorkee</b></span>
+      </a>
+    </div>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav" id="nav">
+      <li><a class="top" href="index.html">Home</a></li>
+      <li class="has-menu">
+        <button class="top" aria-expanded="false">Research <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
+        <ul class="dropdown">
+          <li><a href="publications.html">Publications</a></li>
+          <li><a href="conferences.html">Conferences</a></li>
+          <li><a href="training-workshops.html">Training &amp; Workshops</a></li>
+        </ul>
+      </li>
+      <li class="has-menu">
+        <button class="top" aria-expanded="false" aria-current="page">People <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4l4 4 4-4"/></svg></button>
+        <ul class="dropdown">
+          <li><a href="principal-investigator.html">Principal Investigator</a></li>
+          <li><a href="research-scholars.html" aria-current="page">Research Scholars</a></li>
+          <li><a href="mtech-students.html">MTech Students</a></li>
+          <li><a href="alumni.html">Alumni</a></li>
+        </ul>
+      </li>
+      <li><a class="top" href="projects.html">Projects</a></li>
+      <li><a class="top" href="data-tools.html">Data &amp; Tools</a></li>
+      <li><a class="top" href="gallery.html">Gallery</a></li>
+      <li><a class="top" href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+<section class="page-hero">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Home</a> / <a href="research-scholars.html">People</a> / Ankush Charavande</p>
+    <h1>Ankush Charavande</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="pi-layout">
+      <div>
+        <figure class="pi-photo ph" data-file="assets/images/people/ankush-charavande.jpg — 3:4 portrait">
+          <img src="assets/images/people/ankush-charavande.jpg" alt="Ankush Charavande" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='assets/images/people/placeholder.svg'">
+        </figure>
+        <div class="pp-meta">
+          <ul class="social-links">
+            <li><a href="https://scholar.google.com/citations?user=dhbyM_wAAAAJ&hl=en" target="_blank" rel="noopener" title="Google Scholar" aria-label="Google Scholar">
+              <img src="assets/images/Social%20Link/google-scholar.jpg" alt="Google Scholar"></a></li>
+            <li><a href="https://orcid.org/0009-0007-4532-9343" target="_blank" rel="noopener" title="ORCID" aria-label="ORCID">
+              <img src="assets/images/Social%20Link/ORCID_iD.jpg" alt="ORCID"></a></li>
+            <li><a href="https://www.linkedin.com/in/ankush-charavande-445a53220/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+              <img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a></li>
+            <li><a href="mailto:ankush_c@wr.iitr.ac.in" title="Email" aria-label="Email">
+              <img src="assets/images/Social%20Link/email.jpg" alt="Email"></a></li>
+          </ul>
+          <ul class="pp-contact">
+            <li><a href="mailto:ankush_c@wr.iitr.ac.in">ankush_c@wr.iitr.ac.in</a></li>
+            <li>Department of Water Resources<br>Development &amp; Management, IIT Roorkee</li>
+            <li>Life Member, Indian Society of Remote Sensing</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--blue-600);text-transform:uppercase;font-size:11.5px;letter-spacing:.06em">PhD Scholar · since 2025 · second year</p>
+        <h2 style="font-size:30px;margin-top:8px">Ankush Charavande</h2>
+        <p class="lede" style="color:var(--body);margin-top:10px">Building a digital twin of the flooding city — numerical weather prediction, hydrodynamic modelling and Earth observation joined into one forecasting framework.</p>
+        <p style="margin-top:14px">Ankush works on urban flooding as a forecasting problem rather than a mapping one. His doctoral research, <b>FLOOD-TWIN</b>, couples high-resolution rainfall prediction to rapid hydrodynamic simulation and 3D city models, so that a forecast arrives as an inundation scenario a city can act on — which streets, which buildings, which evacuation routes — instead of a rainfall number.</p>
+        <p>He came to IIT Roorkee from IIRS-ISRO, where his MTech work on Cyclone Dana and Cyclone Remal used numerical storm-surge modelling and multi-sensor satellite data to reconstruct coastal flooding and agricultural damage. That coastal grounding runs through the current work: compound flooding, where surge, tide and rainfall arrive together, is the case the framework is being built to handle.</p>
+        <ul class="tagrow">
+          <li>Urban flooding</li>
+          <li>Digital twin modelling</li>
+          <li>Numerical modelling</li>
+          <li>Remote sensing &amp; GIS</li>
+          <li>Compound flooding</li>
+          <li>Computer vision for Earth observation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Doctoral research</h2>
+      <p>FLOOD-TWIN: a comprehensive digital twin framework integrating forecasting and hydrodynamic modelling for urban flood management.</p></div>
+    <p>The framework runs as a chain rather than a single model. WRF downscaling with urban parameters produces the rainfall; remote sensing and an urban digital twin supply the surface the water moves across; RFSM and SWMM turn that into a rapid flood simulation; and the result comes out as a 3D dynamic visualisation with critical-infrastructure impact analysis, evacuation-route optimisation and 'what-if' mitigation scenarios attached.</p>
+    <div class="figrow">
+      <figure>
+        <img src="assets/images/people/ankush/flood-twin-framework.jpg" alt="Conceptual framework of FLOOD-TWIN: WRF downscaling and remote sensing feeding a rapid flood simulation, producing impact analysis, evacuation routing and what-if scenarios" loading="lazy" decoding="async">
+        <figcaption>Conceptual framework — from forecast rainfall to actionable urban flood scenarios.</figcaption>
+      </figure>
+      <figure>
+        <video class="figvid" playsinline muted loop preload="none"
+               poster="assets/video/ankush/urban-digital-twin-poster.jpg"
+               aria-label="Fly-through of the building-level 3D city model used as the digital twin foundation">
+          <source src="assets/video/ankush/urban-digital-twin.mp4" type="video/mp4">
+        </video>
+        <figcaption>Urban digital twin foundation — building-level geometry over which the flood is routed.</figcaption>
+      </figure>
+      <figure>
+        <video class="figvid" playsinline muted loop preload="none"
+               poster="assets/video/ankush/rainfall-forecast-333m-poster.jpg"
+               aria-label="Animation of the 333 m resolution rainfall forecast field over the city through one day">
+          <source src="assets/video/ankush/rainfall-forecast-333m.mp4" type="video/mp4">
+        </video>
+        <figcaption>333 m rainfall forecasting — WRF-UCM output over Millennium City, one forecast day.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Work in progress</h2></div>
+    <ul class="timeline">
+      <li><span class="when">Rainfall forecasting</span><h3>High-resolution WRF-UCM framework at 333 m</h3><p>Rainfall forecasting for Millennium City using the Building Effect Parameterisation urban canopy model, at a resolution fine enough to resolve the street canyons that decide where water collects.</p></li>
+      <li><span class="when">Automation</span><h3>Near-real-time WRF forecasting pipeline</h3><p>An automated chain covering meteorological data download, preprocessing, model execution, post-processing, visualisation and dissemination — the operational half of a digital twin, without which a forecast never reaches anyone.</p></li>
+      <li><span class="when">Integration</span><h3>Digital twin framework for urban flood forecasting</h3><p>Joining numerical weather prediction, hydrodynamic modelling, remote sensing and geospatial analysis into a single running system.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Publications</h2></div>
+    <div class="pub-full">
+      <span class="yr">2026</span>
+      <div>
+        <p class="t">Charavande, A., &amp; Bhatt, C. M. Analysis of storm surge dynamics using numerical modelling and geospatial techniques: a case study of Cyclone Dana.</p>
+        <p class="src">Remote Sensing Applications: Society and Environment, 42, 102048 ·
+          <a class="doi" href="https://doi.org/10.1016/j.rsase.2026.102048" target="_blank" rel="noopener">10.1016/j.rsase.2026.102048</a></p>
+      </div>
+    </div>
+    <div class="pub-full">
+      <span class="yr">2026</span>
+      <div>
+        <p class="t">Bhatt, C. M., Charavande, A., Pandey, A., Singh, D., &amp; Chauhan, P. Synergistic use of multi-sensor data and a decision matrix-based approach for assessing agricultural damage due to Cyclone Remal.</p>
+        <p class="src">Journal of the Indian Society of Remote Sensing · in press ·
+          <a class="doi" href="https://doi.org/10.1007/s12524-026-02536-5" target="_blank" rel="noopener">10.1007/s12524-026-02536-5</a></p>
+      </div>
+    </div>
+    <div class="pub-full">
+      <span class="yr">Under review</span>
+      <div>
+        <p class="t">Charavande, A., &amp; Bhatt, C. M. Assessment of coastal compound flooding using an integrated coupled modelling and remote sensing approach.</p>
+        <p class="src">Remote Sensing of Environment · preprint
+          <a class="doi" href="https://doi.org/10.21203/rs.3.rs-7751325/v1" target="_blank" rel="noopener">10.21203/rs.3.rs-7751325/v1</a></p>
+      </div>
+    </div>
+    <div class="pub-full">
+      <span class="yr">Under review</span>
+      <div>
+        <p class="t">Charavande, A., &amp; Mohanty, M. Spatially targeted low-impact development informed by flood exposure and socioeconomic feasibility strengthens urban flood resilience.</p>
+        <p class="src">Water Resources Research</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Technical skills</h2></div>
+    <div class="skillset">
+      <div>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Geospatial tools</h3>
+        <ul class="chiprow">
+          <li title="ArcGIS Pro"><img src="assets/images/tools/logos/arcgis-pro.png" alt="ArcGIS Pro" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>ArcGIS Pro</span></li>
+          <li title="QGIS"><img src="assets/images/tools/logos/qgis.png" alt="QGIS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>QGIS</span></li>
+          <li title="Google Earth Engine"><img src="assets/images/tools/logos/google-earth-engine.png" alt="Google Earth Engine" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Google Earth Engine</span></li>
+          <li title="SNAP"><img src="assets/images/tools/logos/snap.png" alt="SNAP" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>SNAP</span></li>
+          <li title="ENVI"><img src="assets/images/tools/logos/envi.png" alt="ENVI" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>ENVI</span></li>
+          <li title="HEC-RAS"><img src="assets/images/tools/logos/hec-ras.png" alt="HEC-RAS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>HEC-RAS</span></li>
+          <li title="HEC-HMS"><img src="assets/images/tools/logos/hec-hms.png" alt="HEC-HMS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>HEC-HMS</span></li>
+          <li title="SMS Aquaveo"><img src="assets/images/tools/logos/aquaveo-sms.png" alt="SMS Aquaveo" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>SMS Aquaveo</span></li>
+          <li title="AERMOD"><img src="assets/images/tools/logos/aermod.png" alt="AERMOD" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>AERMOD</span></li>
+          <li title="GrADS"><img src="assets/images/tools/logos/grads.png" alt="GrADS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>GrADS</span></li>
+          <li title="Blender"><img src="assets/images/tools/logos/blender.png" alt="Blender" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Blender</span></li>
+          <li title="ParaView"><img src="assets/images/tools/logos/paraview.png" alt="ParaView" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>ParaView</span></li>
+          <li title="MATLAB"><img src="assets/images/tools/logos/matlab.png" alt="MATLAB" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>MATLAB</span></li>
+          <li title="SPSS"><img src="assets/images/tools/logos/spss.png" alt="SPSS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>SPSS</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18l-5-6 5-6M16 6l5 6-5 6"/></svg>Programming</h3>
+        <ul class="chiprow">
+          <li title="Python"><img src="assets/images/tools/logos/python.png" alt="Python" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Python</span></li>
+          <li title="R"><img src="assets/images/tools/logos/r.png" alt="R" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>R</span></li>
+          <li title="Fortran"><img src="assets/images/tools/logos/fortran.png" alt="Fortran" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Fortran</span></li>
+          <li title="Three.js"><img src="assets/images/tools/logos/threejs.png" alt="Three.js" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Three.js</span></li>
+          <li title="IDL"><img src="assets/images/tools/logos/idl.png" alt="IDL" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>IDL</span></li>
+          <li title="Linux"><img src="assets/images/tools/logos/linux.png" alt="Linux" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Linux</span></li>
+          <li title="Unity"><img src="assets/images/tools/logos/unity.png" alt="Unity" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Unity</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 15c2.5-3 5-3 7.5 0s5 3 7.5 0M3 9c2.5-3 5-3 7.5 0s5 3 7.5 0"/></svg>Modelling and analysis</h3>
+        <ul class="chiprow">
+          <li title="WRF"><img src="assets/images/tools/logos/wrf.png" alt="WRF" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>WRF</span></li>
+          <li title="ADCIRC"><img src="assets/images/tools/logos/adcirc.svg" alt="ADCIRC" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>ADCIRC</span></li>
+          <li title="MIKE+ 2D"><img src="assets/images/tools/logos/mike.png" alt="MIKE+ 2D" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>MIKE+ 2D</span></li>
+          <li title="SWMM"><img src="assets/images/tools/logos/swmm.png" alt="SWMM" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>SWMM</span></li>
+          <li title="Bentley OpenFlows FLOOD"><img src="assets/images/tools/logos/bentley.png" alt="Bentley OpenFlows FLOOD" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Bentley OpenFlows FLOOD</span></li>
+          <li title="Bentley SewerGEMS"><img src="assets/images/tools/logos/bentley.png" alt="Bentley SewerGEMS" loading="lazy" onload="this.parentNode.classList.add('has-logo')" onerror="this.remove()"><span>Bentley SewerGEMS</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 20V10"/></svg>Data and methods</h3>
+        <ul class="chiprow">
+          <li><span>Optical imagery</span></li><li><span>SAR</span></li><li><span>LiDAR</span></li>
+          <li><span>GNSS</span></li><li><span>Digital image processing</span></li>
+          <li><span>Floodplain analysis</span></li><li><span>Data visualisation</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Education</h2></div>
+    <ul class="edu-list">
+      <li>
+        <span class="edu-logo"><img src="assets/images/tools/logos/iit-roorkee.png" alt="IIT Roorkee" loading="lazy" onerror="this.remove()"></span>
+        <div>
+          <h3>PhD, Water Resources Development and Management</h3>
+          <p class="where">Indian Institute of Technology Roorkee</p>
+          <span class="when">2025 – present</span>
+        </div>
+      </li>
+      <li>
+        <span class="edu-logo"><img src="assets/images/tools/logos/iirs-isro.png" alt="IIRS-ISRO" loading="lazy" onerror="this.remove()"></span>
+        <div>
+          <h3>MTech, Remote Sensing and GIS</h3>
+          <p class="where">Indian Institute of Remote Sensing (IIRS-ISRO), Dehradun · specialisation in Natural Hazards and Disaster Risk Management</p>
+          <span class="when">2023 – 2025</span>
+        </div>
+      </li>
+      <li>
+        <span class="edu-logo"><img src="assets/images/tools/logos/central-university-rajasthan.png" alt="Central University of Rajasthan" loading="lazy" onerror="this.remove()"></span>
+        <div>
+          <h3>Integrated MSc, Environmental Science</h3>
+          <p class="where">Central University of Rajasthan · five-year programme</p>
+          <span class="when">2018 – 2023</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Projects and research experience</h2></div>
+    <ul class="timeline">
+      <li><h3>GNSS-R for environmental hazard monitoring</h3><p>Application to water resources and flood monitoring.</p></li>
+      <li><h3>Optical UAV fused with airborne LiDAR</h3><p>Road segmentation and pothole detection using deep learning.</p></li>
+      <li><h3>SWOT-based flood modelling</h3><p>Integrating hydrological and hydrodynamic modelling against SWOT observations.</p></li>
+      <li><h3>SWOT-based reservoir storage estimation</h3><p>Using satellite altimetry to improve hydrological model performance.</p></li>
+      <li><h3>Drought frequency in Gujarat, 2000–2019</h3><p>Relationship with rainfall patterns under a changing climate.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="section-head"><h2>Talks, awards and recognition</h2></div>
+    <ul class="timeline">
+      <li><span class="when">2025</span><h3>Invited talk — IIRS-ISRO Lecture Series</h3><p>Optimising numerical modelling for disaster preparedness of coastal flooding.</p></li>
+      <li><span class="when">2025</span><h3>GATE Geomatics Engineering</h3><p>All India Rank 112, score 593.</p></li>
+      <li><span class="when">2024</span><h3>GATE Geomatics Engineering</h3><p>All India Rank 66, score 639.</p></li>
+      <li><span class="when">2023</span><h3>UGC NET, Environmental Science</h3><p>Qualified for Assistant Professor.</p></li>
+      <li><span class="when">2025</span><h3>Training — HyMHECMaL</h3><p>Hydrological modelling with HEC-HMS, HEC-RAS and machine learning, National Institute of Hydrology, Roorkee.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Writing and experience beyond research</h2></div>
+    <ul class="timeline">
+      <li><span class="when">Feb 2022</span><h3>COP26: expectations and challenges</h3><p>JNU-ENVIS, Geodiversity &amp; Impact on Environment.</p></li>
+      <li><span class="when">Jun 2021</span><h3>Ecosystem restoration and the current situation in India</h3><p>Opinion article, Himachal Watcher, World Environment Day.</p></li>
+      <li><span class="when">2023</span><h3>Assistant Environmental Officer, Fulgro Environmental &amp; Engineering Services (I) Pvt. Ltd.</h3><p>June – July 2023.</p></li>
+    </ul>
+    <p style="margin-top:16px;color:var(--muted)">Languages: English and Hindi, both professional proficiency.</p>
+  </div>
+</section>
+
+</main>
+
+
+<footer class="site-footer">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <img class="emblem" src="assets/images/crawl-mark.png" alt="">
+      <div>
+        <h3>Climate Research and Water Lab (CRaWL)</h3>
+        <p>Department of Water Resources Development and Management<br>Indian Institute of Technology Roorkee, Uttarakhand 247667, India</p>
+        <div class="socials">
+          <a data-net="scholar" href="https://scholar.google.com/citations?user=7THkWAEAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar"><img src="assets/images/Social%20Link/google-scholar.jpg" alt="Google Scholar"></a>
+          <a data-net="orcid" href="https://orcid.org/0000-0001-7783-2073" target="_blank" rel="noopener" aria-label="ORCID" title="ORCID"><img src="assets/images/Social%20Link/ORCID_iD.jpg" alt="ORCID"></a>
+          <a data-net="researchgate" href="https://www.researchgate.net/profile/Mohit-Mohanty-2" target="_blank" rel="noopener" aria-label="ResearchGate" title="ResearchGate"><img src="assets/images/Social%20Link/Researchgate.jpg" alt="ResearchGate"></a>
+          <a data-net="scopus" href="https://www.scopus.com/authid/detail.uri?authorId=57203633749" target="_blank" rel="noopener" aria-label="Scopus" title="Scopus"><img src="assets/images/Social%20Link/Scopus.jpg" alt="Scopus"></a>
+          <a data-net="website" href="https://www.iitr.ac.in/~WR/Mohit_Prakash_Mohanty" target="_blank" rel="noopener" aria-label="Institute page" title="Institute page"><img src="assets/images/Social%20Link/p-website.jpg" alt="Institute page"></a>
+          <a data-net="linkedin" href="ADD-YOUR-LINKEDIN-URL" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a>
+          <a data-net="email" href="mailto:mohit.mohanty@wr.iitr.ac.in" aria-label="Email" title="Email"><img src="assets/images/Social%20Link/email.jpg" alt="Email"></a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="principal-investigator.html">People</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="conferences.html">Conferences</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="data-tools.html">Data &amp; Tools</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="training-workshops.html">Training &amp; Workshops</a></li>
+        <li><a href="https://manage.wr.iitr.ac.in/">MANAGE platform</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <div class="contact-li">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        <span>WRD&amp;M Department<br>IIT Roorkee, 247667 India</span>
+      </div>
+      <div class="contact-li">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg>
+        <a href="mailto:mohit.mohanty@wr.iitr.ac.in">mohit.mohanty@wr.iitr.ac.in</a>
+      </div>
+      <div class="contact-li">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 006 6L16 13l5 2v3a2 2 0 01-2.2 2A17 17 0 014 5.2 2 2 0 016 3z"/></svg>
+        <span>+91-1332-284984</span>
+      </div>
+    </div>
+    <div class="foot-analytics" id="footAnalytics" hidden></div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© <span id="yr"></span> CRaWL, IIT Roorkee. All rights reserved.</span>
+    <span>Last updated: August 2026</span>
+    <span class="visits" id="visitCount" hidden></span>
+  </div>
+</footer>
+
+<script src="assets/js/site-data.js"></script>
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/hero-particles.js"></script>
+
+<script src="assets/js/analytics.js"></script>
+<script src="assets/js/visit-count.js"></script>
+<!-- ===== figure videos: play while on screen, pause when not ===== -->
+<script>
+(function () {
+  "use strict";
+  var vids = document.querySelectorAll("video.figvid");
+  if (!vids.length) return;
+
+  var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (calm || !window.IntersectionObserver) {
+    /* no autoplay: give the reader the controls and let them decide */
+    [].forEach.call(vids, function (v) { v.controls = true; v.preload = "metadata"; });
+    return;
+  }
+
+  /* a clip only loads and runs while it is actually in front of someone —
+     two 1080p loops playing behind the fold is bandwidth nobody asked for */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) {
+        if (v.preload === "none") { v.preload = "auto"; v.load(); }
+        var play = v.play();
+        if (play && play.catch) play.catch(function () { v.controls = true; });
+      } else if (!v.paused) {
+        v.pause();
+      }
+    });
+  }, { threshold: 0.25 });
+
+  [].forEach.call(vids, function (v) {
+    io.observe(v);
+    /* click to pause or resume, without the chrome of a control bar */
+    v.addEventListener("click", function () {
+      if (v.paused) v.play(); else v.pause();
+    });
+    v.style.cursor = "pointer";
+  });
+})();
+</script>
+
+</body>
+</html>
