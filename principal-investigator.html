@@ -26,6 +26,26 @@
 .pi-meta .social-links a:focus-visible{outline:2px solid var(--blue-600,#1b5fc1); outline-offset:2px}
 .pi-meta .social-links img{width:100%; height:100%; object-fit:contain; display:block}
 .pi-contact{list-style:none; margin:18px 0 0; padding:0; font-size:12.6px; line-height:1.75; color:var(--muted)}
+
+/* CV link — a button, because a PDF that opens in a new tab should look
+   like something you press, not like a sentence with an underline. */
+.cv-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:20px}
+.cv-btn{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:11px 17px; border-radius:10px;
+  background:var(--blue-600,#1b5fc1); color:#fff; text-decoration:none;
+  font-size:14px; line-height:1;
+  box-shadow:0 8px 18px -10px rgba(11,45,95,.9);
+  transition:transform .16s ease, box-shadow .16s ease, background .16s ease;
+}
+.cv-btn:hover{transform:translateY(-2px); background:#134a9c; box-shadow:0 12px 22px -12px rgba(11,45,95,1)}
+.cv-btn svg{width:17px; height:17px; flex:none}
+.cv-btn .cv-meta{
+  padding-left:10px; margin-left:2px; border-left:1px solid rgba(255,255,255,.35);
+  font-size:11.5px; letter-spacing:.04em; text-transform:uppercase; opacity:.9;
+}
+.cv-alt{font-size:13px; color:var(--blue-600,#1b5fc1); border-bottom:1px solid var(--blue-300,#9cc4ea)}
+.cv-alt:hover{border-bottom-color:var(--blue-600,#1b5fc1)}
 </style>
 <link rel="stylesheet" href="assets/css/patch.css">
 </head>
@@ -79,6 +99,7 @@
   <div class="wrap">
     <p class="crumb"><a href="index.html">Home</a> / People / Principal Investigator</p>
     <h1>Principal Investigator</h1>
+    <p class="lede">Leading the Climate Research and Water Lab at the Department of Water Resources Development and Management, IIT Roorkee.</p>
   </div>
 </section>
 
@@ -107,7 +128,7 @@
           <ul class="pi-contact">
             <li><a href="mailto:mohit.mohanty@wr.iitr.ac.in">mohit.mohanty@wr.iitr.ac.in</a></li>
             <li>+91-1332-284984</li>
-            <li><a href="https://www.iitr.ac.in/~WR/Mohit_Prakash_Mohanty"></a></li>
+            <li><a href="https://www.iitr.ac.in/~WR/Mohit_Prakash_Mohanty" target="_blank" rel="noopener">Institute profile page</a></li>
           </ul>
         </div>
       </div>
@@ -117,6 +138,20 @@
         <p class="lede" style="color:var(--body);margin-top:10px">Associate Professor, Department of Water Resources Development and Management, Indian Institute of Technology Roorkee.</p>
         <p style="margin-top:14px">Mohit Mohanty works at the intersection of hydroclimatology, multi-hazard risk and human health. His research spans hydrodynamic flood inundation modelling, compound hydroclimatic extremes, glacial lake outburst floods, socio-economic and infrastructure vulnerability, and the health consequences of contaminated floodwater — carried through to decision-support platforms that agencies actually use.</p>
         <p>Before joining IIT Roorkee he was a Postdoctoral Fellow at the University of Western Ontario, Canada, working on large-scale floodplain mapping with Prof. Slobodan P. Simonovic. He completed his PhD at IIT Bombay, where his thesis received the Naik and Rastogi Excellence in PhD Thesis award.</p>
+
+        <!-- CV: the filename has spaces in it, so they are written as %20.
+             If the file is ever renamed, keep it URL-safe (hyphens, no spaces)
+             and this line gets simpler. -->
+        <p class="cv-row">
+          <a class="cv-btn" href="assets/CV/Curriculum%20vitae_Mohit%20P%20Mohanty_IITR_July%202026.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H7a2 2 0 00-2 2v16a2 2 0 002 2h10a2 2 0 002-2V7z"/><path d="M14 2v5h5"/><path d="M9 13h6M9 17h4"/>
+            </svg>
+            Curriculum vitae
+            <span class="cv-meta">PDF · July 2026</span>
+          </a>
+          <a class="cv-alt" href="assets/CV/Curriculum%20vitae_Mohit%20P%20Mohanty_IITR_July%202026.pdf" download>Download</a>
+        </p>
       </div>
     </div>
   </div>
@@ -193,7 +228,7 @@
 
 <section class="section tint">
   <div class="wrap">
-    <div class="section-head"><h2>Media coverage</h2>
+    <div class="section-head"><h2>Media coverage</h2></div>
     <ul class="timeline">
       <li><span class="when">The Times of India · 1 Oct 2025</span><h3><a href="https://timesofindia.indiatimes.com/city/dehradun/extreme-rain-triggered-cascading-disasters-in-western-himalayas-iit-r-study/articleshow/124263739.cms">Extreme rain triggered cascading disasters in western Himalayas: IIT-R study</a></h3></li>
       <li><span class="when">India Today · 20 Aug 2025</span><h3><a href="https://www.indiatoday.in/education-today/news/story/iit-roorkee-develops-tool-to-track-flood-borne-diseases-tested-in-delhi-floods-2774153-2025-08-20">IIT Roorkee develops tool to track flood-borne diseases, tested in Delhi floods</a></h3></li>
@@ -299,7 +334,6 @@
 
 <script src="assets/js/site-data.js"></script>
 <script src="assets/js/nav.js"></script>
-<script src="assets/js/hero-particles.js"></script>
 
 <script src="assets/js/analytics.js"></script>
 <script src="assets/js/visit-count.js"></script>
