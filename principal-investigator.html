@@ -143,14 +143,14 @@
              If the file is ever renamed, keep it URL-safe (hyphens, no spaces)
              and this line gets simpler. -->
         <p class="cv-row">
-          <a class="cv-btn" href="assets/CV/Curriculum%20vitae_Mohit%20P%20Mohanty_IITR_July%202026.pdf" target="_blank" rel="noopener">
+          <a class="cv-btn" href="assets/CV/Curriculum%20vitae_Mohit%20P%20Mohanty_IITR_July_2026.pdf" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M14 2H7a2 2 0 00-2 2v16a2 2 0 002 2h10a2 2 0 002-2V7z"/><path d="M14 2v5h5"/><path d="M9 13h6M9 17h4"/>
             </svg>
             Curriculum vitae
             <span class="cv-meta">PDF · July 2026</span>
           </a>
-          <a class="cv-alt" href="assets/CV/Curriculum%20vitae_Mohit%20P%20Mohanty_IITR_July%202026.pdf" download>Download</a>
+          <a class="cv-alt" href="assets/CV/Curriculum%20vitae_Mohit%20P%20Mohanty_IITR_July_2026.pdf" download>Download</a>
         </p>
       </div>
     </div>
@@ -337,5 +337,52 @@
 
 <script src="assets/js/analytics.js"></script>
 <script src="assets/js/visit-count.js"></script>
+<!-- ===== CV link: find the file, whatever its exact name turned out to be =====
+     A filename with spaces in it is easy to get wrong by one character, and the
+     failure is a 404 the reader sees, not one you see. This checks a handful of
+     likely spellings and points both links at the first that answers. If none
+     do, the row hides itself rather than offering a dead link.
+     Rename the PDF to something URL-safe and this can all be deleted. -->
+<script>
+(function () {
+  "use strict";
+
+  var row = document.querySelector(".cv-row");
+  if (!row || !window.fetch) return;
+
+  var links = row.querySelectorAll("a");
+  var DIRS = ["assets/CV/", "assets/cv/"];
+  var NAMES = [
+    "Curriculum vitae_Mohit P Mohanty_IITR_July_2026.pdf",
+    "Curriculum vitae_Mohit P Mohanty_IITR_July 2026.pdf",
+    "Curriculum Vitae_Mohit P Mohanty_IITR_July_2026.pdf",
+    "Curriculum vitae_Mohit P Mohanty_IITR_July_2026 .pdf",
+    "Mohit-Mohanty-CV-July-2026.pdf"
+  ];
+
+  var tries = [];
+  DIRS.forEach(function (d) {
+    NAMES.forEach(function (n) { tries.push(d + encodeURI(n)); });
+  });
+
+  function head(url) {
+    return fetch(url, { method: "HEAD" })
+      .then(function (r) { return r.ok ? url : null; })
+      .catch(function () { return null; });
+  }
+
+  tries.reduce(function (chain, url) {
+    return chain.then(function (hit) { return hit ? hit : head(url); });
+  }, Promise.resolve(null)).then(function (hit) {
+    if (hit) {
+      [].forEach.call(links, function (a) { a.href = hit; });
+    } else {
+      row.hidden = true;
+      if (window.console) console.warn("CV not found — checked:", tries);
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
