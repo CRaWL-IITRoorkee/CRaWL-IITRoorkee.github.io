@@ -46,7 +46,7 @@
     "  opacity:0;transition:opacity .28s ease}",
     ".notice-back.is-open{opacity:1}",
 
-    ".notice{position:relative;width:min(560px,100%);max-height:92vh;overflow:auto;",
+    ".notice{position:relative;width:min(760px,100%);max-height:92vh;overflow:auto;",
     "  background:var(--white,#fff);border-radius:14px;",
     "  box-shadow:0 30px 70px -25px rgba(3,17,40,.75);",
     "  transform:translateY(14px) scale(.985);transition:transform .3s cubic-bezier(.2,.8,.3,1)}",
@@ -60,7 +60,7 @@
     "  color:var(--body,#465A6E)}",
 
     ".notice-fig{margin:0;background:var(--panel,#EDF3F8)}",
-    ".notice-fig img{display:block;width:100%;height:auto;max-height:52vh;object-fit:contain}",
+    ".notice-fig img{display:block;width:100%;height:auto;max-height:48vh;object-fit:contain}",
     ".notice-fig a{display:block}",
 
     ".notice-close{position:absolute;top:12px;right:12px;width:38px;height:38px;",
