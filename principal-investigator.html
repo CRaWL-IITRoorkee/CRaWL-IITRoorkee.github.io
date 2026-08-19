@@ -46,6 +46,28 @@
 }
 .cv-alt{font-size:13px; color:var(--blue-600,#1b5fc1); border-bottom:1px solid var(--blue-300,#9cc4ea)}
 .cv-alt:hover{border-bottom-color:var(--blue-600,#1b5fc1)}
+
+/* In-text links — the bio, the timeline entries and the journal lists.
+   A quiet underline that firms up on hover: these sit inside sentences
+   and should read as part of them, not as buttons. */
+.short-bio a,
+.timeline h3 a,
+.timeline p a,
+.jlist a{
+  color:var(--blue-600,#1b5fc1);
+  text-decoration:none;
+  border-bottom:1px solid var(--blue-300,#9cc4ea);
+  transition:border-color .15s ease, color .15s ease;
+}
+.short-bio a:hover,
+.timeline h3 a:hover,
+.timeline p a:hover,
+.jlist a:hover{border-bottom-color:var(--blue-600,#1b5fc1); color:#134a9c}
+.short-bio a:focus-visible,
+.timeline a:focus-visible,
+.jlist a:focus-visible{
+  outline:2px solid var(--blue-600,#1b5fc1); outline-offset:2px; border-radius:2px;
+}
 </style>
 <link rel="stylesheet" href="assets/css/patch.css">
 </head>
@@ -140,8 +162,14 @@
       <div>
         <h2 style="font-size:30px;margin-top:0">Dr Mohit Prakash Mohanty</h2>
         <p class="lede" style="color:var(--body);margin-top:10px">Associate Professor, Department of Water Resources Development and Management, Indian Institute of Technology Roorkee.<br>Schmidt AI in Science Faculty Fellow, University of Oxford, UK.</p>
-        <p style="margin-top:14px">Mohit Mohanty works at the intersection of hydroclimatology, multi-hazard risk and human health. His research spans hydrodynamic flood inundation modelling, compound hydroclimatic extremes, glacial lake outburst floods, socio-economic and infrastructure vulnerability, and the health consequences of contaminated floodwater — carried through to decision-support platforms that agencies actually use.</p>
-        <p>Before joining IIT Roorkee he was a Postdoctoral Fellow at the University of Western Ontario, Canada, working on large-scale floodplain mapping with Prof. Slobodan P. Simonovic. He completed his PhD at IIT Bombay, where his thesis received the Naik and Rastogi Excellence in PhD Thesis award.</p>
+
+        <div class="short-bio">
+          <p style="margin-top:14px">Dr Mohit Prakash Mohanty is an Associate Professor in the Department of Water Resources Development and Management at the <a href="https://www.iitr.ac.in/" target="_blank" rel="noopener">Indian Institute of Technology Roorkee</a>, and a <a href="https://schmidtaifaculty.site.ox.ac.uk/home" target="_blank" rel="noopener">Schmidt AI in Science Faculty Fellow</a> at the <a href="https://www.ox.ac.uk/" target="_blank" rel="noopener">University of Oxford</a>. He holds a PhD in Water Resources Engineering from <a href="https://www.iitb.ac.in/" target="_blank" rel="noopener">IIT Bombay</a> and was a Postdoctoral Fellow at the <a href="https://www.uwo.ca/" target="_blank" rel="noopener">University of Western Ontario</a>, Canada.</p>
+
+          <p>His research quantifies the risks arising from climate and hydro-meteorological extremes — floods, compound hazards, droughts, glacial lake outburst floods and urban water risks. The work combines hydrological and hydrodynamic modelling, remote sensing and GIS, vulnerability assessment, and artificial intelligence and machine learning into evidence-based approaches for climate resilience and disaster risk reduction. A central theme is bridging scientific understanding with practical solutions for resilient communities, infrastructure and water systems: the group builds modelling frameworks, decision-support tools and risk information systems that turn complex hydro-climatic data into decisions water and disaster management agencies can act on.</p>
+
+          <p>He and his group publish widely in international peer-reviewed journals, and he serves in a number of editorial roles — Associate Editor of <a href="https://www.sciencedirect.com/journal/journal-of-hydrology" target="_blank" rel="noopener">Journal of Hydrology</a> (Elsevier), <a href="https://onlinelibrary.wiley.com/journal/1753318x" target="_blank" rel="noopener">Journal of Flood Risk Management</a> (Wiley) and <a href="https://iwaponline.com/jwcc" target="_blank" rel="noopener">Journal of Water and Climate Change</a> (IWA Publishing), <a href="#editorial">among others</a>.</p>
+        </div>
 
         <p class="cv-row">
           <a class="cv-btn" href="assets/CV/Mohit-Mohanty-CV-July-2026.pdf" target="_blank" rel="noopener">
@@ -162,73 +190,72 @@
   <div class="wrap">
     <div class="section-head"><h2>Education &amp; experience</h2></div>
     <ul class="timeline">
-      <li><span class="when">June 2026 – present</span><h3>Associate Professor</h3><p>Department of Water Resources Development and Management, IIT Roorkee</p></li>
-      <li><span class="when">May 2021 – June 2026</span><h3>Assistant Professor</h3><p>Department of Water Resources Development and Management, IIT Roorkee</p></li>
-      <li><span class="when">Oct 2019 – Apr 2021</span><h3>Post-Doctoral Fellow, The University of Western Ontario, Canada</h3><p>Large-scale floodplain mapping using publicly available datasets, with Prof. Slobodan P. Simonovic. Funded by NSERC.</p></li>
-      <li><span class="when">June 2019 – Aug 2019</span><h3>Research Associate, IIT Bombay</h3><p>Flood hazard mapping of data-scarce large flood-prone regions using geomorphic classifiers, with Prof. Subhankar Karmakar.</p></li>
-      <li><span class="when">Jan 2015 – Aug 2019</span><h3>PhD, IIT Bombay</h3><p>A comprehensive mapping of flood risk in a changing climate: an application to Jagatsinghpur District, Odisha. Supervised by Prof. Subhankar Karmakar and Prof. Subimal Ghosh. Recipient of the Naik and Rastogi Excellence in PhD Thesis award.</p></li>
-      <li><span class="when">Jul 2012 – Jul 2014</span><h3>MTech in Environmental Engineering, IIT Guwahati</h3><p>Removal of nitrate and phenol in the presence of sulphate using a mixed microbial consortium, with Prof. Pranab K. Ghosh.</p></li>
-      <li><span class="when">Aug 2007 – Jul 2011</span><h3>BTech in Civil Engineering</h3><p>Institute of Technical Education and Research, Siksha 'O' Anusandhan University</p></li>
+      <li><span class="when">June 2026 – present</span><h3>Associate Professor</h3><p>Department of Water Resources Development and Management, <a href="https://www.iitr.ac.in/" target="_blank" rel="noopener">IIT Roorkee</a></p></li>
+      <li><span class="when">May 2021 – June 2026</span><h3>Assistant Professor</h3><p>Department of Water Resources Development and Management, <a href="https://www.iitr.ac.in/" target="_blank" rel="noopener">IIT Roorkee</a></p></li>
+      <li><span class="when">Oct 2019 – Apr 2021</span><h3>Post-Doctoral Fellow, <a href="https://www.uwo.ca/" target="_blank" rel="noopener">The University of Western Ontario</a>, Canada</h3><p>Large-scale floodplain mapping using publicly available datasets, with Prof. Slobodan P. Simonovic. Funded by NSERC.</p></li>
+      <li><span class="when">June 2019 – Aug 2019</span><h3>Research Associate, <a href="https://www.iitb.ac.in/" target="_blank" rel="noopener">IIT Bombay</a></h3><p>Flood hazard mapping of data-scarce large flood-prone regions using geomorphic classifiers, with Prof. Subhankar Karmakar.</p></li>
+      <li><span class="when">Jan 2015 – Aug 2019</span><h3>PhD, <a href="https://www.iitb.ac.in/" target="_blank" rel="noopener">IIT Bombay</a></h3><p>A comprehensive mapping of flood risk in a changing climate: an application to Jagatsinghpur District, Odisha. Supervised by Prof. Subhankar Karmakar and Prof. Subimal Ghosh. Recipient of the Naik and Rastogi Excellence in PhD Thesis award.</p></li>
+      <li><span class="when">Jul 2012 – Jul 2014</span><h3>MTech in Environmental Engineering, <a href="https://www.iitg.ac.in/" target="_blank" rel="noopener">IIT Guwahati</a></h3><p>Removal of nitrate and phenol in the presence of sulphate using a mixed microbial consortium, with Prof. Pranab K. Ghosh.</p></li>
+      <li><span class="when">Aug 2007 – Jul 2011</span><h3>BTech in Civil Engineering</h3><p>Institute of Technical Education and Research, <a href="https://www.soa.ac.in/" target="_blank" rel="noopener">Siksha 'O' Anusandhan University</a></p></li>
     </ul>
   </div>
 </section>
-  
 
-<section class="section tint">
+<section class="section" id="editorial">
   <div class="wrap">
     <div class="section-head"><h2>Editorial &amp; professional contributions</h2></div>
     <div style="display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
       <div>
         <h3 style="font-size:14px;margin-bottom:12px;color:var(--blue-600)">Associate Editor</h3>
-        <ul style="list-style:none;margin:0;padding:0;font-size:13px;line-height:1.9;color:var(--body)">
-          <li>Journal of Hydrology, Elsevier</li>
-          <li>Journal of Flood Risk Management, Wiley</li>
-          <li>Journal of Water and Climate Change, IWA Publishing</li>
+        <ul class="jlist" style="list-style:none;margin:0;padding:0;font-size:13px;line-height:1.9;color:var(--body)">
+          <li><a href="https://www.sciencedirect.com/journal/journal-of-hydrology" target="_blank" rel="noopener">Journal of Hydrology</a>, Elsevier</li>
+          <li><a href="https://onlinelibrary.wiley.com/journal/1753318x" target="_blank" rel="noopener">Journal of Flood Risk Management</a>, Wiley</li>
+          <li><a href="https://iwaponline.com/jwcc" target="_blank" rel="noopener">Journal of Water and Climate Change</a>, IWA Publishing</li>
         </ul>
       </div>
       <div>
         <h3 style="font-size:14px;margin-bottom:12px;color:var(--blue-600)">Editor</h3>
-        <ul style="list-style:none;margin:0;padding:0;font-size:13px;line-height:1.9;color:var(--body)">
-          <li>Scientific Reports, Nature Portfolio</li>
-          <li>Scientific Review, Nature Portfolio</li>
-          <li>ES&amp;T Water, American Chemical Society</li>
-          <li>Discover Hazards, Springer</li>
-          <li>Journal of the Indian Water Resources Society</li>
+        <ul class="jlist" style="list-style:none;margin:0;padding:0;font-size:13px;line-height:1.9;color:var(--body)">
+          <li><a href="https://www.nature.com/srep/" target="_blank" rel="noopener">Scientific Reports</a>, Nature Portfolio</li>
+          <li><a href="https://www.nature.com/scirev/" target="_blank" rel="noopener">Scientific Reviews</a>, Nature Portfolio</li>
+          <li><a href="https://pubs.acs.org/journal/aewcaa" target="_blank" rel="noopener">ACS ES&amp;T Water</a>, American Chemical Society</li>
+          <li><a href="https://link.springer.com/journal/44475" target="_blank" rel="noopener">Discover Hazards</a>, Springer</li>
+          <li><a href="https://iwrs.org.in/journals/" target="_blank" rel="noopener">Journal of the Indian Water Resources Society</a></li>
         </ul>
         <h3 style="font-size:14px;margin:18px 0 12px;color:var(--blue-600)">Guest Editor</h3>
-        <ul style="list-style:none;margin:0;padding:0;font-size:13px;line-height:1.9;color:var(--body)">
-          <li>Lead Guest Editor — <em>Sustainable technologies to quantify risks from climate and weather-related disasters</em>, Environmental Monitoring and Assessment, Springer</li>
-          <li><em>Advancing risk assessment and resilience strategies for climate extremes and multi-hazard events</em>, Environmental Monitoring and Assessment, Springer (ongoing)</li>
-          <li><em>Agricultural water management for a sustainable future: technologies and strategies</em>, Environmental Monitoring and Assessment, Springer</li>
+        <ul class="jlist" style="list-style:none;margin:0;padding:0;font-size:13px;line-height:1.9;color:var(--body)">
+          <li>Lead Guest Editor — <em>Sustainable technologies to quantify risks from climate and weather-related disasters</em>, <a href="https://link.springer.com/journal/10661" target="_blank" rel="noopener">Environmental Monitoring and Assessment</a>, Springer</li>
+          <li><em>Advancing risk assessment and resilience strategies for climate extremes and multi-hazard events</em>, <a href="https://link.springer.com/journal/10661" target="_blank" rel="noopener">Environmental Monitoring and Assessment</a>, Springer (ongoing)</li>
+          <li><em>Agricultural water management for a sustainable future: technologies and strategies</em>, <a href="https://link.springer.com/journal/10661" target="_blank" rel="noopener">Environmental Monitoring and Assessment</a>, Springer</li>
         </ul>
       </div>
       <div>
         <h3 style="font-size:14px;margin-bottom:12px;color:var(--blue-600)">Expert committees &amp; memberships</h3>
-        <ul style="list-style:none;margin:0;padding:0;font-size:13px;line-height:1.9;color:var(--body)">
-          <li>Expert Reviewer, IPCC AR7 Special Report on Climate Change and Cities</li>
-          <li>Member, Bureau of Indian Standards Sectional Committee on urban flood management</li>
+        <ul class="jlist" style="list-style:none;margin:0;padding:0;font-size:13px;line-height:1.9;color:var(--body)">
+          <li>Expert Reviewer, <a href="https://www.ipcc.ch/" target="_blank" rel="noopener">IPCC</a> AR7 Special Report on Climate Change and Cities</li>
+          <li>Member, <a href="https://www.bis.gov.in/" target="_blank" rel="noopener">Bureau of Indian Standards</a> Sectional Committee on urban flood management</li>
           <li>Member, Task Force on rejuvenation of lakes in Goa</li>
           <li>International Scientific Committee, ICFM10, Ontario 2026</li>
           <li>Technical Advisory Committee, HYDRO 2025, NIT Rourkela (ISH, Pune)</li>
           <li>Technical Committee, IDEAS-2024, IIT Roorkee</li>
-          <li>Member — AGU, EGU, IWRS</li>
+          <li>Member — <a href="https://www.agu.org/" target="_blank" rel="noopener">AGU</a>, <a href="https://www.egu.eu/" target="_blank" rel="noopener">EGU</a>, <a href="https://iwrs.org.in/" target="_blank" rel="noopener">IWRS</a></li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section tint">
   <div class="wrap">
     <div class="section-head"><h2>Honours &amp; awards</h2></div>
     <ul class="timeline">
-      <li><span class="when">2026</span><h3>Eric and Wendy Schmidt AI in Science Faculty Fellowship, University of Oxford</h3></li>
+      <li><span class="when">2026</span><h3><a href="https://schmidtaifaculty.site.ox.ac.uk/home" target="_blank" rel="noopener">Eric and Wendy Schmidt AI in Science Faculty Fellowship</a>, <a href="https://www.ox.ac.uk/" target="_blank" rel="noopener">University of Oxford</a></h3></li>
       <li><span class="when">2024</span><h3>Sivapalan Young Scientists Travel Award (SYSTA), IAHS</h3><p>To attend the 9th International Symposium on IWRM, Florianópolis, Brazil</p></li>
       <li><span class="when">2024</span><h3>International travel grant, Multi-hazard DRR Academy, Barcelona</h3></li>
       <li><span class="when">2023</span><h3>UNESCO international travel grant, ICFM9, Tsukuba, Japan</h3></li>
-      <li><span class="when">2019–2021</span><h3>Naik and Rastogi Award for Excellence in PhD Research, IIT Bombay</h3></li>
-      <li><span class="when">2019–2021</span><h3>Post-Doctoral Fellowship, The University of Western Ontario, Canada</h3></li>
       <li><span class="when">2021</span><h3>NSF international travel grant, ICFM8, Iowa, USA</h3></li>
+      <li><span class="when">2019–2021</span><h3>Naik and Rastogi Award for Excellence in PhD Research, <a href="https://www.iitb.ac.in/" target="_blank" rel="noopener">IIT Bombay</a></h3></li>
+      <li><span class="when">2019–2021</span><h3>Post-Doctoral Fellowship, <a href="https://www.uwo.ca/" target="_blank" rel="noopener">The University of Western Ontario</a>, Canada</h3></li>
       <li><span class="when">2019</span><h3>SERB-DST international travel grant, 11th World Congress on Water Resources and Environment, Spain</h3></li>
       <li><span class="when">2016</span><h3>CORDEX and APN travel grant, ICRC CORDEX 2016, Stockholm</h3></li>
       <li><span class="when">2015–2019</span><h3>PhD scholarship, Space Technology Cell, IIT Bombay – ISRO</h3></li>
@@ -238,7 +265,7 @@
   </div>
 </section>
 
-<section class="section tint">
+<section class="section">
   <div class="wrap">
     <div class="section-head"><h2>Media coverage</h2></div>
     <ul class="timeline">
@@ -263,7 +290,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section tint">
   <div class="wrap">
     <div class="section-head"><h2>Administrative contributions</h2></div>
     <div style="display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
@@ -304,7 +331,9 @@
           <a data-net="researchgate" href="https://www.researchgate.net/profile/Mohit-Mohanty-2" target="_blank" rel="noopener" aria-label="ResearchGate" title="ResearchGate"><img src="assets/images/Social%20Link/Researchgate.jpg" alt="ResearchGate"></a>
           <a data-net="scopus" href="https://www.scopus.com/authid/detail.uri?authorId=57203633749" target="_blank" rel="noopener" aria-label="Scopus" title="Scopus"><img src="assets/images/Social%20Link/Scopus.jpg" alt="Scopus"></a>
           <a data-net="website" href="https://www.iitr.ac.in/~WR/Mohit_Prakash_Mohanty" target="_blank" rel="noopener" aria-label="Institute page" title="Institute page"><img src="assets/images/Social%20Link/p-website.jpg" alt="Institute page"></a>
-          <a data-net="linkedin" href="ADD-YOUR-LINKEDIN-URL" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a>
+          <!-- LinkedIn: hidden until a real URL is in place. Replace the href
+               below with your profile URL and delete the hidden attribute. -->
+          <a data-net="linkedin" href="ADD-YOUR-LINKEDIN-URL" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn" hidden><img src="assets/images/Social%20Link/linkedin.jpg" alt="LinkedIn"></a>
           <a data-net="email" href="mailto:mohit.mohanty@wr.iitr.ac.in" aria-label="Email" title="Email"><img src="assets/images/Social%20Link/email.jpg" alt="Email"></a>
         </div>
       </div>
