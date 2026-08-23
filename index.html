@@ -6,11 +6,12 @@
 <title>CRaWL — Climate Research and Water Lab, IIT Roorkee</title>
 <meta name="description" content="CRaWL studies water under a changing climate — hydroclimatological extremes, flood hazard and multi-hazard risk, and health risks from contaminated floodwater. Department of Water Resources Development and Management, IIT Roorkee.">
 <link rel="icon" href="assets/images/favicon.png">
-<!-- Unica One: the hero headline and card only. The rest of the site is
-     Times New Roman and loads no webfont at all. -->
+<!-- Webfonts are no longer named here. Both the body font and the hero
+     display font are loaded and set in ONE place — the @import and the
+     :root block at the top of assets/css/patch.css, which every page
+     already loads. Change them there and the whole site follows. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unica+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 
 <!-- ===== Home hero: kinetic headline (page-scoped) ===== -->
@@ -500,15 +501,17 @@
 <script src="assets/js/nav.js"></script>
 <script src="assets/js/updates-new.js"></script>
 <script src="assets/js/home.js"></script>
-<script src="assets/js/featured-collapse.js"></script>
+<script src="assets/js/featured-open.js"></script>
 <script src="assets/js/updates-nav.js"></script>
 <script src="assets/js/hero-type.js"></script>
 <script src="assets/js/hero-water.js"></script>
 <script src="assets/js/collaborators.js"></script>
 
-<!-- Announcement popup. Edit the NOTICE block inside announce.js to change
-     the wording or the image; comment this line out to retire it. -->
-<script src="assets/js/announce.js"></script>
+<!-- Announcement popup — RETIRED 23 Aug 2026.
+     The file assets/js/announce.js is still in the repo. To bring a
+     popup back, edit the NOTICE block inside it and uncomment the
+     line below. -->
+<!-- <script src="assets/js/announce.js"></script> -->
 
 <script src="assets/js/analytics.js"></script>
 <script src="assets/js/visit-count.js"></script>
