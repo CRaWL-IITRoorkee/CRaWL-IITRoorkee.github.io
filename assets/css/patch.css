@@ -7,9 +7,9 @@
    style.css is never edited. Everything below is an override,
    so deleting this one file restores the original site.
 
-   1  Typography — Times New Roman, larger, bold
-   2  Hero — water only, Unica One for the headline
-   3  Featured Research — collapsed bar
+   1  Typography — fonts for the whole site (one place)
+   2  Hero — water only, --font-display for the headline
+   3  Featured Research — header strip (always open)
    4  Recent Updates — up / down arrows
    5  Recent Updates — "New" badge
    6  Research themes — description on hover
@@ -23,50 +23,98 @@
    ========================================================== */
 
 /* ==========================================================
-   1. TYPOGRAPHY — Times New Roman, one step larger, all bold
-   Times sets smaller and narrower than Inter, so sizes go up
-   across the board and the tracking built for Inter is
-   released back to normal.
+   1. TYPOGRAPHY  —  THE ONE PLACE FONTS ARE SET
+   patch.css is loaded by all 19 pages, so the two variables
+   below control the type on the whole site. Nothing else
+   needs editing, on any page.
 
-   The single line marked BOLD below is what makes every word
-   on the site bold. Delete that one rule to go back to mixed
-   weights; nothing else depends on it.
+     --font          body, navigation, cards, tables
+     --font-display  the big rotating hero headline only
+
+   TO CHANGE THE FONTS: swap the @import line and the two
+   variables for one of the presets listed underneath.
    ========================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300..800;1,300..800&family=Sora:wght@400;600;700;800&display=swap");
+
 :root{
-  --font:"Times New Roman",Times,"Liberation Serif","Nimbus Roman",serif;
+  --font:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  --font-display:"Sora","Source Sans 3",system-ui,sans-serif;
 }
+
+/* ----------------------------------------------------------
+   OTHER PRESETS — replace the @import and :root block above
+   with any one of these four, whole.
+
+   A · Neutral and modern (the safest all-rounder)
+   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300..800&family=Space+Grotesk:wght@500;700&display=swap");
+   :root{
+     --font:"Inter",system-ui,-apple-system,sans-serif;
+     --font-display:"Space Grotesk","Inter",sans-serif;
+   }
+
+   B · Technical / lab (one family throughout, very even)
+   @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap");
+   :root{
+     --font:"IBM Plex Sans",system-ui,sans-serif;
+     --font-display:"IBM Plex Sans",system-ui,sans-serif;
+   }
+
+   C · Serif, but not Times (journal-like, warmer)
+   @import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300..700&family=Inter:wght@400;600;700&display=swap");
+   :root{
+     --font:"Source Serif 4",Georgia,serif;
+     --font-display:"Inter",system-ui,sans-serif;
+   }
+
+   D · Back to Times New Roman (the current look)
+   Delete the @import line entirely, then:
+   :root{
+     --font:"Times New Roman",Times,"Liberation Serif",serif;
+     --font-display:"Times New Roman",Times,serif;
+   }
+   ---------------------------------------------------------- */
+
 body,button,input,select,textarea,
 .filterbar select,.filterbar input,
 .ph::after,.mapbox,.foot-chart text,
 h1,h2,h3,h4,h5,h6{
   font-family:var(--font);
 }
-body,body *{font-weight:700 !important}          /* BOLD — see note above */
 
-body{font-size:18.5px;line-height:1.62}
+/* Weights. The old sheet forced every word on the site to bold,
+   because Times sets thin. A sans face does not need that — so
+   body text is normal and only headings are bold. */
+body{font-weight:400}
+h1,h2,h3,h4,h5,h6,b,strong,
+.nav a.top,.nav button.top,
+.kicker,.fpeek-kicker,.metric-v,.acc-count,.stat b{font-weight:700}
+
+/* Sizes. Also tuned down from the Times settings — a sans face
+   reads a full point larger than a serif at the same px. */
+body{font-size:17px;line-height:1.62}
 h1,h2,h3,h4,h5,h6,
-.hero h1,.page-hero h1,
+.hero h1,.page-hero h1{letter-spacing:-.012em}
 .kinetic .kinetic-line,.kinetic .kinetic-eyebrow{letter-spacing:0}
 
 /* header and navigation */
-.brand .sub{font-size:13px}
-.nav a.top,.nav button.top{font-size:16.5px}
-.dropdown a{font-size:16px}
+.brand .sub{font-size:12.5px}
+.nav a.top,.nav button.top{font-size:15.5px}
+.dropdown a{font-size:15px}
 
 /* hero */
-.kinetic .kinetic-eyebrow{font-size:clamp(15px,1.35vw,21px)}
-.hero .lede{font-size:18px}
+.kinetic .kinetic-eyebrow{font-size:clamp(14px,1.3vw,20px)}
+.hero .lede{font-size:17px}
 
 /* featured research card */
-.featured h2{font-size:23px}
-.featured .kicker,.featured-head .ref{font-size:14.5px}
-.featured .cta{font-size:15px}
-.featured-deck .stat b{font-size:18.5px}
+.featured h2{font-size:22px}
+.featured .kicker,.featured-head .ref{font-size:14px}
+.featured .cta{font-size:14.5px}
+.featured-deck .stat b{font-size:18px}
 .featured-deck .stat span{font-size:13px}
 
 /* research theme cards */
-.tcard h3{font-size:18px}
-.tnum{font-size:13px}
+.tcard h3{font-size:17.5px}
+.tnum{font-size:12.5px}
 
 /* panels */
 .panel-head h2{font-size:21px}
@@ -97,7 +145,7 @@ h1,h2,h3,h4,h5,h6,
 
 
 /* ==========================================================
-   2. HERO — water only, Unica One for the headline
+   2. HERO — water only, --font-display for the headline
    The photograph is gone from index.html. The hero paints its
    own depth gradient, the canvas paints the water on top of
    it, and a soft scrim over the canvas keeps the headline
@@ -120,91 +168,70 @@ h1,h2,h3,h4,h5,h6,
 }
 .hero .hero-in{position:relative;z-index:2;min-height:var(--hero-min);align-content:center}
 
-/* ---- Unica One, headline only -------------------------------------
-   The rotating headline and its eyebrow are Unica One, bold and a size
-   up. Featured Research — the bar and the card behind it — is left in
-   Times New Roman with the rest of the site, because a display face
-   set at 13px in a stat label is unreadable.
-
-   Unica One ships in one weight, so the bold here is the browser's own
-   synthetic bold. That is fine at headline size and only at headline
-   size; do not extend this rule down into the card.
+/* ---- the display font, headline only -------------------------------
+   The rotating headline and its eyebrow use --font-display (set in
+   section 1). Featured Research — the strip and the card behind it —
+   stays in the body font, because a display face set at 13px in a
+   stat label is unreadable. Do not extend this rule into the card.
    ------------------------------------------------------------------ */
 .hero h1,.hero h1 *{
-  font-family:"Unica One",var(--font) !important;
+  font-family:var(--font-display) !important;
   font-weight:700 !important;
 }
 .hero h1 .kinetic-eyebrow,.kinetic .kinetic-eyebrow{
-  font-size:clamp(16px,1.6vw,24px);letter-spacing:.26em;
+  font-size:clamp(15px,1.5vw,22px);letter-spacing:.24em;
 }
+/* Sizes are a notch down from the old Unica One settings: Unica One is a
+   condensed face, so a normal-width display font needs less px to fill the
+   same line. Raise these back up if you pick a condensed font again. */
 .hero h1 .kinetic-line,.kinetic .kinetic-line{
-  font-size:clamp(40px,6.4vw,92px);line-height:1.08;letter-spacing:.012em;
+  font-size:clamp(36px,5.2vw,74px);line-height:1.1;letter-spacing:-.015em;
 }
 @media(max-width:700px){
-  .kinetic .kinetic-line{font-size:clamp(34px,9.2vw,52px)}
+  .kinetic .kinetic-line{font-size:clamp(30px,8.2vw,46px)}
 }
 
-/* Featured Research stays Times New Roman and stays bold, like the
-   rest of the page. This rule only has to exist because the headline
-   rule above sits inside the same hero. */
+/* The card uses the body font, not the display font. This rule only has
+   to exist because the headline rule above sits inside the same hero. */
 .hero .featured-deck,.hero .featured-deck *,
 .hero .fpeek,.hero .fpeek *{
   font-family:var(--font) !important;
-  font-weight:700 !important;
 }
 .hero .featured h2{line-height:1.24}
 .fpeek-kicker,.featured .kicker{letter-spacing:.02em}
 
 
 /* ==========================================================
-   3. FEATURED RESEARCH — the collapsed bar
-   Shut: one slim bar with the label, the journal, the year and
-   the study title, all cycling with the carousel.
-   Open: the bar becomes the head of the card.
+   3. FEATURED RESEARCH — the header strip
+   The card no longer collapses. assets/js/featured-open.js
+   draws a static strip on top of it carrying the label, the
+   journal and the year; the strip cycles with the carousel.
+   There is no chevron and nothing to click.
    ========================================================== */
 .featured-deck{position:relative}
 
 .fpeek{
   display:flex;align-items:center;gap:14px;width:100%;
-  padding:14px 16px 14px 18px;margin:0;cursor:pointer;text-align:left;
+  padding:14px 16px 14px 18px;margin:0;text-align:left;
   background:rgba(6,26,52,.86);border:1px solid rgba(120,170,215,.24);
-  border-radius:14px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  border-bottom-color:transparent;
+  border-radius:14px 14px 0 0;
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
   color:#fff;font-family:var(--font);
-  transition:background .2s ease,border-color .2s ease;
 }
-.fpeek:hover{background:rgba(11,40,74,.94);border-color:rgba(140,190,230,.44)}
 .fpeek-kicker{flex:none;font-size:14.5px;color:var(--blue);white-space:nowrap}
-.fpeek-meta{min-width:0;display:flex;flex-direction:column;gap:1px}
+.fpeek-meta{min-width:0;margin-left:auto;display:flex;flex-direction:column;gap:1px}
 .fpeek-ref{font-size:14px;color:#A9C8E2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fpeek-title{font-size:15px;color:#E7F1F9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fpeek-ic{
-  margin-left:auto;flex:none;width:31px;height:31px;display:grid;place-items:center;
-  border-radius:50%;border:1px solid rgba(140,185,225,.35);color:#CFE4F5;
-  transition:transform .3s cubic-bezier(.22,.68,.28,1),background .2s ease,color .2s ease;
-}
-.fpeek-ic svg{width:16px;height:16px}
-.fpeek:hover .fpeek-ic{background:rgba(46,155,232,.24);color:#fff}
 
-/* shut */
-.featured-deck.is-collapsed .fslide,
-.featured-deck.is-collapsed .fslide.is-active{display:none}
-.featured-deck.is-collapsed .fbar{display:none}
+/* strip and card read as one object */
+.featured-deck .featured{border-radius:0 0 14px 14px;border-top:0}
+.featured-deck .featured-head{display:none}   /* the strip carries this now */
+.featured-deck .featured-title-row{margin-top:0}
 
-/* open — bar and card read as one object */
-.featured-deck:not(.is-collapsed) .fpeek{border-radius:14px 14px 0 0;border-bottom-color:transparent}
-.featured-deck:not(.is-collapsed) .fpeek-title{display:none}
-.featured-deck:not(.is-collapsed) .fpeek-ic{transform:rotate(180deg)}
-.featured-deck:not(.is-collapsed) .featured{border-radius:0 0 14px 14px;border-top:0}
-.featured-deck:not(.is-collapsed) .featured-head{display:none}
-.featured-deck:not(.is-collapsed) .featured-title-row{margin-top:0}
-
-@media(min-width:1080px){
-  .hero-in:has(.featured-deck.is-collapsed){padding-bottom:60px}
-}
 @media(max-width:619px){
   .fpeek{gap:10px;padding:12px 12px 12px 14px}
   .fpeek-kicker{font-size:13px}
-  .fpeek-ref,.fpeek-title{font-size:13px}
+  .fpeek-ref{font-size:13px}
 }
 
 
