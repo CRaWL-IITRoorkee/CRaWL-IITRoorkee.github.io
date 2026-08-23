@@ -287,37 +287,31 @@
     <div class="tcards">
       <article class="tcard">
         <figure class="ph tphoto" data-file="assets/images/research/research-rainfall.jpg"><img src="assets/images/research/research-rainfall.jpg" alt="" loading="lazy" decoding="async"></figure>
-        <span class="tnum">01</span>
         <h3>Weather and Climate Extremes</h3>
         <p>Advancing the understanding of extreme weather and climate events, their changing characteristics, variability, trends, drivers, and associated hydroclimatic risks under a changing climate.</p>
       </article>
       <article class="tcard">
         <figure class="ph tphoto" data-file="assets/images/research/research-flood-map.jpg"><img src="assets/images/research/research-flood-map.jpg" alt="" loading="lazy" decoding="async"></figure>
-        <span class="tnum">02</span>
         <h3>Flood Hazards, Risk &amp; Impact Assessment</h3>
         <p>Advancing hydrological and hydrodynamic modelling to understand flood hazards, impacts, and risks across riverine, urban, coastal, and high-mountain environments, supporting effective flood risk management and early warning.</p>
       </article>
       <article class="tcard">
         <figure class="ph tphoto" data-file="assets/images/research/research-ai.jpg"><img src="assets/images/research/research-ai.jpg" alt="" loading="lazy" decoding="async"></figure>
-        <span class="tnum">03</span>
         <h3>AI &amp; Machine Learning for Water Intelligence</h3>
         <p>Developing interpretable and data-driven AI/ML approaches for hydroclimatic prediction, hazard and risk assessment, impact-based forecasting, and intelligent decision support.</p>
       </article>
       <article class="tcard">
         <figure class="ph tphoto" data-file="assets/images/research/research-water-quality.jpg"><img src="assets/images/research/research-water-quality.jpg" alt="" loading="lazy" decoding="async"></figure>
-        <span class="tnum">04</span>
         <h3>Human Health Risk and Ecological Modelling</h3>
         <p>Linking water quality, contamination, environmental exposure, and human health to understand emerging hydro-environmental risks and support risk-informed water management.</p>
       </article>
       <article class="tcard">
         <figure class="ph tphoto" data-file="assets/images/research/research-glof.jpg"><img src="assets/images/research/research-glof.jpg" alt="" loading="lazy" decoding="async"></figure>
-        <span class="tnum">05</span>
         <h3>Multi-Hazard Resilience &amp; Climate Adaptation</h3>
         <p>Developing integrated approaches to assess cascading and compound hazards and strengthen climate adaptation, disaster risk reduction, and resilience of communities, infrastructure, and water systems.</p>
       </article>
       <article class="tcard">
         <figure class="ph tphoto" data-file="assets/images/research/research-decision.jpg"><img src="assets/images/research/research-decision.jpg" alt="" loading="lazy" decoding="async"></figure>
-        <span class="tnum">06</span>
         <h3>Digital Twins &amp; Smart Water Systems</h3>
         <p>Developing digital twins and integrated modelling frameworks for real-time monitoring, simulation, forecasting, and decision support for resilient and intelligent water systems.</p>
       </article>
@@ -373,25 +367,16 @@
 
 
 
-    <div class="panel join">
-      <div class="panel-head"><h2>Join the Team</h2></div>
-      <div class="join-in">
-        <svg class="art" viewBox="0 0 120 76" fill="currentColor" aria-hidden="true">
-          <circle cx="60" cy="17" r="11"/><path d="M42 60v-9a18 18 0 0136 0v9z"/>
-          <circle cx="27" cy="27" r="9"/><path d="M12 62v-7a15 15 0 0130 0v7z"/>
-          <circle cx="93" cy="27" r="9"/><path d="M78 62v-7a15 15 0 0130 0v7z"/>
-          <circle cx="44" cy="46" r="8"/><path d="M31 74v-6a13 13 0 0126 0v6z"/>
-          <circle cx="76" cy="46" r="8"/><path d="M63 74v-6a13 13 0 0126 0v6z"/></svg>
-        <p>Curious minds who want their result in someone&rsquo;s hands, not only in a journal.</p>
-        <div class="join-open">
-          <h3>Who we are looking for</h3>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5 11-11"/></svg><div>PhD scholars<span></span></div></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5 11-11"/></svg><div>JRF / Project Associates<span></span></div></li>
-          </ul>
-        </div>
+    <!-- Lab in Pictures. The photos are NOT listed here — lab-slider.js
+         scans assets/images/gallery/ for the prefixes named in
+         data-photos and builds the strip. Drop lab-9.jpg into that
+         folder and it appears; no HTML editing. -->
+    <div class="panel photos">
+      <div class="panel-head"><h2>Lab in Pictures</h2><a href="gallery.html">View gallery</a></div>
+      <div class="photo-slider" data-photo-slider data-photos="lab,field" data-hold="3000">
+        <div class="pslide-track"></div>
+        <div class="pslide-dots" aria-hidden="true"></div>
       </div>
-      <a class="btn" href="contact.html">Get in touch</a>
     </div>
 
     <div class="panel">
@@ -437,6 +422,25 @@
 </main>
 
 <footer class="site-footer">
+
+  <!-- Join the Team — moved down from the panels row on 23 Aug 2026.
+       It now runs the full width of the footer instead of taking a
+       column away from Recent Updates and Media Coverage. -->
+  <div class="wrap foot-join">
+    <svg class="art" viewBox="0 0 120 76" fill="currentColor" aria-hidden="true">
+      <circle cx="60" cy="17" r="11"/><path d="M42 60v-9a18 18 0 0136 0v9z"/>
+      <circle cx="27" cy="27" r="9"/><path d="M12 62v-7a15 15 0 0130 0v7z"/>
+      <circle cx="93" cy="27" r="9"/><path d="M78 62v-7a15 15 0 0130 0v7z"/>
+      <circle cx="44" cy="46" r="8"/><path d="M31 74v-6a13 13 0 0126 0v6z"/>
+      <circle cx="76" cy="46" r="8"/><path d="M63 74v-6a13 13 0 0126 0v6z"/></svg>
+    <div class="foot-join-txt">
+      <h3>Join the Team</h3>
+      <p>Curious minds who want their result in someone&rsquo;s hands, not only in a journal. We are looking for <b>PhD scholars</b> and <b>JRF / Project Associates</b>.</p>
+    </div>
+    <a class="btn" href="contact.html">Get in touch
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></a>
+  </div>
+
   <div class="wrap foot-grid">
     <div class="foot-brand">
       <img class="emblem" src="assets/images/crawl-mark.png" alt="">
@@ -506,6 +510,7 @@
 <script src="assets/js/hero-type.js"></script>
 <script src="assets/js/hero-water.js"></script>
 <script src="assets/js/collaborators.js"></script>
+<script src="assets/js/lab-slider.js"></script>
 
 <!-- Announcement popup — RETIRED 23 Aug 2026.
      The file assets/js/announce.js is still in the repo. To bring a
