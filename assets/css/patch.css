@@ -20,6 +20,8 @@
    10 Featured Research card — compact, fits inside the hero
    11 Computational stack (data-tools) — uniform logo size
    12 Inner pages — the same type lift the home page has
+   13 Lab in Pictures — sliding photo card
+   14 Join the Team — footer band
    ========================================================== */
 
 /* ==========================================================
@@ -637,3 +639,109 @@ h1,h2,h3,h4,h5,h6,
 [style*="font-size:20px"]{font-size:22px !important}
 [style*="font-size:24px"]{font-size:26px !important}
 [style*="font-size:30px"]{font-size:33px !important}
+
+
+/* ==========================================================
+   13. LAB IN PICTURES — the sliding photo card
+   Sits in the panels row between Recent Updates and Media
+   Coverage. Photos come from assets/images/gallery/ and are
+   found by assets/js/lab-slider.js — no HTML editing.
+
+   The strip slides left by one full frame at a time, so each
+   new photo enters from the right. Speed is set in the markup
+   (data-hold, in milliseconds) and in SLIDE_MS in the script.
+   ========================================================== */
+
+/* three columns: Recent Updates | Lab in Pictures | Media Coverage.
+   Join the Team used to hold the middle column at .8fr, which is too
+   narrow for a photo — the middle is widened to match. */
+@media(min-width:1280px){
+  .panels{grid-template-columns:1.15fr 1fr 1.15fr}
+}
+
+.panel.photos .panel-head{margin-bottom:14px}
+
+.photo-slider{
+  position:relative;overflow:hidden;border-radius:10px;
+  background:#0D2B49;                    /* shows while a photo decodes */
+  height:var(--panel-body,290px);
+  opacity:0;transition:opacity .3s ease;
+}
+.photo-slider.is-ready{opacity:1}
+
+.pslide-track{
+  display:flex;height:100%;width:100%;
+  transition:transform 700ms cubic-bezier(.4,.02,.2,1);
+  will-change:transform;
+}
+.pslide{
+  flex:0 0 100%;width:100%;height:100%;margin:0;position:relative;
+}
+.pslide img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+
+/* dots along the foot of the photo */
+.pslide-dots{
+  position:absolute;left:0;right:0;bottom:10px;z-index:2;
+  display:flex;justify-content:center;gap:6px;
+  padding:0 12px;flex-wrap:wrap;
+}
+.pslide-dots i{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.42);
+  transition:background .25s ease,transform .25s ease;
+}
+.pslide-dots i.on{background:#fff;transform:scale(1.35)}
+
+/* a soft scrim so the dots stay visible over a pale photo */
+.photo-slider::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:56px;z-index:1;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(4,20,40,0),rgba(4,20,40,.5));
+}
+
+@media(max-width:1279px){
+  .photo-slider{height:260px}
+}
+@media(prefers-reduced-motion:reduce){
+  .pslide-track{transition:none}
+}
+
+
+/* ==========================================================
+   14. JOIN THE TEAM — the footer band
+   Moved out of the panels row so Recent Updates, Lab in
+   Pictures and Media Coverage get a column each. It now runs
+   the full width at the top of the footer.
+   ========================================================== */
+.foot-join{
+  display:flex;align-items:center;gap:22px;
+  padding:0 var(--gutter) 26px;
+  margin-bottom:28px;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.foot-join .art{flex:none;width:76px;color:rgba(190,215,235,.4)}
+.foot-join-txt{flex:1;min-width:0}
+.foot-join-txt h3{
+  color:#fff;font-size:19px;margin:0 0 5px;letter-spacing:-.012em;
+}
+.foot-join-txt p{
+  margin:0;font-size:14px;line-height:1.55;color:#A7BFD4;max-width:70ch;
+}
+.foot-join-txt p b{color:#DCEAF6}
+.foot-join .btn{
+  flex:none;display:inline-flex;align-items:center;gap:9px;
+  padding:11px 20px;border-radius:8px;
+  background:var(--blue,#2E9BE8);color:#fff;font-size:14.5px;
+  border:1px solid rgba(255,255,255,.18);
+  transition:background .2s ease,transform .2s ease;
+}
+.foot-join .btn:hover{background:#1E7FC6;transform:translateY(-1px);color:#fff}
+.foot-join .btn svg{width:15px;height:15px}
+
+@media(max-width:760px){
+  .foot-join{flex-direction:column;align-items:flex-start;gap:16px}
+  .foot-join .art{width:60px}
+  .foot-join .btn{width:100%;justify-content:center}
+}
